@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  background-color: #f6f6f6;
+  background-image: url("/images/topography.svg");
+  background-size: cover;
+}
+
 html,
 body {
   padding: 0;
@@ -29,4 +35,25 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* .std-button {
+  flex w-full items-center justify-center rounded-md border border-transparent bg-purple-600 px-8 py-3 text-base font-medium text-white hover:bg-teal-700 md:py-4 md:px-10 md:text-lg"
+
+} */
+
+/* @layer components {
+  .primary-button {
+    @apply mt-5 mr-8 rounded-full border px-8 py-2 font-bold;
+  }
+
+  .primary-input {
+    @apply w-full border bg-transparent p-4 text-lg font-medium outline-none;
+  }
+} */
+
+@layer components {
+  .btn-primary {
+    @apply flex w-full items-center justify-center rounded-md border border-transparent bg-purple-600 px-8 py-3 text-base font-medium text-white hover:bg-teal-700 md:py-4 md:px-10 md:text-lg;
+  }
 }
