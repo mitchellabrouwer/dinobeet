@@ -25,13 +25,13 @@ const faqs: Faqs[] = [
 ];
 
 export const Questions: FC = () => (
-  <div className="mx-auto max-w-7xl py-14 px-4 sm:px-6 lg:px-8" id="about">
+  <div className="mx-auto mt-4 max-w-7xl px-4 md:mt-8 lg:mt-12">
     <h2 className="mb-5 w-full text-4xl leading-9  md:ml-5">
       Have some more questions?
     </h2>
     <div className="flex w-full flex-col items-center justify-center md:flex-row">
       <Image className="" src={dinosaur} alt="dinosaur" />
-      <dl className="w-full pl-0 md:w-2/3 md:pl-5">
+      <dl className="mt-2 w-full pl-0 md:w-2/3 md:pl-5">
         {faqs.map((faq, index) => (
           <div className="relative" key={index}>
             <dt className="mb-1">
