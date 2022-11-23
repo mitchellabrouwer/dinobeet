@@ -5,10 +5,10 @@ export const Cta: FC = () => (
   <div className="bg-gray-50" id="cta">
     <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:flex lg:items-center lg:justify-between lg:py-16 lg:px-8">
       <div>
-        <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+        <h2 className="text-3xl tracking-tight text-gray-900 sm:text-4xl">
           <span className="block">Wanna go for it?</span>
         </h2>
-        <h3 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+        <h3 className="text-3xl tracking-tight text-gray-900 sm:text-4xl">
           <span className="block text-teal-600">
             Register and start following your baby growth
           </span>

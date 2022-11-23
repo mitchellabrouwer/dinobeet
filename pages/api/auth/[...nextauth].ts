@@ -32,6 +32,7 @@ export default NextAuth({
       session.user.image = user.image;
       session.user.name = user.name;
       session.user.id = user.id;
+      // @ts-ignore
       session.user.username = user.username;
       return Promise.resolve(session);
     },

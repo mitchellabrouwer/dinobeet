@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { FC } from "react";
-import dinosaur from "../../public/images/dinobeet_a.svg";
+import dinosaur from "../../public/images/dinobeet_hula_two.svg";
 
 interface Faqs {
   question: string;
@@ -26,17 +26,15 @@ const faqs: Faqs[] = [
 
 export const Questions: FC = () => (
   <div className="mx-auto max-w-7xl py-14 px-4 sm:px-6 lg:px-8" id="about">
-    <h2 className="mb-5 w-full text-4xl font-extrabold leading-9  md:ml-5">
+    <h2 className="mb-5 w-full text-4xl leading-9  md:ml-5">
       Have some more questions?
     </h2>
     <div className="flex w-full flex-col items-center justify-center md:flex-row">
-      <div className="mt-10">
-        <Image className="" src={dinosaur} alt="dinosaur" />
-      </div>
-      <dl className="w-full pl-0 md:w-2/3 md:pl-10">
+      <Image className="" src={dinosaur} alt="dinosaur" />
+      <dl className="w-full pl-0 md:w-2/3 md:pl-5">
         {faqs.map((faq, index) => (
           <div className="relative" key={index}>
-            <dt className="mb-4">
+            <dt className="mb-1">
               <h3 className="text-xl font-semibold">{faq.question}</h3>
             </dt>
             <dd className="mb-8 pr-0 md:pr-28">

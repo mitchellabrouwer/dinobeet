@@ -9,6 +9,14 @@ import {
   BiWorld,
 } from "react-icons/bi";
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../../tailwind.config.js";
+
+const { theme } = resolveConfig(tailwindConfig);
+
+const RAINBOW = ["red", "orange", "yellow", "green", "blue", "purple"];
+
 interface BenefitsListProps {
   name: string;
   description: string;
@@ -67,15 +75,15 @@ const benefits: BenefitsListProps[] = [
 interface BenefitsProps {}
 
 export const Benefits: FC<BenefitsProps> = () => (
-  <div className="py-12">
+  <div className="md:py-10">
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="lg:text-center">
-        <h2 className="text-base font-semibold uppercase text-gray-400">
+        <p className="text-base font-semibold uppercase text-gray-400">
           Everything is vegan and gluten free
-        </h2>
-        <p className="mt-2 text-3xl font-extrabold leading-8 tracking-tight sm:text-4xl">
-          Making it easy to cook vegan and gluten free
         </p>
+        <h2 className="mt-2 text-3xl leading-8 tracking-tight text-dino-green-500 sm:text-4xl">
+          Making it easy to cook vegan and gluten free
+        </h2>
         <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
           There are so many great reasons to move to a plant based life.
         </p>
@@ -86,12 +94,17 @@ export const Benefits: FC<BenefitsProps> = () => (
       </div>
 
       <dl className="mt-5 space-y-2 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10 md:space-y-0">
-        {benefits.map((feature) => (
+        {benefits.map((feature, index) => (
           <div
             key={feature.name}
             className="flex rounded-lg bg-slate-400 bg-opacity-25 px-5 py-2"
           >
-            <div className="mt-3 flex h-10 w-12 shrink-0 basis-10 items-center justify-center rounded-md bg-teal-500 text-white">
+            <div
+              className="mt-3 flex h-10 w-12 shrink-0 basis-10 items-center justify-center rounded-md text-white"
+              style={{
+                backgroundColor: theme.colors[`dino-${RAINBOW[index]}`].DEFAULT,
+              }}
+            >
               <feature.icon className="h-6 w-6" aria-hidden="true" />
             </div>
             <div className="p-2">
@@ -101,7 +114,7 @@ export const Benefits: FC<BenefitsProps> = () => (
               <dd className="mt-2 text-base text-gray-500">
                 {feature.description}{" "}
                 {feature.reference && (
-                  <a href={feature.reference}>
+                  <a className="pointer" href={feature.reference}>
                     <sup>{feature.superscript}</sup>
                   </a>
                 )}

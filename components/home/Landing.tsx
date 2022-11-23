@@ -5,16 +5,17 @@ import { CallToSignUp } from "./CallToSignUp";
 import { Features } from "./Features";
 import { Questions } from "./Questions";
 
-interface IntroductionProps {}
+interface LandingProps {}
 
-export const Introduction: FC<IntroductionProps> = () => (
-  <div>
-    <div className="flex flex-col lg:flex-row">
+export const Landing: FC<LandingProps> = () => (
+  <>
+    <div className="mb-10 flex flex-col p-4 lg:flex-row">
       <CallToSignUp />
       <HeroImage />
     </div>
-    <Features />
+
     <Benefits />
+    <Features />
     <Questions />
-  </div>
+  </>
 );
