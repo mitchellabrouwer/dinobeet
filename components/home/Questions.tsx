@@ -16,7 +16,7 @@ const faqs: Faqs[] = [
   {
     question: "Do you offer a money back guarantee?",
     answer:
-      "If you don't feel is worth the money let us know why and we will refund your money",
+      "If you don't feel is worth the money let us know why and we will refund your money within 30 days",
   },
   {
     question: "Can you track nutrition?",

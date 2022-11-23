@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Button } from "../common/Button";
 import { Logo } from "../common/Logo";
 
-export const CallToSignUp: FC = () => (
+export const SignMeUp: FC = () => (
   <div className="">
     <div className="sm:text-center lg:text-left">
       <Logo />

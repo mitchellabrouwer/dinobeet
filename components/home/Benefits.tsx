@@ -97,7 +97,7 @@ export const Benefits: FC<BenefitsProps> = () => (
         {benefits.map((feature, index) => (
           <div
             key={feature.name}
-            className="flex rounded-lg bg-slate-400 bg-opacity-25 px-5 py-2"
+            className="flex rounded-lg bg-slate-400 bg-opacity-25 px-5 py-2 shadow"
           >
             <div
               className="mt-3 flex h-10 w-12 shrink-0 basis-10 items-center justify-center rounded-md text-white"
