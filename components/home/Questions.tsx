@@ -25,7 +25,7 @@ const faqs: Faqs[] = [
 ];
 
 export const Questions: FC = () => (
-  <div className="mx-auto mt-4 max-w-7xl px-4 md:mt-8 lg:mt-12">
+  <div id="about" className="mx-auto mt-4 max-w-7xl px-4 md:mt-8 lg:mt-12">
     <h2 className="mb-5 w-full text-4xl leading-9  md:ml-5">
       Have some more questions?
     </h2>

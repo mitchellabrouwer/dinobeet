@@ -13,7 +13,9 @@ export const RegisterMe: FC = () => (
         </h3>
       </div>
       <div className="flex lg:mt-0 lg:flex-shrink-0">
-        <Button href="/api/auth/signin" title="Join" styles="mt-0 pt-0" />
+        <Button href="/api/auth/signin" styles="mt-0 pt-0">
+          Join
+        </Button>
       </div>
     </div>
   </div>

@@ -13,6 +13,7 @@
     "vercel-env-push": "bash scripts/vercel-env-push.sh .env.production.local production"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.4",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@next/font": "^13.0.4",
     "@prisma/client": "^4.6.1",

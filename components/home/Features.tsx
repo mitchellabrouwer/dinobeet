@@ -55,7 +55,10 @@ const features = {
 };
 
 export const Features: FC<FeaturesProps> = () => (
-  <div className="bg-dino-red-500 pt-7 pb-10 shadow-xl md:rounded-lg lg:rounded-br-3xl">
+  <div
+    id="features"
+    className="mt-5 bg-dino-red-500 pt-10 pb-10 shadow-xl md:rounded-lg lg:rounded-br-3xl"
+  >
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="text-center">
         <h2 className="mt-2 text-3xl leading-8 tracking-tight text-dino-red-800 sm:text-4xl">
