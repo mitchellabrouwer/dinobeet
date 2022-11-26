@@ -4,16 +4,18 @@ import { FC } from "react";
 import { BiMenu, BiX } from "react-icons/bi";
 import { GiDinosaurEgg } from "react-icons/gi";
 
-// import embipiD from '/public/imgs/EmbipiBaby_D.svg';
-
-const links = ["Benefits", "Features", "About", "Price"];
+export const links = ["Benefits", "Features", "About", "Price"];
 
 export const Navigation: FC = () => (
   <>
     {/* mobile to medium display */}
     <Menu as="div" className="md:hidden">
       {({ open }) => (
-        <nav className={`${open && "bg-slate-300"} fixed w-full max-w-6xl p-4`}>
+        <nav
+          className={`${
+            open && "bg-slate-300"
+          } fixed z-10 w-full max-w-6xl p-4`}
+        >
           <div className="flex items-center justify-between">
             <Link href="/">
               <GiDinosaurEgg size="30" />
@@ -38,7 +40,7 @@ export const Navigation: FC = () => (
           >
             <Menu.Items className="mt-4 flex flex-col space-y-5">
               {links.map((item) => (
-                <Menu.Item>
+                <Menu.Item key={item}>
                   {({ active }) => (
                     <a
                       key={item}

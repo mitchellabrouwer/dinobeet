@@ -86,12 +86,12 @@ export const Features: FC<FeaturesProps> = () => (
 
               <div className="rounded-lg bg-opacity-40 p-2">
                 {features[category].examples.map((example) => (
-                  <>
+                  <div key={example.description}>
                     <h4 className="font-medium">{example.name}</h4>
                     <p className="text-xs text-gray-500">
                       {example.description}
                     </p>
-                  </>
+                  </div>
                 ))}
               </div>
             </div>
