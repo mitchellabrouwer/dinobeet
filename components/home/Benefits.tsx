@@ -75,7 +75,7 @@ const benefits: BenefitsListProps[] = [
 interface BenefitsProps {}
 
 export const Benefits: FC<BenefitsProps> = () => (
-  <div id="benefits" className="md:py-10">
+  <div id="benefits" className="py-16">
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="lg:text-center">
         <p className="text-base font-semibold uppercase text-gray-400">
