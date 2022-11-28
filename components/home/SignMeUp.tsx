@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button } from "../common/Button";
+import { LinkButton } from "../common/Button";
 import { Logo } from "../common/Logo";
 
 export const SignMeUp: FC = () => (
@@ -10,7 +10,7 @@ export const SignMeUp: FC = () => (
         dino-licious recipes web app for <strong>vegan</strong> and{" "}
         <strong>gluten free</strong> families.
       </p>
-      <Button href="/api/auth/signin">Sign me up</Button>
+      <LinkButton href="/api/auth/signin">Sign me up</LinkButton>
     </div>
   </div>
 );

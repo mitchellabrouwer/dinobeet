@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button } from "../common/Button";
+import { handleJoinClick } from "../../lib/utils";
 
 export const RegisterMe: FC = () => (
   <div>
@@ -13,9 +13,13 @@ export const RegisterMe: FC = () => (
         </h3>
       </div>
       <div className="flex lg:mt-0 lg:flex-shrink-0">
-        <Button href="/api/auth/signin" styles="mt-0 pt-0">
-          Join
-        </Button>
+        <button
+          className="mt-10 bg-black px-5 py-2 text-white"
+          type="button"
+          onClick={handleJoinClick}
+        >
+          Create a subscription
+        </button>
       </div>
     </div>
   </div>

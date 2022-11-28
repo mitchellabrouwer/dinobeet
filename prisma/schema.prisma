@@ -21,6 +21,8 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
+  stripePi      String    @unique
+  paid          Boolean   @default(false)
 }
 
 model VerificationToken {
