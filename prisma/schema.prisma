@@ -11,18 +11,21 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String      @id @default(cuid())
   name          String?
-  email         String?   @unique
-  username      String?   @unique
+  email         String?     @unique
+  username      String?     @unique
   emailVerified DateTime?
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
   accounts      Account[]
   sessions      Session[]
-  stripePi      String    @unique
-  paid          Boolean   @default(false)
+  stripePi      String      @unique
+  paid          Boolean     @default(false)
+  recipes       Recipe[]
+  favourites    Favourite[]
+  Review        Review[]
 }
 
 model VerificationToken {
@@ -60,4 +63,54 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Recipe {
+  id          String      @id @default(cuid())
+  name        String
+  occasion    String[]
+  difficulty  String
+  cost        String
+  ingredients String[]
+  method      String[]
+  servings    Int
+  prep        Int
+  cook        Int
+  tags        Tag[]
+  reviews     Review[]
+  favourites  Favourite[]
+  creator     User[]
+  createdAt   DateTime
+  updatedAt   DateTime
+  notes       String
+
+  average_rating Int
+  total_votes    Int
+  // @Column("tsvector", { select false, nullable true })
+  // document_with_weights any
+}
+
+model Favourite {
+  id       String @id @default(cuid())
+  user     User   @relation(fields: [userId], references: [id])
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  userId   String
+  recipeId String
+}
+
+model Tag {
+  id       String  @id @default(cuid())
+  name     String
+  recipe   Recipe? @relation(fields: [recipeId], references: [id])
+  recipeId String?
+}
+
+model Review {
+  id       String @id @default(cuid())
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  user     User   @relation(fields: [userId], references: [id])
+  rating   Int
+  comment  Int
+  recipeId String
+  userId   String
 }
