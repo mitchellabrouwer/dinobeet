@@ -9,6 +9,7 @@ export default defineConfig({
     experimentalSessionAndOrigin: true,
     setupNodeEvents(on, config) {
       // starts the SMTP server at localhost:7777
+      // adapted from https://github.com/bahmutov/cypress-email-example
       const port = 7777;
       const mailServer = ms.init(port);
       console.log("mail server at port %d", port);
