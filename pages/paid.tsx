@@ -42,7 +42,7 @@ export default function Paid() {
 
   return (
     <div>
-      Thank you for joining us!!{" "}
+      Thank you for joining us!!
       <button type="button" onClick={() => signIn("email", { email })}>
         Last step is to confirm you email to sign in
       </button>

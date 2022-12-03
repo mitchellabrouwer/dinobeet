@@ -20,8 +20,7 @@ export default function Dashboard() {
   }
   return (
     <>
-      <div>private dashboard</div>
-      <div>private dashboard</div>
+      <div data-cy="dashboard-page-heading">private dashboard</div>
       <button type="button" onClick={() => signOut()}>
         Sign out
       </button>

@@ -7,16 +7,6 @@ export default async (req, res) => {
     return res.status(405).end();
   }
 
-  // const session = await getSession({ req });
-  // if (!session) return res.status(401).json({ message: "Not logged in" });
-  // const user = await prisma.user.findUnique({
-  //   where: {
-  //     id: session.user.id,
-  //   },
-  // });
-
-  // if (!user) return res.status(401).json({ message: "User not found" });
-
   // eslint-disable-next-line global-require
   const stripe_session = await stripe.checkout.sessions.create({
     mode: "payment",

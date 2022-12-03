@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { Page } from "../components/common/Page";
 import { Landing } from "../components/home/Landing";
 
-export default function Home() {
+export default function Index() {
   const router = useRouter();
   const { data: session, status } = useSession();
 
@@ -14,7 +14,7 @@ export default function Home() {
     return null;
   }
 
-  if (session) {
+  if (session && session?.user) {
     router.push("/dashboard");
   }
 
@@ -25,7 +25,7 @@ export default function Home() {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Landing />
+      <Landing user={session?.user || null} />
     </Page>
   );
 }

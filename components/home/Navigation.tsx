@@ -1,12 +1,18 @@
 import { Menu, Transition } from "@headlessui/react";
+import { Session } from "next-auth";
 import Link from "next/link";
 import { FC } from "react";
 import { BiMenu, BiX } from "react-icons/bi";
 import { GiDinosaurEgg } from "react-icons/gi";
+import { Login } from "../auth/Login";
 
 export const links = ["Benefits", "Features", "About", "Price"];
 
-export const Navigation: FC = () => (
+interface NavigationProps {
+  user: Session["user"];
+}
+
+export const Navigation: FC<NavigationProps> = ({ user }) => (
   <>
     {/* mobile to medium display */}
     <Menu as="div" className="md:hidden">
@@ -54,6 +60,9 @@ export const Navigation: FC = () => (
                   )}
                 </Menu.Item>
               ))}
+              <Menu.Item>
+                <Login user={user} />
+              </Menu.Item>
             </Menu.Items>
           </Transition>
         </nav>
@@ -77,12 +86,7 @@ export const Navigation: FC = () => (
         ))}
       </div>
 
-      <Link
-        href="/api/auth/signin"
-        className="font-medium text-dino-red-600 hover:text-dino-red-500"
-      >
-        Log in
-      </Link>
+      <Login user={user} />
     </nav>
   </>
 );

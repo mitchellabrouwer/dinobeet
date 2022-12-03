@@ -10,7 +10,9 @@
     "prebuild": "prisma generate",
     "migrate-dev": "dotenv -e .env.development.local -- npx prisma migrate dev",
     "migrate-prod": "dotenv -e .env.production.local -- npx prisma migrate deploy",
-    "vercel-env-push": "bash scripts/vercel-env-push.sh .env.production.local production"
+    "vercel-env-push": "bash scripts/vercel-env-push.sh .env.production.local production",
+    "cypress-open": "cypress open",
+    "cypress-run": "cypress run"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",
@@ -39,10 +41,12 @@
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "autoprefixer": "^10.4.13",
+    "cypress": "^11.2.0",
     "eslint": "^8.28.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "13.0.4",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prettier": "^4.2.1",
@@ -54,6 +58,7 @@
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "prisma": "^4.6.1",
+    "smtp-tester": "^2.0.1",
     "tailwindcss": "^3.2.4"
   }
 }

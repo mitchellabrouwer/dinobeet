@@ -6,6 +6,7 @@
   },
   "extends": [
     "next/core-web-vitals",
+    "plugin:cypress/recommended",
     "plugin:react/recommended",
     "airbnb",
     "prettier"
@@ -28,7 +29,13 @@
       "extends": ["plugin:testing-library/react"]
     }
   ],
-  "plugins": ["react", "@typescript-eslint", "prettier", "react-hooks"],
+  "plugins": [
+    "react",
+    "cypress",
+    "@typescript-eslint",
+    "prettier",
+    "react-hooks"
+  ],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
