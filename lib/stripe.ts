@@ -10,3 +10,4 @@ const getStripe = () => {
 };
 
 export default getStripe;
+export const getStripePromise = stripePromise;

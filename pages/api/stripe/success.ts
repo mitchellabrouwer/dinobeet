@@ -12,7 +12,8 @@ export default async (req, res) => {
   );
 
   const { email, name } = stripe_session.customer_details;
-  // check if user already paid here...
+
+  await prisma.user.findUnique({ where: { email } });
 
   await prisma.user.upsert({
     create: {

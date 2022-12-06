@@ -6,6 +6,7 @@ const ms = require("smtp-tester");
 export default defineConfig({
   e2e: {
     baseUrl: "http://localhost:3000",
+    chromeWebSecurity: false,
     experimentalSessionAndOrigin: true,
     setupNodeEvents(on, config) {
       // starts the SMTP server at localhost:7777

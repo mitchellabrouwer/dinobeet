@@ -17,6 +17,7 @@ export const handleJoinClick = async () => {
   // @ts-ignore
   // eslint-disable-next-line no-undef
   const stripe = await getStripe();
+
   stripe.redirectToCheckout({
     sessionId,
   });

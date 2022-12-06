@@ -24,9 +24,12 @@
     {
       "files": [
         "**/__tests__/**/*.[jt]s?(x)",
-        "**/?(*.)+(spec|test).[jt]s?(x)"
+        "**/?(*.)+(spec|test|cy).[jt]s?(x)"
       ],
-      "extends": ["plugin:testing-library/react"]
+      "extends": ["plugin:testing-library/react"],
+      "rules": {
+        "no-unused-expressions": "off"
+      }
     }
   ],
   "plugins": [

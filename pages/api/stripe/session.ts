@@ -24,12 +24,14 @@ export default async (req, res) => {
   res.writeHead(200, {
     "Content-Type": "application/json",
   });
+  console.log(stripe_session);
 
   return res.end(
     JSON.stringify({
       status: "success",
       sessionId: stripe_session.id,
       stripePublicKey: process.env.STRIPE_PUBLIC_KEY,
+      url: stripe_session.url,
     })
   );
 };
