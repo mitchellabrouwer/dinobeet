@@ -12,13 +12,15 @@
     "migrate-prod": "dotenv -e .env.production.local -- npx prisma migrate deploy",
     "vercel-env-push": "bash scripts/vercel-env-push.sh .env.production.local production",
     "cypress-open": "cypress open",
-    "cypress-run": "cypress run"
+    "cypress-run": "cypress run",
+    "email-server": "node ./services/emailServer.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@next/font": "^13.0.4",
     "@prisma/client": "^4.6.1",
+    "@stripe/react-stripe-js": "^1.16.0",
     "@stripe/stripe-js": "^1.44.1",
     "javascript-time-ago": "^2.5.9",
     "jest": "^29.3.1",

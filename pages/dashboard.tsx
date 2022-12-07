@@ -1,5 +1,6 @@
-import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -7,23 +8,21 @@ export default function Dashboard() {
 
   const loading = status === "loading";
 
+  useEffect(() => {
+    if (!loading && !session) {
+      router.push("/");
+    }
+
+    if (!loading && session && !session.user.paid) {
+      router.push("/new-user");
+    }
+  }, [loading, router, session]);
+
   if (loading) {
     return null;
   }
 
-  if (!session) {
-    return router.push("/");
+  if (session && session.user.paid) {
+    return <div data-cy="dashboard-page-heading">private dashboard</div>;
   }
-
-  if (session && !session.user.paid) {
-    return router.push("/");
-  }
-  return (
-    <>
-      <div data-cy="dashboard-page-heading">private dashboard</div>
-      <button type="button" onClick={() => signOut()}>
-        Sign out
-      </button>
-    </>
-  );
 }

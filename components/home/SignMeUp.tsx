@@ -1,6 +1,5 @@
 import { FC } from "react";
-import { handleJoinClick } from "../../lib/utils";
-import { Button } from "../common/Button";
+import { Login } from "../auth/Login";
 import { Logo } from "../common/Logo";
 
 export const SignMeUp: FC = () => (
@@ -11,9 +10,7 @@ export const SignMeUp: FC = () => (
         dino-licious recipes web app for <strong>vegan</strong> and{" "}
         <strong>gluten free</strong> families.
       </p>
-      <Button dataCy="sign-me-up-button" onClick={handleJoinClick}>
-        Sign me up
-      </Button>
+      <Login label="sign up" button />
     </div>
   </div>
 );

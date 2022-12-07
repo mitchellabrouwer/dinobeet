@@ -8,7 +8,7 @@ export const handleJoinClick = async () => {
   const data = await res.json();
 
   if (data.status === "error") {
-    alert(data.message);
+    console.log(data.message);
     return;
   }
 

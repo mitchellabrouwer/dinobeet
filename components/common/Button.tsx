@@ -4,7 +4,7 @@ interface ButtonProps {
   children: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   submit?: boolean;
-  dataCy: string;
+  dataCy?: string;
 }
 
 export const Button: FC<ButtonProps> = ({

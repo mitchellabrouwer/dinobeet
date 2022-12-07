@@ -15,6 +15,11 @@
     "jsx": "preserve",
     "strict": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "services/emailServer.js"
+  ],
   "exclude": ["node_modules"]
 }

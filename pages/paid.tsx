@@ -1,55 +1,48 @@
 /* eslint-disable camelcase */
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-// const stripePromise = loadStripe(
-// process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-// );
 export default function Paid() {
   const router = useRouter();
   const { session_id } = router.query;
-
-  const [email, setEmail] = useState();
 
   const { data: session, status } = useSession();
 
   const loading = status === "loading";
 
   useEffect(() => {
-    const call = async () => {
-      const response = await fetch("/api/stripe/success", {
-        method: "POST",
-        body: JSON.stringify({
-          session_id,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      setEmail(data.email);
-    };
+    try {
+      (async () => {
+        await fetch("/api/stripe/success", {
+          method: "POST",
+          body: JSON.stringify({
+            session_id,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      })();
 
-    call();
+      // @ts-ignore
+      window.location = "/dashboard";
+    } catch (error) {
+      console.log(error);
+    }
   }, [session_id]);
 
-  if (loading) return null;
-
-  if (session) {
-    router.push("/dashboard");
+  if (loading) {
+    return null;
   }
 
-  return (
-    <div>
-      <h2 data-cy="successfully-joined-heading">
-        Success, thank you for joining us!!
-      </h2>
-      <button type="button" onClick={() => signIn("email", { email })}>
-        Last step is to confirm you email to sign in
-      </button>
-    </div>
-  );
+  if (!session) {
+    router.push("/");
+  }
+
+  return <div></div>;
+
+  // return <div>Something went wrong please contact us directly</div>;
 }
 
 export async function getServerSideProps() {
