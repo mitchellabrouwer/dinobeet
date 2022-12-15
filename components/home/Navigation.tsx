@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FC } from "react";
 import { BiMenu, BiX } from "react-icons/bi";
 import { GiDinosaurEgg } from "react-icons/gi";
-import { Login } from "../auth/Login";
+import { Login } from "../user/Login";
 
 export const links = ["Benefits", "Features", "About", "Price"];
 
@@ -20,7 +20,7 @@ export const Navigation: FC<NavigationProps> = ({ user }) => (
         <nav
           className={`${
             open && "bg-slate-300"
-          } fixed z-10 w-full max-w-6xl p-4`}
+          } fixed top-0 left-0 right-0 z-10 w-full max-w-7xl p-4`}
         >
           <div className="flex items-center justify-between">
             <Link href="/">
