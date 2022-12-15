@@ -10,6 +10,22 @@ context("authentication", () => {
     cy.task("resetEmails");
   });
 
+  xit("can join with email", () => {
+    cy.visit("/");
+    cy.get("[data-cy=login-button]").click();
+    cy.get("#input-email-for-email-provider").type(`${user.email} {enter}`);
+
+    cy.task("getLastEmail", user.email)
+      .its("html")
+      .then(cy.wrap)
+      .invoke("match", /href="(?<link>[^"]*)"/) // href with named groups
+      .its("groups.link")
+      .then((link) => {
+        cy.visit(link);
+        cy.contains("[data-cy=dashboard-page-heading]", /dashboard/i);
+      });
+  });
+
   xit("can pay with stripe and register", async () => {
     // this test is very flakey, no easy way to test available
 
@@ -46,22 +62,6 @@ context("authentication", () => {
         });
 
         cy.get("[data-cy=successfully-joined-heading]").contains(/success/i);
-      });
-  });
-
-  xit("can login with email", () => {
-    cy.visit("/");
-    cy.get("[data-cy=login-button]").click();
-    cy.get("#input-email-for-email-provider").type(`${user.email} {enter}`);
-
-    cy.task("getLastEmail", user.email)
-      .its("html")
-      .then(cy.wrap)
-      .invoke("match", /href="(?<link>[^"]*)"/) // href with named groups
-      .its("groups.link")
-      .then((link) => {
-        cy.visit(link);
-        cy.contains("[data-cy=dashboard-page-heading]", /dashboard/i);
       });
   });
 
