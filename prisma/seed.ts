@@ -1,9 +1,31 @@
 import { PrismaClient } from "@prisma/client";
+import { ingredients } from "../data/ingredients";
+import { breakfast } from "../data/recipes/breakfast";
+import { dinner } from "../data/recipes/dinner";
+import { sauceOrRub } from "../data/recipes/sauceOrRub";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.$queryRaw`COPY recipe FROM '/Users/mitch/Google Drive/My Drive/vegan_app_csv_data/recipes.csv' DELIMITER ',' CSV HEADER;`;
+  await prisma.recipe.deleteMany({});
+  await prisma.ingredient.deleteMany({});
+  // await prisma.ingredientGroup.deleteMany({});
+  await prisma.ingredient.createMany({
+    data: ingredients,
+    skipDuplicates: true,
+  });
+
+  breakfast.forEach(async (recipe) => {
+    await prisma.recipe.create({ data: recipe });
+  });
+
+  dinner.forEach(async (recipe) => {
+    await prisma.recipe.create({ data: recipe });
+  });
+
+  sauceOrRub.forEach(async (recipe) => {
+    await prisma.recipe.create({ data: recipe });
+  });
 }
 
 main()

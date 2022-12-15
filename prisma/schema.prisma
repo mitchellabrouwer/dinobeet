@@ -11,21 +11,19 @@ datasource db {
 }
 
 model User {
-  id            String      @id @default(cuid())
-  name          String?
-  email         String?     @unique
-  username      String?     @unique
-  emailVerified DateTime?
-  image         String?
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  accounts      Account[]
-  sessions      Session[]
-  recipes       Recipe[]
-  favourites    Favourite[]
-  reviews       Review[]
-  paid          Boolean     @default(false)
-  stripePi      String?     @unique
+  id         String      @id @default(cuid())
+  role       Role        @default(USER)
+  name       String?
+  email      String?     @unique
+  paid       Boolean     @default(false)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt()
+  stripePi   String?     @unique
+  accounts   Account[]
+  sessions   Session[]
+  recipes    Recipe[]
+  favourites Favourite[]
+  reviews    Review[]
 }
 
 model VerificationToken {
@@ -66,51 +64,264 @@ model Session {
 }
 
 model Recipe {
-  id          String      @id @default(cuid())
-  name        String
-  occasion    String[]
-  difficulty  String
-  cost        String
-  ingredients String[]
-  method      String[]
-  servings    Int
-  prep        Int
-  cook        Int
-  tags        Tag[]
-  reviews     Review[]
-  favourites  Favourite[]
-  creator     User[]
-  createdAt   DateTime
-  updatedAt   DateTime
-  notes       String
+  id         String            @id @default(cuid())
+  name       String            @unique
+  difficulty String
+  occasion   OccasionOptions[]
+  tags       Tag[]
+  cost       String
 
-  average_rating Int
-  total_votes    Int
-  // @Column("tsvector", { select false, nullable true })
-  // document_with_weights any
+  ingredients IngredientGroup[]
+  method      MethodGroup[]
+
+  servings   Int
+  prep       Int
+  cook       Int
+  notes      String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  reviews    Review[]
+  favourites Favourite[]
+  creator    User[]
+
+  variation Recipe[] @relation("VariationRecipes")
+  similar   Recipe[] @relation("VariationRecipes")
+}
+
+model MethodGroup {
+  id Int @id @default(autoincrement())
+
+  recipeId String
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  heading      String?
+  instructions String[]
+}
+
+model IngredientGroup {
+  id Int @id @default(autoincrement())
+
+  recipeId String
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  heading String?
+  list    IngredientMeasured[]
+}
+
+model IngredientMeasured {
+  id                Int              @id @default(autoincrement())
+  ingredientGroupId Int
+  ingredientGroup   IngredientGroup? @relation(fields: [ingredientGroupId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
+  qty  String
+  unit MeasurementOptions?
+
+  ingredient     Ingredient        @relation(fields: [ingredientName], references: [name])
+  ingredientName IngredientOptions
+
+  note String? // chooped, halved, etc
+}
+
+model Ingredient {
+  name             IngredientOptions    @id @unique
+  ingredientUsedIn IngredientMeasured[]
+}
+
+model Tag {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique
+  recipes Recipe[]
 }
 
 model Favourite {
   id       String @id @default(cuid())
   user     User   @relation(fields: [userId], references: [id])
-  recipe   Recipe @relation(fields: [recipeId], references: [id])
   userId   String
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
   recipeId String
-}
-
-model Tag {
-  id       String  @id @default(cuid())
-  name     String
-  recipe   Recipe? @relation(fields: [recipeId], references: [id])
-  recipeId String?
 }
 
 model Review {
   id       String @id @default(cuid())
   recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipeId String
   user     User   @relation(fields: [userId], references: [id])
+  userId   String
   rating   Int
   comment  Int
-  recipeId String
-  userId   String
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum MeasurementOptions {
+  tsp
+  Tbsp
+  cup
+  can
+  small
+  medium
+  large
+}
+
+enum OccasionOptions {
+  breakfast
+  lunch
+  dinner
+  treat
+  snack
+  sauce_or_rub
+}
+
+enum IngredientOptions {
+  cashews
+  walnuts
+  almonds
+  pistachios
+  flax_seeds
+  chia_seeds
+  sunflower_seeds
+  pumpkin_seeds
+  hemp_seeds
+  sesame_seeds
+  raw_buckwheat
+  firm_tofu
+  silken_token
+  tempeh
+  edamame
+  peanut
+  green_peas
+  green_beans
+  chickpeas
+  red_lentils
+  yellow_split_peas
+  green_split_peas
+  red_kidney_beans
+  black_beans
+  blackeye_peas
+  pinto_beans
+  mixed_beans
+  nutritional_yeast
+  jasmine_rice
+  basmati_rice
+  brown_rice
+  quinoa
+  quinoa_flakes
+  buckwheat
+  millet
+  popcorn
+  gf_flour
+  almond_flour
+  buckwheat_flour
+  chickpea_flour
+  corn_four
+  tapioca_flour
+  polenta
+  gf_penne
+  gf_spagetti
+  gf_bread
+  gf_bread_crumbs
+  garlic_clove
+  brown_onion
+  red_onion
+  ginger
+  spinach
+  carrot
+  broccoli
+  brussels_sprouts
+  eggplant
+  kale
+  chard
+  beetroot
+  red_cabbage
+  potato
+  sweet_potato
+  silverbeet
+  cauliflower
+  bok_choy
+  lettuce
+  tomato
+  capsicum
+  cucumber
+  celery
+  mushroom
+  chive
+  spring_onion
+  asparagu
+  mixed_vegetable
+  banana
+  strawberry
+  grape
+  apple
+  watermelon
+  blueberry
+  lemon
+  peach
+  avocado
+  pineapple
+  cherry
+  rock_mellon
+  honrydew
+  raspberry
+  pear
+  lime
+  blackberry
+  orange
+  mandarin
+  mango
+  plum
+  cocoa_powder
+  date
+  dried_apricot
+  banana_chip
+  raisin
+  saltana
+  cranberry
+  coconut_yoghurt
+  almond_milk
+  non_dairy_milk
+  soy_milk
+  pepper
+  garlic_powder
+  onion_powder
+  smoked_paprika
+  tumeric_powder
+  coriander_seeds
+  cumin_seeds
+  fenugreek_seeds
+  curry_powder
+  cloves
+  cardamon_pods
+  mustard_seeds
+  asafetida_powder
+  fennel_seeds
+  star_anise
+  sweet_paprika
+  bay_leave
+  cinnamon
+  all_spice
+  basil
+  coriander
+  dill
+  mixed_herbs
+  canola_oil
+  olive_oil
+  sesame_oil
+  vegetable_stock
+  beef_stock
+  chicken_stock
+  maple_syrup
+  brown_sugar
+  golden_syrup
+  baking_powder
+  salt
+  water
+  vegan_tartar_sauce
+  tahini
+  peanut_butter
+  marmite
+  chocolate_milk_powder
+  gf_soy_sauce
 }

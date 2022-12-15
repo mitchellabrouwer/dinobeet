@@ -1,8 +1,7 @@
 import Head from "next/head";
-import { PrivatePage } from "../components/common/PrivatePage";
-import { PrivateDashboard } from "../components/private/PrivateDashboard";
+import { PrivatePage } from "../../components/common/PrivatePage";
 
-export default function Dashboard() {
+export default function Browse() {
   return (
     <PrivatePage>
       <Head>
@@ -10,7 +9,6 @@ export default function Dashboard() {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <PrivateDashboard />
     </PrivatePage>
   );
 }

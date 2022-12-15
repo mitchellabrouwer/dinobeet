@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { getSession } from "next-auth/react";
 import prisma from "../../../lib/prisma";
 import { stripe } from "./stripe";
 
@@ -7,28 +8,32 @@ export default async (req, res) => {
     return res.status(405).end();
   }
 
+  const session = await getSession({ req });
+
+  if (!session) return res.status(401).json({ message: "Not logged in" });
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: session.user.id,
+    },
+  });
+
+  if (!user) return res.status(401).json({ message: "User not found" });
+
   const stripe_session = await stripe.checkout.sessions.retrieve(
     req.body.session_id
   );
 
-  const { email, name } = stripe_session.customer_details;
+  const { name } = stripe_session.customer_details;
 
-  await prisma.user.findUnique({ where: { email } });
-
-  await prisma.user.upsert({
-    create: {
-      email,
-      name,
-      stripePi: req.body.session_id,
-      paid: true,
-    },
-    update: {
-      stripePi: req.body.session_id,
+  await prisma.user.update({
+    data: {
       name,
       paid: true,
+      stripePi: req.body.session_id,
     },
     where: {
-      email,
+      id: stripe_session.client_reference_id,
     },
   });
 
