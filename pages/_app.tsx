@@ -2,6 +2,8 @@
 import { Inter } from "@next/font/google";
 // import localFont from "@next/font/local";
 import { SessionProvider } from "next-auth/react";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import "../styles/globals.css";
 
 // const myFont = localFont({
@@ -16,13 +18,19 @@ const inter = Inter({
   display: "swap",
 });
 
+const queryClient = new QueryClient();
+
 function MyApp({ Component, pageProps }) {
   return (
-    <SessionProvider session={pageProps.session}>
-      <main className={`${inter.variable} font-sans`}>
-        <Component {...pageProps} />
-      </main>
-    </SessionProvider>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+
+      <SessionProvider session={pageProps.session}>
+        <main className={`${inter.variable} font-sans`}>
+          <Component {...pageProps} />
+        </main>
+      </SessionProvider>
+    </QueryClientProvider>
   );
 }
 

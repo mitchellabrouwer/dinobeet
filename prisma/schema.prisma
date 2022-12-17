@@ -11,19 +11,20 @@ datasource db {
 }
 
 model User {
-  id         String      @id @default(cuid())
-  role       Role        @default(USER)
-  name       String?
-  email      String?     @unique
-  paid       Boolean     @default(false)
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt()
-  stripePi   String?     @unique
-  accounts   Account[]
-  sessions   Session[]
-  recipes    Recipe[]
-  favourites Favourite[]
-  reviews    Review[]
+  id            String      @id @default(cuid())
+  role          Role        @default(USER)
+  name          String?
+  email         String?     @unique
+  emailVerified DateTime?
+  paid          Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt()
+  stripePi      String?     @unique
+  accounts      Account[]
+  sessions      Session[]
+  recipes       Recipe[]
+  favourites    Favourite[]
+  reviews       Review[]
 }
 
 model VerificationToken {

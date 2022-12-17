@@ -2,7 +2,7 @@ import Head from "next/head";
 import { PrivatePage } from "../components/common/PrivatePage";
 import { PrivateDashboard } from "../components/private/PrivateDashboard";
 
-export default function Dashboard() {
+export default function dashboard() {
   return (
     <PrivatePage>
       <Head>

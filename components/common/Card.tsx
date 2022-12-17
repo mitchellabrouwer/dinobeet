@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { LegacyRef, MouseEvent } from "react";
-import { Heading } from "../common/Heading";
+import React, { MouseEvent } from "react";
+import { IoIosHeart } from "react-icons/io";
 import { DisplayStars } from "../review/DisplayStars";
-import { HeartButton } from "../user/favourites/HeartButton";
+import { Heading } from "./Heading";
 
 export const Card: React.FC<any> = React.forwardRef(
   (
@@ -35,26 +35,26 @@ export const Card: React.FC<any> = React.forwardRef(
     const recipeTags = tags?.map((tag) => tag.name).join(", ");
 
     return (
-      <div
-        className="sm:flex-[0 0 calc(100%-2%)] flex w-4 min-w-[200px] justify-center p-1 hover:cursor-pointer"
-        onClick={handleClick}
-        ref={ref as LegacyRef<HTMLDivElement> | undefined}
-      >
-        <div className="w-full max-w-md rounded-lg border bg-gray-500 shadow-lg">
-          <div>
+      <div className="" onClick={handleClick}>
+        <div className="relative w-full rounded-lg border bg-gray-500 shadow-lg">
+          <div className="relative block h-[400px] w-full">
             <Image
               alt={name}
-              src="/images/rice-cakes_2560.jpg"
+              src="/images/rice_cakes.jpg"
               placeholder="blur"
               blurDataURL="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mM8/ggAAnYBq60PPYYAAAAASUVORK5CYII="
-              objectFit="cover"
-              layout="responsive"
+              fill
+              style={{
+                objectFit: "cover",
+              }}
               quality={10}
               priority
             />
           </div>
+
           <div className="absolute top-2 right-2">
-            <HeartButton recipeId={id} />
+            {/* <HeartButton recipeId={id} /> */}
+            <IoIosHeart size="2em" />
           </div>
           <div className="absolute top-2 left-2">
             <span>{cost}</span>

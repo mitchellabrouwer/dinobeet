@@ -1,4 +1,3 @@
-import { IconButton } from "@chakra-ui/react";
 import React, { MouseEvent } from "react";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import {
@@ -6,6 +5,7 @@ import {
   useUpdateFavouriteMutation,
 } from "../../../generated/graphql";
 import graphQLClient from "../../../utility/graphql-request";
+import { Button } from "../../common/Button";
 
 interface HeartButtonProps {
   recipeId: string;
@@ -27,17 +27,13 @@ export const HeartButton: React.FC<HeartButtonProps> = ({ recipeId }) => {
   return (
     <>
       {fill ? (
-        <IconButton
-          variant="ghost"
-          aria-label="Unfavourite"
-          icon={<IoIosHeart size="2em" onClick={onHeartClick} />}
-        />
+        <Button aria-label="Unfavourite" onClick={onHeartClick}>
+          <IoIosHeart size="2em" />
+        </Button>
       ) : (
-        <IconButton
-          aria-label="Make avourite"
-          variant="ghost"
-          icon={<IoIosHeartEmpty size="2em" onClick={onHeartClick} />}
-        />
+        <Button aria-label="Favourite" onClick={onHeartClick}>
+          <IoIosHeartEmpty size="2em" />
+        </Button>
       )}
     </>
   );
