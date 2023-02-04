@@ -10,3 +10,7 @@ interface SelectOption {
 }
 
 export type { GetRecipes, SelectOption };
+
+// type RecipeType = Prisma.RecipeGetPayload<{
+//   include: { tags: true };
+// }>;

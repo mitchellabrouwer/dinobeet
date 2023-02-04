@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Cost, Tags } from "@prisma/client";
+import { Difficulty, OccasionOptions, Tags } from "@prisma/client";
 import _debounce from "lodash/debounce";
 import React, {
   ChangeEvent,
@@ -17,15 +17,6 @@ import Select from "react-select";
 import { GetRecipes } from "../../../types/types";
 import { Card } from "../../common/Card";
 
-// type RecipeType = Prisma.RecipeGetPayload<{
-//   include: { tags: true };
-// }>;
-
-// const options = [
-//   { value: "chocolate", label: "Chocolate" },
-//   { value: "strawberry", label: "Strawberry" },
-//   { value: "vanilla", label: "Vanilla" },
-// ];
 interface Option {
   readonly label: string;
   readonly value: string;
@@ -56,9 +47,8 @@ function toReactSelect(options): Option[] {
 export const Browse: React.FC = () => {
   const { ref, inView } = useInView();
 
-  console.log("cost", Cost);
-
   const [query, setQuery] = useState<string>("");
+
   const [difficulty, setDifficulty] = useState<string>("");
   const [cost, setCost] = useState<string>("");
   const [occasion, setOccasion] = useState<string>("");
@@ -72,15 +62,16 @@ export const Browse: React.FC = () => {
       difficulty,
       cost,
       occasion,
-      // maxTime,
-      // tags,
+      maxTime,
     });
+
+    tags.forEach((tag) => params.append("tags", tag));
 
     const res = await fetch(`/api/recipe?${params}`);
 
     const data: GetRecipes = await res.json();
 
-    console.log("data", data);
+    // console.log("data", data);
     return data;
   };
 
@@ -93,10 +84,14 @@ export const Browse: React.FC = () => {
     fetchNextPage,
     hasNextPage,
     refetch,
-  } = useInfiniteQuery(["recipes", query], fetchRecipes, {
-    // @ts-ignore
-    getNextPageParam: (lastPage) => lastPage.nextCursor ?? false,
-  });
+  } = useInfiniteQuery(
+    ["recipes", query, difficulty, cost, occasion, maxTime, tags],
+    fetchRecipes,
+    {
+      // @ts-ignore
+      getNextPageParam: (lastPage) => lastPage.nextCursor ?? false,
+    }
+  );
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -106,7 +101,7 @@ export const Browse: React.FC = () => {
 
   useEffect(() => {
     refetch();
-  }, [query, refetch]);
+  }, [query, difficulty, cost, occasion, maxTime, tags, refetch]);
 
   const searchRef = useRef<HTMLInputElement>(null);
 
@@ -117,66 +112,109 @@ export const Browse: React.FC = () => {
   };
 
   const onQueryChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("event.target.value", event.target.value);
     setQuery(event.target.value);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedOnqueryChange = useCallback(_debounce(onQueryChange, 500), []);
 
   return (
     <div className="mt-16">
       <div className="relative m-auto max-w-2xl p-2">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-6">
           <BiSearch color="grey" />
         </div>
         <input
           ref={searchRef}
           type="search"
           id="search"
-          className="block w-full rounded-full border p-4 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-          placeholder="Search recipes or ingredients..."
+          className="block w-full rounded-full border p-4 pl-10 text-lg text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+          placeholder="Search recipe name or ingredient..."
           onChange={debouncedOnqueryChange}
           onKeyUp={onSearchEnter}
         />
       </div>
       {isFetchingNextPage ? <div className="loading">Loading...</div> : null}
 
-      <div className="flex items-center justify-center">
+      <div className="m-auto mt-2 flex items-center justify-center space-x-3 px-2 sm:max-w-xl md:px-20">
         <div>
-          <label htmlFor="test" className="block text-center">
+          <label htmlFor="cost" className="block text-center">
+            Cost
+          </label>
+          <Select
+            name="cost"
+            options={costSelect}
+            onChange={(event) => setCost(event.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="difficulty" className="block text-center">
             Difficulty
           </label>
           <Select
             name="difficulty"
-            options={toReactSelect(Tags)}
-            onChange={() => setDifficulty}
+            options={toReactSelect(Difficulty)}
+            onChange={(event) => setDifficulty(event.value)}
           />
         </div>
+        <div>
+          <label htmlFor="occasion" className="block text-center">
+            Occasion
+          </label>
+          <Select
+            name="occasion"
+            options={toReactSelect(OccasionOptions)}
+            onChange={(event) => setOccasion(event.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="max-time" className="block text-center">
+            Time
+          </label>
+          <Select
+            name="max-time"
+            options={maxTimeSelect}
+            onChange={(event) => setMaxTime(event.value)}
+          />
+        </div>{" "}
+      </div>
+      <div className="m-auto my-2 w-full px-2 sm:max-w-xl md:px-20">
+        <label htmlFor="tags" className="block text-center">
+          Tags
+        </label>
+        <Select
+          isMulti
+          name="tags"
+          options={toReactSelect(Tags)}
+          onChange={(selected) => {
+            console.log("selected", selected);
+            setTags(selected.map((option) => option.value));
+          }}
+        />
       </div>
 
-      {data &&
-        data.pages.map((page) => (
-          <div
-            key={page.nextCursor ?? "last"}
-            className="grid w-full auto-cols-max grid-cols-1 gap-2  p-1 hover:cursor-pointer md:grid-cols-2"
-          >
-            {page.recipes.map((recipe) => (
-              <Card
-                key={recipe.id}
-                id={recipe.id}
-                name={recipe.name}
-                occasion={recipe.occasion}
-                cost={recipe.cost}
-                difficulty={recipe.difficulty}
-                prep={recipe.prep}
-                cook={recipe.cook}
-                average_rating={5}
-                total_votes={20}
-                tags={recipe.tags}
-              />
-            ))}
-          </div>
-        ))}
+      <div>
+        {data &&
+          data.pages.map((page) => (
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+              {page.recipes.map((recipe) => (
+                <Card
+                  key={recipe.id}
+                  id={recipe.id}
+                  name={recipe.name}
+                  occasion={recipe.occasion}
+                  cost={recipe.cost}
+                  difficulty={recipe.difficulty}
+                  prep={recipe.prep}
+                  cook={recipe.cook}
+                  average_rating={5}
+                  total_votes={20}
+                  tags={recipe.tags}
+                />
+              ))}
+            </div>
+          ))}
+      </div>
 
       <span style={{ visibility: "hidden" }} ref={ref}>
         intersection observer marker

@@ -5,7 +5,7 @@ export const dinner: Prisma.RecipeCreateInput[] = [
     name: "Meatballs",
     occasion: "dinner",
     tags: ["stores_well"],
-    difficulty: "easy",
+    difficulty: "medium",
     cost: "cheap",
     ingredients: {
       create: [

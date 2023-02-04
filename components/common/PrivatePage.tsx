@@ -31,7 +31,7 @@ export const PrivatePage: FC<PrivatePageProps> = ({ children }) => {
     return (
       <>
         <PrivateNavigation user={session.user} />
-        <div className="mx-auto max-w-7xl">{children}</div>
+        <div className="m-auto max-w-7xl">{children}</div>
       </>
     );
   }

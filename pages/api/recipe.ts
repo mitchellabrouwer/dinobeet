@@ -14,7 +14,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       maxTime,
       tags,
     };
-    const take = 2;
+
+    const take = 4;
 
     const recipes = await getRecipes(prisma, cursor, take, options);
     return res.json(recipes);

@@ -28,16 +28,12 @@ export const Card: React.FC<any> = ({
     router.push(`./recipes/${id}`);
   };
 
-  console.log("tags", tags);
-
   const recipeTags = tags?.map((tag) => tag).join(", ");
 
-  console.log("recipe tags", recipeTags);
-  console.log("occasion", occasion);
   return (
     <div className="" onClick={handleClick}>
       <div className="relative w-full rounded-lg border shadow-lg">
-        <div className="relative block h-[400px] w-full">
+        <div className="relative block h-[400px]">
           <Image
             alt={name}
             src="/images/rice_cakes.jpg"
