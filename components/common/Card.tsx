@@ -2,8 +2,8 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { MouseEvent } from "react";
-import { IoIosHeart } from "react-icons/io";
 import { DisplayStars } from "../review/DisplayStars";
+import { HeartButton } from "../user/favourites/HeartButton";
 import { Heading } from "./Heading";
 
 export const Card: React.FC<any> = ({
@@ -49,8 +49,8 @@ export const Card: React.FC<any> = ({
         </div>
 
         <div className="absolute top-2 right-2">
-          {/* <HeartButton recipeId={id} /> */}
-          <IoIosHeart size="2em" />
+          <HeartButton recipeId={id} />
+          {/* <IoIosHeart size="2em" /> */}
         </div>
         <div className="absolute top-2 left-2">
           <span>{cost}</span>
