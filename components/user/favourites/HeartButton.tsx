@@ -1,10 +1,5 @@
-import React, { MouseEvent } from "react";
+import React, { MouseEvent, useEffect } from "react";
 import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
-import {
-  useFavouritesQuery,
-  useUpdateFavouriteMutation,
-} from "../../../generated/graphql";
-import graphQLClient from "../../../utility/graphql-request";
 import { Button } from "../../common/Button";
 
 interface HeartButtonProps {
@@ -12,9 +7,12 @@ interface HeartButtonProps {
 }
 
 export const HeartButton: React.FC<HeartButtonProps> = ({ recipeId }) => {
-  const { mutateAsync } = useUpdateFavouriteMutation(graphQLClient);
+  // get list of favourites
+  // update favourite if clicked on
 
-  const { data: hearts, refetch } = useFavouritesQuery(graphQLClient);
+  // const { mutateAsync } = useUpdateFavouriteMutation(graphQLClient);
+
+  useEffect(() => {}, []);
 
   const fill = !!hearts?.favourite?.includes(recipeId);
 
@@ -25,7 +23,7 @@ export const HeartButton: React.FC<HeartButtonProps> = ({ recipeId }) => {
   };
 
   return (
-    <>
+    <div>
       {fill ? (
         <Button aria-label="Unfavourite" onClick={onHeartClick}>
           <IoIosHeart size="2em" />
@@ -35,6 +33,6 @@ export const HeartButton: React.FC<HeartButtonProps> = ({ recipeId }) => {
           <IoIosHeartEmpty size="2em" />
         </Button>
       )}
-    </>
+    </div>
   );
 };
