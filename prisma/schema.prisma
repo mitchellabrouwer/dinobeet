@@ -67,10 +67,10 @@ model Session {
 model Recipe {
   id         String            @id @default(cuid())
   name       String            @unique
-  difficulty String
+  difficulty Difficulty
   occasion   OccasionOptions[]
-  tags       Tag[]
-  cost       String
+  tags       Tags[]
+  cost       Cost
 
   ingredients IngredientGroup[]
   method      MethodGroup[]
@@ -126,12 +126,6 @@ model IngredientMeasured {
 model Ingredient {
   name             IngredientOptions    @id @unique
   ingredientUsedIn IngredientMeasured[]
-}
-
-model Tag {
-  id      Int      @id @default(autoincrement())
-  name    String   @unique
-  recipes Recipe[]
 }
 
 model Favourite {
@@ -325,4 +319,38 @@ enum IngredientOptions {
   marmite
   chocolate_milk_powder
   gf_soy_sauce
+}
+
+enum Tags {
+  tasty
+  protein
+  omega_3
+  iron
+  bitesized
+  winter
+  summer
+  lunchbox
+  dipping
+  hosting
+  camping
+  on_the_go
+  fun
+  nutritious
+  sometimes_food
+  stores_well
+  freezer_friendly
+}
+
+enum Difficulty {
+  easy
+  medium
+  hard
+}
+
+enum Cost {
+  really_cheap
+  cheap
+  ok
+  expensive
+  really_expensive
 }

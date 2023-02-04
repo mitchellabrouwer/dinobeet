@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { Cost, Tags } from "@prisma/client";
 import _debounce from "lodash/debounce";
 import React, {
   ChangeEvent,
@@ -15,10 +16,47 @@ import { useInfiniteQuery } from "react-query";
 import Select from "react-select";
 import { GetRecipes } from "../../../types/types";
 import { Card } from "../../common/Card";
-import { difficultySelect } from "./select";
+
+// type RecipeType = Prisma.RecipeGetPayload<{
+//   include: { tags: true };
+// }>;
+
+// const options = [
+//   { value: "chocolate", label: "Chocolate" },
+//   { value: "strawberry", label: "Strawberry" },
+//   { value: "vanilla", label: "Vanilla" },
+// ];
+interface Option {
+  readonly label: string;
+  readonly value: string;
+}
+const maxTimeSelect: Option[] = [
+  { value: "", label: "all" },
+  { value: "5", label: "< 5 mins" },
+  { value: "10", label: "< 10 mins" },
+  { value: "20", label: "< 20 mins" },
+  { value: "30", label: "< 30 mins" },
+  { value: "60", label: "< 60 mins" },
+];
+
+const costSelect: Option[] = [
+  { value: "", label: "all" },
+  { value: "really_cheap", label: "¢" },
+  { value: "cheap", label: "$" },
+  { value: "ok", label: "$$" },
+  { value: "expensive", label: "$$$" },
+  { value: "really_expensive", label: "$$$$" },
+];
+
+function toReactSelect(options): Option[] {
+  const list = Object.keys(options).map((label) => ({ value: label, label }));
+  return [{ value: "", label: "all" }, ...list];
+}
 
 export const Browse: React.FC = () => {
   const { ref, inView } = useInView();
+
+  console.log("cost", Cost);
 
   const [query, setQuery] = useState<string>("");
   const [difficulty, setDifficulty] = useState<string>("");
@@ -28,8 +66,6 @@ export const Browse: React.FC = () => {
   const [tags, setTags] = useState<string[]>([]);
 
   const fetchRecipes = async ({ pageParam = "" }) => {
-    console.log(pageParam);
-
     const params = new URLSearchParams({
       cursor: pageParam,
       query,
@@ -43,6 +79,8 @@ export const Browse: React.FC = () => {
     const res = await fetch(`/api/recipe?${params}`);
 
     const data: GetRecipes = await res.json();
+
+    console.log("data", data);
     return data;
   };
 
@@ -110,11 +148,10 @@ export const Browse: React.FC = () => {
           </label>
           <Select
             name="difficulty"
-            options={difficultySelect}
+            options={toReactSelect(Tags)}
             onChange={() => setDifficulty}
           />
         </div>
-        {/* <Select options={tagSelect}></Select> */}
       </div>
 
       {data &&
@@ -125,6 +162,7 @@ export const Browse: React.FC = () => {
           >
             {page.recipes.map((recipe) => (
               <Card
+                key={recipe.id}
                 id={recipe.id}
                 name={recipe.name}
                 occasion={recipe.occasion}

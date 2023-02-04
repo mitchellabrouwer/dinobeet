@@ -21,7 +21,6 @@ export const getRecipes = async (
           list: true,
         },
       },
-      tags: true,
       method: true,
     },
   };

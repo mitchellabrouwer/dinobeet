@@ -4,8 +4,9 @@ export const sauceOrRub: Prisma.RecipeCreateInput[] = [
   {
     name: "Pesto",
     occasion: "sauce_or_rub",
+    tags: ["omega_3"],
     difficulty: "easy",
-    cost: "$",
+    cost: "cheap",
     ingredients: {
       create: [
         {
@@ -60,8 +61,9 @@ export const sauceOrRub: Prisma.RecipeCreateInput[] = [
   {
     name: "Teryaki",
     occasion: "sauce_or_rub",
+    tags: ["tasty"],
     difficulty: "easy",
-    cost: "$",
+    cost: "cheap",
     ingredients: {
       create: [
         {

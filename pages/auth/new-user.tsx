@@ -1,8 +1,8 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { Button } from "../components/common/Button";
-import { handleJoinClick } from "../lib/utils";
+import { Button } from "../../components/common/Button";
+import { handleJoinClick } from "../../lib/utils";
 
 export default function NewUser() {
   const router = useRouter();

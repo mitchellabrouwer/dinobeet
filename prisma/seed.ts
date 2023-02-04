@@ -10,6 +10,7 @@ async function main() {
   await prisma.recipe.deleteMany({});
   await prisma.ingredient.deleteMany({});
   // await prisma.ingredientGroup.deleteMany({});
+  // await prisma.tag.createMany(tags);
   await prisma.ingredient.createMany({
     data: ingredients,
     skipDuplicates: true,

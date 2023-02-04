@@ -4,8 +4,9 @@ export const breakfast: Prisma.RecipeCreateInput[] = [
   {
     name: "Banana Pillows",
     occasion: "dinner",
+    tags: ["nutritious"],
     difficulty: "easy",
-    cost: "$",
+    cost: "cheap",
     ingredients: {
       create: [
         {
@@ -70,8 +71,9 @@ export const breakfast: Prisma.RecipeCreateInput[] = [
   {
     name: "Chia Pudding",
     occasion: ["breakfast", "snack"],
+    tags: ["nutritious", "omega_3"],
     difficulty: "easy",
-    cost: "$",
+    cost: "cheap",
     ingredients: {
       create: [
         {
