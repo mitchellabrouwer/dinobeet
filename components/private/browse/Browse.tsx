@@ -134,8 +134,6 @@ export const Browse: React.FC = () => {
           onKeyUp={onSearchEnter}
         />
       </div>
-      {isFetchingNextPage ? <div className="loading">Loading...</div> : null}
-
       <div className="m-auto mt-2 flex items-center justify-center space-x-3 px-2 sm:max-w-xl md:px-20">
         <div>
           <label htmlFor="cost" className="block text-center">
@@ -198,7 +196,7 @@ export const Browse: React.FC = () => {
           data.pages.map((page, index) => (
             <div
               key={index}
-              className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4"
+              className="grid gap-1 space-x-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4"
             >
               {page.recipes.map((recipe) => (
                 <Card
@@ -218,7 +216,12 @@ export const Browse: React.FC = () => {
             </div>
           ))}
       </div>
-
+      {isFetchingNextPage ? (
+        <div className="mt-5 text-center italic">Loading...</div>
+      ) : null}
+      {data?.pages?.length && (
+        <div className="mt-5 text-center italic">No matching recipes...</div>
+      )}
       <span style={{ visibility: "hidden" }} ref={ref}>
         intersection observer marker
       </span>
