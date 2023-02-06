@@ -19,8 +19,18 @@ async function main() {
   await prisma.recipe.deleteMany({});
   await prisma.ingredient.deleteMany({});
   await prisma.favourite.deleteMany({});
+  await prisma.review.deleteMany({});
   // await prisma.ingredientGroup.deleteMany({});
   // await prisma.tag.createMany(tags);
+
+  await prisma.user.create({
+    data: {
+      email: "test@test.com",
+      paid: true,
+      name: "test",
+    },
+  });
+
   await prisma.ingredient.createMany({
     data: ingredients,
     skipDuplicates: true,
@@ -67,9 +77,9 @@ async function main() {
   await prisma.review.create({
     data: {
       user: { connect: { email: "test@test.com" } },
-      recipe: { connect: { name: "Chia Pudding" } },
-      comment: "test",
-      rating: 4,
+      recipe: { connect: { name: "Banana Pillows" } },
+      comment: "nice one",
+      rating: 5,
     },
   });
 }

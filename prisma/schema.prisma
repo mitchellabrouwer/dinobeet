@@ -134,6 +134,8 @@ model Favourite {
   userId   String
   recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   recipeId String
+
+  @@unique([recipeId, userId])
 }
 
 model Review {
@@ -144,6 +146,8 @@ model Review {
   userId   String
   rating   Int
   comment  String
+
+  @@unique([recipeId, userId])
 }
 
 enum Role {

@@ -195,8 +195,11 @@ export const Browse: React.FC = () => {
 
       <div>
         {data &&
-          data.pages.map((page) => (
-            <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+          data.pages.map((page, index) => (
+            <div
+              key={index}
+              className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4"
+            >
               {page.recipes.map((recipe) => (
                 <Card
                   key={recipe.id}
