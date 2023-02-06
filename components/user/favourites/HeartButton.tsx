@@ -53,7 +53,7 @@ export const HeartButton: React.FC<HeartButtonProps> = ({ recipeId }) => {
           aria-label="Unfavourite"
           onClick={onHeartClick}
         >
-          <IoIosHeart size="2em" />
+          <IoIosHeart size="2em" fill="#C51104" />
         </button>
       ) : (
         <button
@@ -62,7 +62,7 @@ export const HeartButton: React.FC<HeartButtonProps> = ({ recipeId }) => {
           aria-label="Favourite"
           onClick={onHeartClick}
         >
-          <IoIosHeartEmpty size="2em" />
+          <IoIosHeartEmpty size="2em" color="#C51104" />
         </button>
       )}
     </div>

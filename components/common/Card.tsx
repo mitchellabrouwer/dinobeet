@@ -21,6 +21,15 @@ export const Card: React.FC<any> = ({
   // const src = `/images/${name.toLowerCase().replace(" ", "-")}.jpeg`;
   // console.log(tags);
 
+  // enum unable to be stored as symbols
+  const costSymbols = {
+    really_cheap: "¢",
+    cheap: "$",
+    ok: "$$",
+    expensive: "$$$",
+    really_expensive: "$$$$",
+  };
+
   const router = useRouter();
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
@@ -50,20 +59,22 @@ export const Card: React.FC<any> = ({
 
         <div className="absolute top-2 right-2">
           <HeartButton recipeId={id} />
-          {/* <IoIosHeart size="2em" /> */}
         </div>
+
         <div className="absolute top-2 left-2">
-          <span>{cost}</span>
+          <span className="text-2xl font-light">{costSymbols[cost]}</span>
         </div>
 
         <div className="spacing-0 py-2 text-center">
           <span className="text-xs uppercase text-gray-500">
-            {occasion?.toString().replace(/,/g, " |")}
+            {occasion?.toString().replace(/_/g, " ").replace(/,/g, " | ")}
           </span>
           <Heading as="h2" styles="py-1">
             {name}
           </Heading>
-          <span className="text-xs italic">{recipeTags}</span>
+          <span className="text-xs italic">
+            {recipeTags.replace(/_/g, " ")}
+          </span>
           <div className="flex w-full justify-between">
             <span className="flex-[50%] pl-2 text-left text-sm italic md:text-xs">
               {`${prep + cook}m`}

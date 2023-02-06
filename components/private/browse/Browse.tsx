@@ -1,5 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Difficulty, OccasionOptions, Tags } from "@prisma/client";
 import _debounce from "lodash/debounce";
 import React, {
@@ -121,7 +121,7 @@ export const Browse: React.FC = () => {
   return (
     <div className="mt-16">
       <div className="relative m-auto max-w-2xl p-2">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-6">
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex w-full flex-wrap items-center pl-6">
           <BiSearch color="grey" />
         </div>
         <input
@@ -136,27 +136,7 @@ export const Browse: React.FC = () => {
       </div>
       <div className="m-auto mt-2 flex items-center justify-center space-x-3 px-2 sm:max-w-xl md:px-20">
         <div>
-          <label htmlFor="cost" className="block text-center">
-            Cost
-          </label>
-          <Select
-            name="cost"
-            options={costSelect}
-            onChange={(event) => setCost(event.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="difficulty" className="block text-center">
-            Difficulty
-          </label>
-          <Select
-            name="difficulty"
-            options={toReactSelect(Difficulty)}
-            onChange={(event) => setDifficulty(event.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="occasion" className="block text-center">
+          <label htmlFor="occasion" className="block min-w-[100px] text-center">
             Occasion
           </label>
           <Select
@@ -166,7 +146,20 @@ export const Browse: React.FC = () => {
           />
         </div>
         <div>
-          <label htmlFor="max-time" className="block text-center">
+          <label
+            htmlFor="difficulty"
+            className="block min-w-[100px] text-center"
+          >
+            Difficulty
+          </label>
+          <Select
+            name="difficulty"
+            options={toReactSelect(Difficulty)}
+            onChange={(event) => setDifficulty(event.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="max-time" className="block min-w-[100px] text-center">
             Time
           </label>
           <Select
@@ -175,9 +168,19 @@ export const Browse: React.FC = () => {
             onChange={(event) => setMaxTime(event.value)}
           />
         </div>{" "}
+        <div>
+          <label htmlFor="cost" className="block min-w-[100px] text-center">
+            Cost
+          </label>
+          <Select
+            name="cost"
+            options={costSelect}
+            onChange={(event) => setCost(event.value)}
+          />
+        </div>
       </div>
       <div className="m-auto my-2 w-full px-2 sm:max-w-xl md:px-20">
-        <label htmlFor="tags" className="block text-center">
+        <label htmlFor="tags" className="block min-w-[100px] text-center">
           Tags
         </label>
         <Select
