@@ -85,6 +85,9 @@ model Recipe {
   favourites Favourite[]
   creator    User[]
 
+  reviewAvg   Float @default(0)
+  reviewCount Int   @default(0)
+
   variation Recipe[] @relation("VariationRecipes")
   similar   Recipe[] @relation("VariationRecipes")
 }

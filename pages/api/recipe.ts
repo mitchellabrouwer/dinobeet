@@ -5,7 +5,8 @@ import prisma from "../../lib/prisma";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     const { cursor } = req.query;
-    const { query, difficulty, cost, occasion, maxTime, tags } = req.query;
+    const { query, difficulty, cost, occasion, maxTime, tags, pagination } =
+      req.query;
     const options = {
       query,
       difficulty,
@@ -13,6 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       occasion,
       maxTime,
       tags,
+      pagination,
     };
 
     const take = 4;

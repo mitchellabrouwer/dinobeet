@@ -118,6 +118,8 @@ export const Browse: React.FC = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedOnqueryChange = useCallback(_debounce(onQueryChange, 500), []);
 
+  console.log("data", data);
+
   return (
     <div className="mt-16">
       <div className="relative m-auto max-w-2xl p-2">
@@ -199,7 +201,7 @@ export const Browse: React.FC = () => {
           data.pages.map((page, index) => (
             <div
               key={index}
-              className="grid gap-1 space-x-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4"
+              className="space-1 grid gap-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4"
             >
               {page.recipes.map((recipe) => (
                 <Card
@@ -211,8 +213,8 @@ export const Browse: React.FC = () => {
                   difficulty={recipe.difficulty}
                   prep={recipe.prep}
                   cook={recipe.cook}
-                  average_rating={5}
-                  total_votes={20}
+                  averageRating={page?.reviews[recipe.id]?.average || 0}
+                  totalVotes={page?.reviews[recipe.id]?.count || 0}
                   tags={recipe.tags}
                 />
               ))}
@@ -222,7 +224,7 @@ export const Browse: React.FC = () => {
       {isFetchingNextPage ? (
         <div className="mt-5 text-center italic">Loading...</div>
       ) : null}
-      {data?.pages?.length && (
+      {data?.pages?.length && !data && (
         <div className="mt-5 text-center italic">No matching recipes...</div>
       )}
       <span style={{ visibility: "hidden" }} ref={ref}>

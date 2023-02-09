@@ -14,8 +14,8 @@ export const Card: React.FC<any> = ({
   difficulty,
   prep,
   cook,
-  average_rating,
-  total_votes,
+  averageRating,
+  totalVotes,
   tags,
 }) => {
   // const src = `/images/${name.toLowerCase().replace(" ", "-")}.jpeg`;
@@ -40,7 +40,7 @@ export const Card: React.FC<any> = ({
   const recipeTags = tags?.map((tag) => tag).join(", ");
 
   return (
-    <div className="" onClick={handleClick}>
+    <div className="hover:cursor-pointer" onClick={handleClick}>
       <div className="relative w-full rounded-lg border shadow-lg">
         <div className="relative block h-[400px]">
           <Image
@@ -80,8 +80,8 @@ export const Card: React.FC<any> = ({
               {`${prep + cook}m`}
             </span>
             <DisplayStars
-              rating={Number(average_rating) || 0}
-              totalVotes={Number(total_votes) || 0}
+              rating={Number(averageRating) || 0}
+              totalVotes={Number(totalVotes) || 0}
             />
             <span className="flex-[50%] pr-2 text-right text-sm italic text-gray-500 md:text-xs">
               {difficulty}

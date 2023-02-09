@@ -23,11 +23,15 @@ async function main() {
   // await prisma.ingredientGroup.deleteMany({});
   // await prisma.tag.createMany(tags);
 
-  await prisma.user.create({
-    data: {
+  await prisma.user.upsert({
+    create: {
       email: "test@test.com",
       paid: true,
       name: "test",
+    },
+    update: {},
+    where: {
+      email: "test@test.com",
     },
   });
 
@@ -79,6 +83,15 @@ async function main() {
       user: { connect: { email: "test@test.com" } },
       recipe: { connect: { name: "Banana Pillows" } },
       comment: "nice one",
+      rating: 5,
+    },
+  });
+
+  await prisma.review.create({
+    data: {
+      user: { connect: { email: "test@test.com" } },
+      recipe: { connect: { name: "Meatballs" } },
+      comment: "yum",
       rating: 5,
     },
   });

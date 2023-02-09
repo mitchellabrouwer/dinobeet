@@ -48,6 +48,25 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         },
       },
     });
+    console.log("here");
+    debugger;
+    const averageAndCount = await prisma.review.groupBy({
+      by: ["recipeId"],
+      _count: {
+        id: true,
+      },
+      _avg: {
+        rating: true,
+      },
+      where: {
+        recipeId: req.body.recipeId,
+      },
+    });
+
+    console.log("count", averageAndCount);
+
+    // total count
+    // average
 
     return res.json({ review: true });
   }

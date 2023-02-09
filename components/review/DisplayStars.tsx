@@ -35,11 +35,11 @@ export const DisplayStars: React.FC<DisplayStarsProps> = ({
         </div>
       ) : (
         <div className="flex">
-          <BsStar size="12" color="lightGray" />;
-          <BsStar size="12" color="lightGray" />;
-          <BsStar size="12" color="lightGray" />;
-          <BsStar size="12" color="lightGray" />;
-          <BsStar size="12" color="lightGray" />;
+          <BsStar size="12" color="lightGray" />
+          <BsStar size="12" color="lightGray" />
+          <BsStar size="12" color="lightGray" />
+          <BsStar size="12" color="lightGray" />
+          <BsStar size="12" color="lightGray" />
           <span className="text-xs text-gray-500">{`(${totalVotes})`}</span>
         </div>
       )}

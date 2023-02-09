@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /// <reference types="cypress" />
 
 const user = {
@@ -10,7 +11,7 @@ context("authentication", () => {
     cy.task("resetEmails");
   });
 
-  xit("can join with email", () => {
+  xit("manual email login", () => {
     cy.visit("/");
     cy.get("[data-cy=login-button]").click();
     cy.get("#input-email-for-email-provider").type(`${user.email} {enter}`);
