@@ -31,6 +31,11 @@ export default defineConfig({
       });
 
       on("task", {
+        log(message) {
+          console.log(message);
+          return null;
+        },
+
         resetEmails(email) {
           console.log("reset all emails");
           if (email) {
@@ -42,6 +47,8 @@ export default defineConfig({
         },
 
         getLastEmail(userEmail) {
+          // console.log(lastEmail);
+          console.log(lastEmail[userEmail]);
           // cy.task cannot return undefined
           // thus we return null as a fallback
           return lastEmail[userEmail] || null;

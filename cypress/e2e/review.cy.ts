@@ -20,10 +20,10 @@ describe("reviews", () => {
   it.only("can add a review and retrieve it", () => {
     cy.login("test@test.com");
     // cy.review(sampleReview);
-    // cy.request("POST", "/api/review", sampleReview).then((response) => {
-    //   expect(response.status).to.eq(200);
-    //   assert.isArray(response.body, "returns an Array");
-    // });
+    cy.request("POST", "/api/review", sampleReview).then((response) => {
+      expect(response.status).to.eq(200);
+      assert.isArray(response.body, "returns an Array");
+    });
 
     // cy.request("GET", "/api/review").then((response) => {
     //   expect(response.status).to.eq(200);

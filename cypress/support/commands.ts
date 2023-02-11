@@ -55,70 +55,29 @@ declare global {
 }
 
 function loginUser(email) {
-  // cy.visit("/");
-  // cy.get("[data-cy=login-button]").click();
-  // cy.get("#input-email-for-email-provider").type(`${email} {enter}`);
+  // user must be setup in database seed
 
-  // cy.request("GET", myUrl)
-  //   .its("body")
-  //   .then((res) => cy.request("GET", res).its("body"))
-  //   .then((subRes) => cy.request("GET", subRes).its("body"))
-  //   .then((subSubRes) => {
-  //     expect(subSubRes, myMessage).to.eq(myEvaluation);
-  //   });
-
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.request("/api/auth/csrf")
     .its("body")
     .then((body) => {
-      cy.setCookie("next-auth.csrf-token", body.csrfToken);
-      cy.setCookie("next-auth.callback-url", "http://localhost:3000");
+      cy.setCookie("next-auth.callback-url", "http://localhost:3000/dashboard");
+
       cy.request("POST", "/api/auth/signin/email", {
-        email: "test@test.com",
+        csrfToken: body.csrfToken,
+        email,
       });
-    })
-    .task("getLastEmail", "test@test.com")
+    });
+
+  cy.task("getLastEmail", email)
     .its("html")
     .then(cy.wrap)
     .invoke("match", /href="(?<link>[^"]*)"/) // href with named groups
     .its("groups.link")
     .then((link) => {
       cy.log(link);
-      // cy.getCookie("next-auth.csrf-token");
-      // cy.setCookie("next-auth.callback-url", "http://localhost:3000/dashboard");
-      // cy.getCookie("next-auth.session-token");
-      // cy.visit(link);
-
-      // cy.request("/api/auth/csrf").then((response) => {
-      //   cy.setCookie("next-auth.csrf-token", response.body.csrfToken);
-      // });
-      // cy.contains("[data-cy=dashboard-page-heading]", /dashboard/i);
+      cy.request(link);
+      cy.getCookie("next-auth.csrf-token");
     });
-
-  // .then((response) => {
-  //   cy.setCookie("next-auth.csrf-token", response.body.csrfToken);
-  //   cy.setCookie("next-auth.callback-url", "http://localhost:3000");
-  //   cy.request("POST", "/api/auth/signin/email", {
-  //     email: "test@test.com",
-  //   });
-  // });
-
-  // cy.task("getLastEmail", email)
-  //   .its("html")
-  //   .then(cy.wrap)
-  //   .invoke("match", /href="(?<link>[^"]*)"/) // href with named groups
-  //   .its("groups.link")
-  //   .then((link) => {
-  //     cy.getCookie("next-auth.csrf-token");
-  //     cy.setCookie("next-auth.callback-url", "http://localhost:3000/dashboard");
-  //     cy.getCookie("next-auth.session-token");
-  //     // cy.request(link.slice(21));
-  //     cy.visit(link);
-  //     // cy.request("/api/auth/csrf").then((response) => {
-  //     //   cy.setCookie("next-auth.csrf-token", response.body.csrfToken);
-  //     // });
-  //     // cy.contains("[data-cy=dashboard-page-heading]", /dashboard/i);
-  //   });
 }
 
 function createReview(options) {
@@ -130,29 +89,3 @@ function createReview(options) {
 
 Cypress.Commands.add("login", loginUser);
 Cypress.Commands.add("review", createReview);
-
-//   cy.request("/api/auth/csrf").then((response) => {
-//     cy.setCookie("next-auth.csrf-token", response.body.csrfToken);
-//     cy.setCookie("next-auth.callback-url", "http://localhost:3000");
-//     cy.request("POST", "/api/auth/signin/email", {
-//       email: "test@test.com",
-//     });
-//   });
-
-//   cy.task("getLastEmail", email)
-//     .its("html")
-//     .then(cy.wrap)
-//     .invoke("match", /href="(?<link>[^"]*)"/) // href with named groups
-//     .its("groups.link")
-//     .then((link) => {
-//       cy.getCookie("next-auth.csrf-token");
-//       cy.setCookie("next-auth.callback-url", "http://localhost:3000/dashboard");
-//       cy.getCookie("next-auth.session-token");
-//       // cy.request(link.slice(21));
-//       cy.visit(link);
-//       // cy.request("/api/auth/csrf").then((response) => {
-//       //   cy.setCookie("next-auth.csrf-token", response.body.csrfToken);
-//       // });
-//       // cy.contains("[data-cy=dashboard-page-heading]", /dashboard/i);
-//     });
-// }
