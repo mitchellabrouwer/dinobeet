@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --watch",
+    "test": "NODE_ENV=test next dev",
     "seed": "dotenv -e .env.development.local -- npx prisma db seed",
     "data-update": "cp -r /Users/mitch/Google\\ Drive/My\\ Drive/vegan_app_csv_data/. $(pwd)/data",
     "prebuild": "prisma generate",
@@ -49,7 +49,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
-    "@types/node": "^18.11.9",
+    "@types/node": "^18.13.0",
     "@types/react": "^18.0.25",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
@@ -74,6 +74,7 @@
     "prisma": "^4.6.1",
     "smtp-tester": "^2.0.1",
     "tailwindcss": "^3.2.4",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "typescript": "4.9.5"
   }
 }

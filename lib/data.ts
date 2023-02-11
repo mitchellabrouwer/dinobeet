@@ -94,3 +94,60 @@ export const getRecipes = async (
     nextCursor: recipes.length === take ? recipes[take - 1].id : null,
   };
 };
+
+export const getFavourites = async (prisma: PrismaClient, userId) => {
+  const favourites = await prisma.favourite.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      recipe: true,
+    },
+  });
+
+  return {
+    favourites,
+  };
+};
+
+export const getReviews = async (
+  prisma: PrismaClient,
+  recipeIds: string[] | string
+) => {
+  const ids = Array.isArray(recipeIds) ? [...recipeIds] : [recipeIds];
+
+  const data: Prisma.ReviewGroupByArgs = {
+    by: ["recipeId"],
+    _count: {
+      _all: true,
+    },
+    _avg: {
+      rating: true,
+    },
+    where: recipeIds ? { recipeId: { in: ids } } : undefined,
+  };
+
+  // @ts-ignore - known Prisma error https://github.com/prisma/prisma/issues/6494
+  const reviews = await prisma.review.groupBy(data);
+
+  let reviewDetails: { [x: string]: { count: number; average: number } };
+  if (reviews?.length) {
+    // @ts-ignore
+    reviewDetails = reviews.reduce<{
+      [x: string]: { count: number; average: number };
+    }>(
+      (accumulator, review) => ({
+        ...accumulator,
+        [review.recipeId]: {
+          // eslint-disable-next-line no-underscore-dangle
+          count: review._count._all,
+          // eslint-disable-next-line no-underscore-dangle
+          average: review._avg.rating,
+        },
+      }),
+      {}
+    );
+  }
+
+  return { ...reviewDetails };
+};

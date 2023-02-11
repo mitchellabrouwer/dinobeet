@@ -1,42 +1,48 @@
-import { Box, HStack, Text } from "@chakra-ui/layout";
-import { Spinner } from "@chakra-ui/spinner";
 import React from "react";
-import { useFavouritesDetailedQuery } from "../../../generated/graphql";
-import graphQLClient from "../../../utility/graphql-request";
-import { Card } from "../../recipe/Card";
+import { useQuery } from "react-query";
+import { GetFavourites } from "../../../types/types";
+import { Card } from "../../common/Card";
 
 interface FavouritesProps {}
 
-export const Favourites: React.FC<FavouritesProps> = ({}) => {
-  const { error, isSuccess, isLoading, data, refetch } =
-    useFavouritesDetailedQuery(graphQLClient);
+const fetchRecipes = async () => {
+  const res = await fetch("/api/favourites");
+  const data: GetFavourites = await res.json();
+  return data;
+};
+
+export const Favourites: React.FC<FavouritesProps> = () => {
+  const { error, isSuccess, isLoading, data, refetch } = useQuery(
+    "favourites",
+    fetchRecipes
+  );
 
   console.log(data);
 
   return (
     <>
-      {data?.favouriteDetailed && (
-        <HStack wrap="wrap" justifyContent="center" spacing="0">
-          {data.favouriteDetailed.map((fav) => {
-            if (fav.recipe) {
+      {data && (
+        <div className="flex">
+          {data.map((favourite) => {
+            if (favourite.recipe) {
               return (
                 <Card
-                  id={fav.recipe.id}
-                  key={fav.recipe.id}
-                  name={fav?.recipe?.name || ""}
+                  id={favourite.recipe.id}
+                  key={favourite.recipe.id}
+                  name={favourite?.recipe?.name || ""}
                   bg="red"
-                  occasion={fav.recipe.occasion}
-                  prep={fav.recipe.prep}
-                  cook={fav.recipe.cook}
-                  average_rating={fav.recipe.average_rating}
-                  total_votes={fav.recipe.total_votes}
-                  cost={fav.recipe.cost}
-                  difficulty={fav.recipe.difficulty}
+                  occasion={favourite.recipe.occasion}
+                  prep={favourite.recipe.prep}
+                  cook={favourite.recipe.cook}
+                  average_rating={favourite.recipe.averageRating}
+                  total_votes={favourite.recipe.total_votes}
+                  cost={favourite.recipe.cost}
+                  difficulty={favourite.recipe.difficulty}
                 />
               );
             }
           })}
-        </HStack>
+        </div>
       )}
       {isSuccess &&
         !isLoading &&

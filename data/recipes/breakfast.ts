@@ -2,6 +2,7 @@ import { Prisma } from "@prisma/client";
 
 export const breakfast: Prisma.RecipeCreateInput[] = [
   {
+    id: "clds6195h0002a53058l0l52z",
     name: "Banana Pillows",
     occasion: "dinner",
     tags: ["nutritious"],

@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
+import { getFavourites } from "../../lib/data";
 import prisma from "../../lib/prisma";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -16,15 +17,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "GET") {
-    const favourites = await prisma.favourite.findMany({
-      where: {
-        userId: user.id,
-      },
-    });
-
-    return res.send({
-      favourites,
-    });
+    const favourites = getFavourites(prisma, user.id);
+    return res.send({ favourites });
   }
 
   if (req.method === "POST") {

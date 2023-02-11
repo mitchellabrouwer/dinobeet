@@ -61,7 +61,7 @@ export const Navigation: FC<NavigationProps> = ({ user }) => (
                 </Menu.Item>
               ))}
               <Menu.Item>
-                <Login user={user} />
+                <Login user={user} dataCy="login-button" />
               </Menu.Item>
             </Menu.Items>
           </Transition>
@@ -86,7 +86,7 @@ export const Navigation: FC<NavigationProps> = ({ user }) => (
         ))}
       </div>
 
-      <Login user={user} />
+      <Login user={user} dataCy="login-button" />
     </nav>
   </>
 );

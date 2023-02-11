@@ -16,13 +16,22 @@ function time(milliseconds) {
 }
 
 async function main() {
+  // clean database
+  await prisma.user.deleteMany({});
+  await prisma.verificationToken.deleteMany({});
+  await prisma.account.deleteMany({});
+  await prisma.session.deleteMany({});
+
   await prisma.recipe.deleteMany({});
+  await prisma.methodGroup.deleteMany({});
+  await prisma.ingredientGroup.deleteMany({});
+  await prisma.ingredientMeasured.deleteMany({});
   await prisma.ingredient.deleteMany({});
+
   await prisma.favourite.deleteMany({});
   await prisma.review.deleteMany({});
-  // await prisma.ingredientGroup.deleteMany({});
-  // await prisma.tag.createMany(tags);
 
+  // create test user
   await prisma.user.upsert({
     create: {
       email: "test@test.com",
@@ -35,6 +44,7 @@ async function main() {
     },
   });
 
+  // seed from data folder
   await prisma.ingredient.createMany({
     data: ingredients,
     skipDuplicates: true,
@@ -55,6 +65,7 @@ async function main() {
   // wait for db to populate
   await time(SLOW_LOAD);
 
+  // create for testing
   await prisma.favourite.create({
     data: {
       user: { connect: { email: "test@test.com" } },

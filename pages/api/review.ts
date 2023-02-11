@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
+import { getReviews } from "../../lib/data";
 import prisma from "../../lib/prisma";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -16,11 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "GET") {
-    const reviews = await prisma.review.findMany({
-      where: {
-        recipeId: req.body.recipeId,
-      },
-    });
+    const reviews = await getReviews(prisma, req.body.recipeId);
 
     return res.send({
       reviews,
@@ -28,6 +25,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "POST") {
+    console.log("user.id", user.id);
+
+    console.log("req.body.recipe id", req.body.recipeId);
+
+    console.log("req.body.rating", req.body.rating);
+    console.log("req.body.comment", req.body.comment);
+
     await prisma.review.upsert({
       create: {
         recipe: { connect: { id: req.body.recipeId } },
@@ -48,25 +52,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         },
       },
     });
-    console.log("here");
-    debugger;
-    const averageAndCount = await prisma.review.groupBy({
-      by: ["recipeId"],
-      _count: {
-        id: true,
-      },
-      _avg: {
-        rating: true,
-      },
-      where: {
-        recipeId: req.body.recipeId,
-      },
-    });
-
-    console.log("count", averageAndCount);
-
-    // total count
-    // average
 
     return res.json({ review: true });
   }
