@@ -14,7 +14,8 @@
     "jsx": "preserve",
     "strict": false,
     "types": ["cypress", "node"],
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": "."
   },
   "include": [
     "next-env.d.ts",

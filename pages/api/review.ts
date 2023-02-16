@@ -25,13 +25,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "POST") {
+    console.log(req.body.recipeId);
+
     console.log("user.id", user.id);
-
-    console.log("req.body.recipe id", req.body.recipeId);
-
-    console.log("req.body.rating", req.body.rating);
-    console.log("req.body.comment", req.body.comment);
-
     await prisma.review.upsert({
       create: {
         recipe: { connect: { id: req.body.recipeId } },
@@ -54,6 +50,32 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     return res.json({ review: true });
+  }
+
+  if (req.method === "DELETE") {
+    const reviewExists = await prisma.review.findUnique({
+      where: {
+        recipeId_userId: {
+          recipeId: req.body.recipeId,
+          userId: user.id,
+        },
+      },
+    });
+
+    if (reviewExists) {
+      await prisma.review.delete({
+        where: {
+          recipeId_userId: {
+            recipeId: req.body.recipeId,
+            userId: user.id,
+          },
+        },
+      });
+
+      return res.send({ review: true });
+    }
+
+    return res.send({ review: false });
   }
 
   return res.end();

@@ -50,6 +50,7 @@ declare global {
     interface Chainable {
       review(options: ReviewInput): Chainable<void>;
       login(email: string): Chainable<void>;
+      logout(): Chainable<void>;
     }
   }
 }
@@ -60,23 +61,54 @@ function loginUser(email) {
   cy.request("/api/auth/csrf")
     .its("body")
     .then((body) => {
-      cy.setCookie("next-auth.callback-url", "http://localhost:3000/dashboard");
-
-      cy.request("POST", "/api/auth/signin/email", {
-        csrfToken: body.csrfToken,
-        email,
-      });
+      cy.setCookie("next-auth.callback-url", "/dashboard")
+        .request("POST", "/api/auth/signin/email", {
+          csrfToken: body.csrfToken,
+          email,
+        })
+        .task("getLastEmail", email)
+        .its("html")
+        .then(cy.wrap) // change around?
+        .invoke("match", /href="(?<link>[^"]*)"/) // href with named groups
+        .its("groups.link")
+        .then((link) => {
+          cy.log(link);
+          cy.request(link);
+          cy.getCookie("next-auth.csrf-token");
+        });
     });
 
-  cy.task("getLastEmail", email)
-    .its("html")
-    .then(cy.wrap)
-    .invoke("match", /href="(?<link>[^"]*)"/) // href with named groups
-    .its("groups.link")
-    .then((link) => {
-      cy.log(link);
-      cy.request(link);
-      cy.getCookie("next-auth.csrf-token");
+  // cy.getCookie("next-auth.csrf-token").should("exist");
+
+  // cy.getCookie("next-auth.csrf-token");
+
+  // cy.task("getLastEmail", email)
+  //   .its("html")
+  //   .then(cy.wrap)
+  //   .invoke("match", /href="(?<link>[^"]*)"/) // href with named groups
+  //   .its("groups.link")
+  //   .then((link) => {
+  //     cy.log(link);
+  //     cy.request(link);
+  //     cy.getCookie("next-auth.csrf-token");
+  //   });
+}
+
+function logoutUser() {
+  cy.request("/api/auth/csrf")
+    .its("body")
+    .then((body) => {
+      cy.setCookie(
+        "next-auth.callback-url",
+        "http://localhost:3000/api/auth/session"
+      );
+
+      cy.request("POST", "/api/auth/signout", {
+        csrfToken: body.csrfToken,
+      }).then((response) => {
+        expect(response.status).to.eq(200);
+        cy.getCookie("next-auth.csrf-token").should("not.exist");
+      });
     });
 }
 
@@ -88,4 +120,5 @@ function createReview(options) {
 }
 
 Cypress.Commands.add("login", loginUser);
+Cypress.Commands.add("logout", logoutUser);
 Cypress.Commands.add("review", createReview);
