@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+/// <reference types="cypress" />
 
 // import { faker } from "@faker-js/faker";
 import { recipes, user, userTwo } from "../../../data/test";

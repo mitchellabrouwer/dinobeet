@@ -13,7 +13,7 @@ export const HeartButton: React.FC<HeartButtonProps> = ({ recipeId }) => {
 
   useEffect(() => {
     const getFavourite = async () => {
-      const res = await fetch(`/api/favourites`);
+      const res = await fetch(`/api/favourite`);
       const data = await res.json();
 
       setFavourites(data.favourites.map((favourite) => favourite.recipeId));
@@ -25,7 +25,7 @@ export const HeartButton: React.FC<HeartButtonProps> = ({ recipeId }) => {
   const onHeartClick = async (event) => {
     event.stopPropagation();
 
-    const res = await fetch("/api/favourites", {
+    const res = await fetch("/api/favourite", {
       body: JSON.stringify({
         recipeId,
       }),

@@ -1,7 +1,8 @@
 import Head from "next/head";
-import { PrivatePage } from "../components/common/PrivatePage";
+import { PrivatePage } from "../../components/common/PrivatePage";
+import { Favourites } from "../../components/user/favourites/Favourites";
 
-export default function Favourites() {
+export default function FavouritesPage() {
   return (
     <PrivatePage>
       <Head>

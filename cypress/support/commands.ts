@@ -57,13 +57,9 @@ declare global {
 }
 
 function loginUser(email) {
-  // user must be setup in database seed
-  // debugger;
-
   cy.request("/api/auth/csrf")
     .its("body")
     .then((body) => {
-      // cy.setCookie("next-auth.callback-url", "/dashboard")
       cy.request("POST", "/api/auth/signin/email", {
         csrfToken: body.csrfToken,
         email,
@@ -71,25 +67,9 @@ function loginUser(email) {
     });
 
   cy.task("getLastEmail", email).then((link: string) => {
-    cy.log(link);
     cy.request(link);
     cy.getCookie("next-auth.csrf-token");
   });
-
-  // cy.getCookie("next-auth.csrf-token").should("exist");
-
-  // cy.getCookie("next-auth.csrf-token");
-
-  // cy.task("getLastEmail", email)
-  //   .its("html")
-  //   .then(cy.wrap)
-  //   .invoke("match", /href="(?<link>[^"]*)"/) // href with named groups
-  //   .its("groups.link")
-  //   .then((link) => {
-  //     cy.log(link);
-  //     cy.request(link);
-  //     cy.getCookie("next-auth.csrf-token");
-  //   });
 }
 
 function getSession() {

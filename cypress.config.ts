@@ -6,6 +6,8 @@ const { execSync } = require("child_process");
 const ms = require("smtp-tester");
 
 const printExec = (error, stdout, stderr) => {
+  console.log("ran printExec");
+
   if (error) return console.error(`error: ${error.message}`);
   if (stderr) return console.error(`stderr: ${stderr}`);
   return console.log(`stdout:\n${stdout}`);
@@ -16,6 +18,7 @@ export default defineConfig({
     baseUrl: "http://localhost:3000",
     chromeWebSecurity: false,
     experimentalSessionAndOrigin: true,
+    experimentalInteractiveRunEvents: true,
     // eslint-disable-next-line no-unused-vars
     setupNodeEvents(on, config) {
       // adapted from https://github.com/bahmutov/cypress-email-example
@@ -41,7 +44,7 @@ export default defineConfig({
         },
 
         resetEmails(email) {
-          console.log("reset all emails");
+          // console.log("reset all emails");
           if (email) {
             delete lastEmail[email];
           } else {

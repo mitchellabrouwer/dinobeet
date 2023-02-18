@@ -67,13 +67,15 @@ export const Card: React.FC<any> = ({
 
         <div className="spacing-0 py-2 text-center">
           <span className="text-xs uppercase text-gray-500">
-            {occasion?.toString().replace(/_/g, " ").replace(/,/g, " | ")}
+            {occasion
+              ? occasion?.toString().replace(/_/g, " ").replace(/,/g, " | ")
+              : ""}
           </span>
           <Heading as="h2" styles="py-1">
             {name}
           </Heading>
           <span className="text-xs italic">
-            {recipeTags.replace(/_/g, " ")}
+            {recipeTags ? recipeTags.replace(/_/g, " ") : ""}
           </span>
           <div className="flex w-full justify-between">
             <span className="flex-[50%] pl-2 text-left text-sm italic md:text-xs">

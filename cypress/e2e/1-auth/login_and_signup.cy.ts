@@ -68,3 +68,5 @@ context("authentication", () => {
 
   xit("can't pay twice", () => {});
 });
+
+export {};

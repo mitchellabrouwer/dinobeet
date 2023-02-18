@@ -1,5 +1,47 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 
+export const getReviews = async (
+  prisma: PrismaClient,
+  recipeIds: string[] | string
+) => {
+  const ids = Array.isArray(recipeIds) ? [...recipeIds] : [recipeIds];
+
+  const data: Prisma.ReviewGroupByArgs = {
+    by: ["recipeId"],
+    _count: {
+      _all: true,
+    },
+    _avg: {
+      rating: true,
+    },
+    where: recipeIds ? { recipeId: { in: ids } } : undefined,
+  };
+
+  // @ts-ignore - known Prisma error https://github.com/prisma/prisma/issues/6494
+  const reviews = await prisma.review.groupBy(data);
+
+  let reviewDetails: { [x: string]: { count: number; average: number } };
+  if (reviews?.length) {
+    // @ts-ignore
+    reviewDetails = reviews.reduce<{
+      [x: string]: { count: number; average: number };
+    }>(
+      (accumulator, review) => ({
+        ...accumulator,
+        [review.recipeId]: {
+          // eslint-disable-next-line no-underscore-dangle
+          count: review._count._all,
+          // eslint-disable-next-line no-underscore-dangle
+          average: review._avg.rating,
+        },
+      }),
+      {}
+    );
+  }
+
+  return { ...reviewDetails };
+};
+
 export const getRecipes = async (
   prisma: PrismaClient,
   cursor,
@@ -104,50 +146,9 @@ export const getFavourites = async (prisma: PrismaClient, userId) => {
       recipe: true,
     },
   });
+  const favouriteIds = favourites.map((favourite) => favourite.recipeId);
 
-  return {
-    favourites,
-  };
-};
+  const reviewDetails = await getReviews(prisma, favouriteIds);
 
-export const getReviews = async (
-  prisma: PrismaClient,
-  recipeIds: string[] | string
-) => {
-  const ids = Array.isArray(recipeIds) ? [...recipeIds] : [recipeIds];
-
-  const data: Prisma.ReviewGroupByArgs = {
-    by: ["recipeId"],
-    _count: {
-      _all: true,
-    },
-    _avg: {
-      rating: true,
-    },
-    where: recipeIds ? { recipeId: { in: ids } } : undefined,
-  };
-
-  // @ts-ignore - known Prisma error https://github.com/prisma/prisma/issues/6494
-  const reviews = await prisma.review.groupBy(data);
-
-  let reviewDetails: { [x: string]: { count: number; average: number } };
-  if (reviews?.length) {
-    // @ts-ignore
-    reviewDetails = reviews.reduce<{
-      [x: string]: { count: number; average: number };
-    }>(
-      (accumulator, review) => ({
-        ...accumulator,
-        [review.recipeId]: {
-          // eslint-disable-next-line no-underscore-dangle
-          count: review._count._all,
-          // eslint-disable-next-line no-underscore-dangle
-          average: review._avg.rating,
-        },
-      }),
-      {}
-    );
-  }
-
-  return { ...reviewDetails };
+  return { favourites, reviews: reviewDetails };
 };

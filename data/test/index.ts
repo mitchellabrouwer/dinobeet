@@ -263,10 +263,10 @@ const favourites: Prisma.FavouriteCreateInput[] = [
     recipe: { connect: { id: recipes[0].id } },
     user: { connect: { email: user.email } },
   },
-  {
-    recipe: { connect: { id: recipes[1].id } },
-    user: { connect: { email: user.email } },
-  },
+  // {
+  //   recipe: { connect: { id: recipes[1].id } },
+  //   user: { connect: { email: user.email } },
+  // },
 ];
 
 export { user, userTwo, recipes, reviews, favourites };

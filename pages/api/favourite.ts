@@ -17,18 +17,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "GET") {
-    const favourites = getFavourites(prisma, user.id);
-    return res.send({ favourites });
+    const favourites = await getFavourites(prisma, user.id);
+
+    return res.send({ ...favourites });
   }
 
   if (req.method === "POST") {
-    const favourite = await prisma.favourite.findUnique({
+    const isFavourite = await prisma.favourite.findUnique({
       where: {
         recipeId_userId: { recipeId: req.body.recipeId, userId: user.id },
       },
     });
 
-    if (favourite) {
+    if (isFavourite) {
       await prisma.favourite.delete({
         where: {
           recipeId_userId: { recipeId: req.body.recipeId, userId: user.id },
