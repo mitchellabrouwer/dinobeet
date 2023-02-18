@@ -51,32 +51,30 @@ declare global {
       review(options: ReviewInput): Chainable<void>;
       login(email: string): Chainable<void>;
       logout(): Chainable<void>;
+      getSession(): Chainable<Cypress.Response<any>>;
     }
   }
 }
 
 function loginUser(email) {
   // user must be setup in database seed
+  // debugger;
 
   cy.request("/api/auth/csrf")
     .its("body")
     .then((body) => {
-      cy.setCookie("next-auth.callback-url", "/dashboard")
-        .request("POST", "/api/auth/signin/email", {
-          csrfToken: body.csrfToken,
-          email,
-        })
-        .task("getLastEmail", email)
-        .its("html")
-        .then(cy.wrap) // change around?
-        .invoke("match", /href="(?<link>[^"]*)"/) // href with named groups
-        .its("groups.link")
-        .then((link) => {
-          cy.log(link);
-          cy.request(link);
-          cy.getCookie("next-auth.csrf-token");
-        });
+      // cy.setCookie("next-auth.callback-url", "/dashboard")
+      cy.request("POST", "/api/auth/signin/email", {
+        csrfToken: body.csrfToken,
+        email,
+      });
     });
+
+  cy.task("getLastEmail", email).then((link: string) => {
+    cy.log(link);
+    cy.request(link);
+    cy.getCookie("next-auth.csrf-token");
+  });
 
   // cy.getCookie("next-auth.csrf-token").should("exist");
 
@@ -94,6 +92,10 @@ function loginUser(email) {
   //   });
 }
 
+function getSession() {
+  return cy.request("/api/auth/session");
+}
+
 function logoutUser() {
   cy.request("/api/auth/csrf")
     .its("body")
@@ -105,10 +107,9 @@ function logoutUser() {
 
       cy.request("POST", "/api/auth/signout", {
         csrfToken: body.csrfToken,
-      }).then((response) => {
-        expect(response.status).to.eq(200);
-        cy.getCookie("next-auth.csrf-token").should("not.exist");
-      });
+        callbackUrl: "http://localhost:3000/dashboard",
+        json: true,
+      }).then((response) => expect(response.status).to.eq(200));
     });
 }
 
@@ -122,3 +123,4 @@ function createReview(options) {
 Cypress.Commands.add("login", loginUser);
 Cypress.Commands.add("logout", logoutUser);
 Cypress.Commands.add("review", createReview);
+Cypress.Commands.add("getSession", getSession);

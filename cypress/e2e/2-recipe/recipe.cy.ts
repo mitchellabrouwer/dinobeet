@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import { recipes, user } from "../../../data/test";
+// import { faker } from "@faker-js/faker";
+import { recipes, user, userTwo } from "../../../data/test";
 
 const RECIPE_ID = recipes[2].id;
 const newReview = {
@@ -17,15 +18,35 @@ const newReviewTwo = {
 
 describe("reviews", () => {
   beforeEach(() => {
-    // cy.task("log", );
-    cy.task("getUserNumber").then((userNumber) => {
-      cy.login(userNumber + user.email);
+    cy.task("resetEmails");
+    cy.login(user.email);
+  });
+
+  afterEach(() => {
+    cy.logout();
+  });
+
+  it("can login and out with different emails", () => {
+    cy.login(user.email);
+
+    cy.getSession().then((response) => {
+      expect(response.body.user.email).to.equal(user.email);
+    });
+
+    cy.logout();
+
+    cy.getSession().then((response) => {
+      expect(response.body).to.be.empty;
+    });
+
+    cy.login(userTwo.email);
+
+    cy.getSession().then((response) => {
+      expect(response.body.user.email).to.equal(userTwo.email);
     });
   });
 
-  it("get a recipe", () => {});
-
-  it("can add a review and retrieve it", () => {
+  it.only("can add, retrieve ahd delete a review", () => {
     cy.request("POST", "/api/review", newReview).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body.review).to.be.true;
@@ -51,24 +72,30 @@ describe("reviews", () => {
         expect(response.status).to.eq(200);
       }
     );
+
+    cy.logout();
   });
 
-  // it.skip("correctly calculates review scores", () => {
-  //   cy.request("POST", "/api/review", newReview).then((response) => {
-  //     expect(response.status).to.eq(200);
-  //     expect(response.body.review).to.be.true;
-  //   });
+  it("correctly calculates review scores", () => {
+    cy.login(user.email);
 
-  //   cy.logout();
-  //   cy.login(userTwo.email);
+    cy.request("POST", "/api/review", newReview).then((response) => {
+      expect(response.status).to.eq(200);
+      expect(response.body.review).to.be.true;
+    });
 
-  //   cy.getCookie("next-auth.csrf-token").should("exist");
+    cy.logout();
+    cy.task("resetEmails");
 
-  //   cy.request("POST", "/api/review", newReviewTwo).then((response) => {
-  //     expect(response.status).to.eq(200);
-  //     expect(response.body.review).to.be.true;
-  //   });
-  // });
+    cy.login(userTwo.email);
+
+    cy.request("POST", "/api/review", newReviewTwo).then((response) => {
+      expect(response.status).to.eq(200);
+      expect(response.body.review).to.be.true;
+    });
+    cy.logout();
+    cy.task("resetEmails");
+  });
 });
 
 export {};

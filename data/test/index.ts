@@ -11,9 +11,9 @@ const user: Prisma.UserCreateInput = {
 
 const userTwo: Prisma.UserCreateInput = {
   id: "5dd0207e-79f4-4382-bdf0-6f2262148125",
-  email: "testTwo@test.com",
+  email: "testtwo@test.com",
   paid: true,
-  name: "testTwo",
+  name: "testtwo",
 };
 
 const recipes: Prisma.RecipeCreateInput[] = [
