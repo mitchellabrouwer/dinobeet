@@ -19,7 +19,7 @@ export const PrivateNavigation: FC<PrivateNavigationProps> = ({ user }) => {
 
   const handleRouterPushToSettings = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    router.push(`/private/${user?.id}/settings`);
+    router.push(`/user/${user?.id}/settings`);
   };
   return (
     <div className="fixed top-0 left-1/2 z-10 flex w-full max-w-7xl translate-x-[-50%] items-center justify-between">
