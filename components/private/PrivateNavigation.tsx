@@ -52,7 +52,7 @@ export const PrivateNavigation: FC<PrivateNavigationProps> = ({ user }) => {
                     {({ active }) => (
                       <Link
                         key={item}
-                        href={`${router.pathname}/${item.toLowerCase()}`}
+                        href={`/dashboard/${item.toLowerCase()}`}
                         className={`w-full ${
                           active && "bg-gray-200"
                         } font-medium text-gray-500 hover:text-gray-900`}
@@ -80,7 +80,7 @@ export const PrivateNavigation: FC<PrivateNavigationProps> = ({ user }) => {
           {links.map((item) => (
             <Link
               key={item}
-              href={`${router.pathname}/${item.toLowerCase()}`}
+              href={`/dashboard/${item.toLowerCase()}`}
               className="font-medium text-gray-500 hover:text-gray-900"
             >
               {item}
