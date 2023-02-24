@@ -1,5 +1,5 @@
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
-import useToggleDark from "../../lib/hook/useToggleDark";
+import useToggleDark from "../../lib/hooks/useToggleDark";
 
 export default function ToggleDark() {
   const [theme, setTheme] = useToggleDark();
