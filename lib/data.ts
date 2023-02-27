@@ -137,6 +137,18 @@ export const getRecipes = async (
   };
 };
 
+export const getRecipe = async (prisma: PrismaClient, id: string) => {
+  const recipe = await prisma.recipe.findUnique({
+    where: { id },
+    include: {
+      ingredients: { include: { list: true } },
+      method: true,
+    },
+  });
+
+  return recipe;
+};
+
 export const getFavourites = async (prisma: PrismaClient, userId) => {
   const favourites = await prisma.favourite.findMany({
     where: {

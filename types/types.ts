@@ -1,8 +1,16 @@
 import { Prisma } from "@prisma/client";
-import { getFavourites, getRecipes } from "../lib/data";
+import { getFavourites } from "../lib/data";
 
 // type UserChildren = Prisma.PromiseReturnType<typeof getChild>;
-type GetRecipes = Prisma.PromiseReturnType<typeof getRecipes>;
+type RecipeExpanded = Prisma.RecipeGetPayload<{
+  include: { ingredients: true; method: true };
+}>;
+// type Reviews = Prisma.PromiseReturnType<typeof getReviews>;
+type GetRecipes = {
+  recipe: RecipeExpanded;
+  reviews: { [key: string]: { count: number; average: number } };
+};
+
 type GetFavourites = Prisma.PromiseReturnType<typeof getFavourites>;
 
 interface SelectOption {

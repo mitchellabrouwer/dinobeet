@@ -47,7 +47,7 @@ describe("reviews", () => {
     });
   });
 
-  it.only("can add, retrieve ahd delete a review", () => {
+  it("can add, retrieve ahd delete a review", () => {
     cy.request("POST", "/api/review", newReview).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body.review).to.be.true;
@@ -96,6 +96,19 @@ describe("reviews", () => {
     });
     cy.logout();
     cy.task("resetEmails");
+  });
+
+  it.only("get a single recipe", () => {
+    cy.request(`/api/recipe?id=${RECIPE_ID}`).then((response) => {
+      expect(response.status).to.eq(200);
+      expect(response.body.name).to.be.a("string");
+      expect(response.body.cook).to.be.a("number");
+      expect(response.body.createdAt).to.be.a("string");
+    });
+  });
+
+  it("renders recipe correctly", () => {
+    cy.visit(`/dashboard/recipes/${RECIPE_ID}`);
   });
 });
 
