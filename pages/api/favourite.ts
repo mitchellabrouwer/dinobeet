@@ -5,6 +5,7 @@ import prisma from "../../lib/prisma";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
+  console.log("user", session);
 
   if (!session) {
     return res.status(401).json({ message: "Not logged in" });

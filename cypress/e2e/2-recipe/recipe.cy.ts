@@ -98,7 +98,7 @@ describe("reviews", () => {
     cy.task("resetEmails");
   });
 
-  it.only("get a single recipe", () => {
+  it("get a single recipe", () => {
     cy.request(`/api/recipe?id=${RECIPE_ID}`).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body.name).to.be.a("string");
@@ -107,8 +107,10 @@ describe("reviews", () => {
     });
   });
 
-  it("renders recipe correctly", () => {
+  it.only("renders recipe correctly", () => {
     cy.visit(`/dashboard/recipes/${RECIPE_ID}`);
+
+    cy.get("h2").should("have.text", recipes[2].name);
   });
 });
 

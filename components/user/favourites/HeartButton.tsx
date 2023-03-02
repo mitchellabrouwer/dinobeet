@@ -16,7 +16,13 @@ export const HeartButton: React.FC<HeartButtonProps> = ({ recipeId }) => {
       const res = await fetch(`/api/favourite`);
       const data = await res.json();
 
-      setFavourites(data.favourites.map((favourite) => favourite.recipeId));
+      console.log(data);
+
+      if (data && data?.favourites.length > 0) {
+        setFavourites(data?.favourites.map((favourite) => favourite.recipeId));
+      } else {
+        setFavourites([]);
+      }
     };
 
     getFavourite();
@@ -37,11 +43,11 @@ export const HeartButton: React.FC<HeartButtonProps> = ({ recipeId }) => {
 
     const data = await res.json();
 
-    setFavourites(data.favourites.map((favourite) => favourite.recipeId));
-    console.log("data", data);
-    console.log("click");
-    // await mutateAsync({ recipeId });
-    // refetch();
+    if (data?.favourites.length > 0) {
+      setFavourites(data.favourites.map((favourite) => favourite.recipeId));
+    } else {
+      setFavourites([]);
+    }
   };
 
   return (

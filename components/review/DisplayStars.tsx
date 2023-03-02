@@ -18,12 +18,12 @@ export const DisplayStars: React.FC<DisplayStarsProps> = ({
   const stars = [...Array(STARS)].map((_, index) => {
     const count = index + 1;
     if (count <= floor) {
-      return <BsStarFill size="12" key={index} />;
+      return <BsStarFill size="18" key={index} />;
     }
     if (decimal >= 0.5 && count <= ceil) {
-      return <BsStarHalf size="12" key={index} />;
+      return <BsStarHalf size="18" key={index} />;
     }
-    return <BsStar size="12" key={index} />;
+    return <BsStar size="18" key={index} />;
   });
 
   return (
@@ -31,16 +31,16 @@ export const DisplayStars: React.FC<DisplayStarsProps> = ({
       {rating ? (
         <div className="flex">
           {stars}
-          <span className="text-xs">{`(${totalVotes})`}</span>
+          <span className="p-1 text-xs">{`(${totalVotes})`}</span>
         </div>
       ) : (
         <div className="flex">
-          <BsStar size="12" color="lightGray" />
-          <BsStar size="12" color="lightGray" />
-          <BsStar size="12" color="lightGray" />
-          <BsStar size="12" color="lightGray" />
-          <BsStar size="12" color="lightGray" />
-          <span className="text-xs text-gray-500">{`(${totalVotes})`}</span>
+          <BsStar size="18" color="lightGray" />
+          <BsStar size="18" color="lightGray" />
+          <BsStar size="18" color="lightGray" />
+          <BsStar size="18" color="lightGray" />
+          <BsStar size="18" color="lightGray" />
+          <span className="p-1 text-xs">{`(${totalVotes})`}</span>
         </div>
       )}
     </div>
