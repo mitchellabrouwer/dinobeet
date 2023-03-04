@@ -1,11 +1,12 @@
 import Image from "next/image";
 import router from "next/router";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { AiFillClockCircle } from "react-icons/ai";
 import { BsFillPeopleFill, BsHammer } from "react-icons/bs";
 import { ImCoinDollar, ImPriceTag, ImSpoonKnife } from "react-icons/im";
 import { RiKnifeFill } from "react-icons/ri";
 import { useQuery } from "react-query";
+import useDisclosure from "../../lib/hooks/useDisclosure";
 import { GetRecipes } from "../../types/types";
 import { Button } from "../common/Button";
 import { Heading } from "../common/Heading";
@@ -37,7 +38,7 @@ const nutritionExample = {
 };
 
 export const Recipe: FC<RecipeProps> = ({ id }) => {
-  const [showModal, setShowModal] = useState(false);
+  const { ref, isOpen, setIsOpen } = useDisclosure(false);
 
   const { isLoading, error, data } = useQuery<GetRecipes, Error>(
     ["singleRecipe", { id: router.query.recipe }],
@@ -152,17 +153,14 @@ export const Recipe: FC<RecipeProps> = ({ id }) => {
         </div>
       </div>
       <div className="flex w-full justify-center">
-        <Button
-          onClick={() => {
-            setShowModal(true);
-          }}
-        >
-          Cooked It!
-        </Button>
+        <Button onClick={() => setIsOpen(true)}>Cooked It!</Button>
       </div>
 
-      {showModal && (
+      {isOpen && (
         <PartyModal
+          ref={ref}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
           title="Congratulations"
           recipeName={name || "something yum"}
           recipeId={id}
