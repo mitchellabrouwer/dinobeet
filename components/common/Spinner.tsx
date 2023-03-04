@@ -8,7 +8,7 @@ const sizes = {
 };
 
 interface SpinnerProps {
-  size;
+  size: keyof typeof sizes;
 }
 
 export const Spinner: FC<SpinnerProps> = ({ size }) => {

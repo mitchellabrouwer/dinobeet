@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import Confetti from "react-confetti";
 import useWindowSize from "../../lib/hooks/useWindowSize";
+import { ReviewForm } from "../review/ReviewForm";
 import { Button } from "./Button";
 import { Heading } from "./Heading";
 
@@ -32,7 +33,7 @@ const PartyModal: React.FC<ModalProps> = forwardRef(
           <div
             id="popup-modal"
             tabIndex={-1}
-            className="h-modal fixed top-0 left-0 right-0 z-50 overflow-y-auto overflow-x-hidden p-4 pb-0 md:inset-0 md:h-full"
+            className="h-modal fixed top-0 left-0 right-0 z-50 overflow-x-hidden overflow-y-scroll p-4 pb-0 md:inset-0 md:h-full"
           >
             <div
               className="relative h-full w-full max-w-md md:h-auto"
@@ -83,9 +84,16 @@ const PartyModal: React.FC<ModalProps> = forwardRef(
 
                   <Heading as="h2">{recipeName}</Heading>
                   <div className="md:flex md:space-x-2">
-                    <Button onClick={() => setShowReview(!showReview)}>
+                    <Button
+                      onClick={() => {
+                        console.log("clicked");
+
+                        setShowReview(!showReview);
+                      }}
+                    >
                       ✏️ Review?
                     </Button>
+                    {showReview && <ReviewForm recipeId={recipeId} />}
                     <Button onClick={() => router.push("/dashboard/browse")}>
                       😛 Eat more
                     </Button>
@@ -95,7 +103,6 @@ const PartyModal: React.FC<ModalProps> = forwardRef(
             </div>
           </div>
         )}
-        {/* {showReview && <ReviewForm recipeId={recipeId} />} */}
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
-import { getReviews } from "../../lib/data";
+import { getReview } from "../../lib/data";
 import prisma from "../../lib/prisma";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -17,11 +17,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "GET") {
-    const reviews = await getReviews(prisma, req.body.recipeId);
-
-    return res.send({
-      reviews,
-    });
+    // const reviews = await getReviews(prisma, req.body.recipeId);
+    const review = await getReview(prisma, req.query.id, user.id);
+    return res.send({ review });
   }
 
   if (req.method === "POST") {

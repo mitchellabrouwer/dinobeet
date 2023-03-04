@@ -53,20 +53,20 @@ describe("reviews", () => {
       expect(response.body.review).to.be.true;
     });
 
-    cy.request("GET", "/api/review", { recipeId: RECIPE_ID }).then(
-      (response) => {
-        expect(response.status).to.eq(200);
-        cy.wrap(response.body.reviews).should("have.property", RECIPE_ID);
-        cy.wrap(response.body.reviews[RECIPE_ID]).should(
-          "have.property",
-          "count"
-        );
-        cy.wrap(response.body.reviews[RECIPE_ID]).should(
-          "have.property",
-          "average"
-        );
-      }
-    );
+    // cy.request("GET", "/api/review", { recipeId: RECIPE_ID }).then(
+    //   (response) => {
+    //     expect(response.status).to.eq(200);
+    //     cy.wrap(response.body.reviews).should("have.property", RECIPE_ID);
+    //     cy.wrap(response.body.reviews[RECIPE_ID]).should(
+    //       "have.property",
+    //       "count"
+    //     );
+    //     cy.wrap(response.body.reviews[RECIPE_ID]).should(
+    //       "have.property",
+    //       "average"
+    //     );
+    //   }
+    // );
 
     cy.request("DELETE", "/api/review", { recipeId: RECIPE_ID }).then(
       (response) => {

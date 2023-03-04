@@ -1,5 +1,21 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 
+export const getReview = async (
+  prisma: PrismaClient,
+  recipeId: string,
+  userId: string
+) => {
+  const review = await prisma.review.findUnique({
+    where: {
+      recipeId_userId: {
+        recipeId,
+        userId,
+      },
+    },
+  });
+  return review;
+};
+
 export const getReviews = async (
   prisma: PrismaClient,
   recipeIds: string[] | string

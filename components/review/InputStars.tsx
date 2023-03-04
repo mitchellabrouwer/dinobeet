@@ -43,7 +43,7 @@ export const InputStars: React.FC<InputStarsProps> = ({
 
   return (
     <>
-      <Heading as="h5">Star rating</Heading>
+      <Heading as="h3">Star rating</Heading>
       <div className="flex">
         {stars.map((_, i) => (
           <button
