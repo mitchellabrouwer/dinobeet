@@ -1,12 +1,12 @@
-import { Box, Button, Spinner } from "@chakra-ui/react";
 import { Form, Formik, FormikHelpers } from "formik";
 import React, { useState } from "react";
+import { useQuery } from "react-query";
 import * as yup from "yup";
-import { STARS } from "../../constants";
-import { useFindReviewQuery, useReviewMutation } from "../../generated/graphql";
-import graphQLClient from "../../utility/graphql-request";
-import { CustomAlert } from "../ui/CustomAlert";
+import { Button } from "../common/Button";
+import { Spinner } from "../common/Spinner";
 import { InputStars } from "./InputStars";
+
+const STARS = 5;
 
 interface ReviewFormProps {
   recipeId: string;
@@ -30,43 +30,75 @@ const validationSchema = yup.object({
   comment: yup.string(),
 });
 
+const getReview = async (context) => {
+  const [, { id }] = context.queryKey;
+
+  const res = await fetch(`/api/review?id=${id}`);
+  const data = await res.json();
+  return data;
+};
+
+const updateReview = async ({ id, rating, comment }) => {
+  const res = await fetch("/api/review", {
+    body: JSON.stringify({ id, rating, comment }),
+    headers: { "Content-Type": "application/json" },
+    method: "POST",
+  });
+
+  const data = await res.json();
+  return data;
+};
+
 export const ReviewForm: React.FC<ReviewFormProps> = ({ recipeId }) => {
   const [rating, setRating] = useState(0);
   const [previousRating, setPreviousRating] = useState<boolean[]>();
-  const { data, isSuccess } = useFindReviewQuery(
-    graphQLClient,
+  const { data, isSuccess } = useQuery(
+    ["review", { id: recipeId }],
+    getReview,
     {
-      recipeId,
-    },
-    {
-      onSuccess: (data) => {
-        if (data?.findReview?.rating) {
-          const { findReview: { rating = 0 } = {} } = data;
+      onSuccess: (response) => {
+        console.log(response);
+
+        if (data?.review?.rating) {
+          // eslint-disable-next-line no-shadow
+          const { review: { rating = 0 } = {} } = data;
           setRating(rating || 0);
           setPreviousRating([...Array(STARS)].map((_, i) => i <= rating));
         }
       },
     }
   );
+  console.log(data);
 
-  const {
-    mutateAsync,
-    isSuccess: reviewUpdated,
-    isError,
-  } = useReviewMutation<Error>(graphQLClient, {});
+  // const {
+  //   mutateAsync,
+  //   isSuccess: reviewUpdated,
+  //   isError,
+  // } = useReviewMutation<Error>(graphQLClient, {});
 
   const onHandleSubmit = async (
     values: Variables,
     { setSubmitting }: FormikHelpers<Variables>
   ) => {
     try {
-      await mutateAsync({ ...values, id: recipeId, rating });
+      console.log(values);
+      // { id, rating, comment }
+      //       const res = await fetch("/api/review", {
+      //         body: JSON.stringify({ id, rating, comment }),
+      //         headers: { "Content-Type": "application/json" },
+      //         method: "POST",
+      //       });
+
+      //       const data = await res.json();
+      //       return data;
       setSubmitting(false);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <Box p="4">
+    <div className="p-4">
       <Formik
         initialValues={initialValues}
         onSubmit={onHandleSubmit}
@@ -76,33 +108,39 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ recipeId }) => {
           <Form>
             {isSuccess ? (
               <>
-                <InputStars
-                  initialStars={previousRating}
-                  setRating={setRating}
-                />
-                <input
-                  name="comment"
-                  placeholder={
-                    data?.findReview?.comment || "How did it turn out?"
-                  }
-                  // label="Comment"
-                  type="textarea"
-                  // textarea
-                />
-                <Button
-                  mt={4}
-                  colorScheme="primary"
-                  isLoading={isSubmitting}
-                  type="submit"
+                <div className="w-full text-center">
+                  <InputStars
+                    initialStars={previousRating}
+                    setRating={setRating}
+                  />
+                </div>
+
+                <label
+                  htmlFor="message"
+                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  {data?.findReview?.id ? "Update" : "Review"}
+                  Comment
+                  <textarea
+                    id="message"
+                    rows={4}
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    placeholder={
+                      data.review.comment || "Write your thoughts here..."
+                    }
+                  ></textarea>
+                </label>
+
+                <Button
+                // isLoading={isSubmitting}
+                >
+                  {/* {data?.findReview?.id ? "Update" : "Review"} */}
                 </Button>
               </>
             ) : (
-              <Spinner />
+              <Spinner size="sm" />
             )}
 
-            {reviewUpdated && (
+            {/* {reviewUpdated && (
               <CustomAlert
                 status="success"
                 text="🙏 thanks for your feedback"
@@ -110,10 +148,10 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ recipeId }) => {
             )}
             {isError && (
               <CustomAlert status="error" text="Something went wrong :" />
-            )}
+            )} */}
           </Form>
         )}
       </Formik>
-    </Box>
+    </div>
   );
 };
