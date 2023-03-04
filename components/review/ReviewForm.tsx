@@ -6,7 +6,6 @@ import { STARS } from "../../constants";
 import { useFindReviewQuery, useReviewMutation } from "../../generated/graphql";
 import graphQLClient from "../../utility/graphql-request";
 import { CustomAlert } from "../ui/CustomAlert";
-import { InputField } from "../ui/InputField";
 import { InputStars } from "./InputStars";
 
 interface ReviewFormProps {
@@ -81,14 +80,14 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ recipeId }) => {
                   initialStars={previousRating}
                   setRating={setRating}
                 />
-                <InputField
+                <input
                   name="comment"
                   placeholder={
                     data?.findReview?.comment || "How did it turn out?"
                   }
-                  label="Comment"
+                  // label="Comment"
                   type="textarea"
-                  textarea
+                  // textarea
                 />
                 <Button
                   mt={4}
