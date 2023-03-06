@@ -14,12 +14,12 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import "./commands";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import { mount } from 'cypress/react18'
+import { mount } from "cypress/react18";
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -28,12 +28,16 @@ import { mount } from 'cypress/react18'
 declare global {
   namespace Cypress {
     interface Chainable {
-      mount: typeof mount
+      mount: typeof mount;
     }
   }
 }
 
-Cypress.Commands.add('mount', mount)
+Cypress.Commands.add("mount", mount);
 
 // Example use:
 // cy.mount(<MyComponent />)
+
+// Load global styles as cypress runs in isolation in from our application in a browser running on a server built into cypress
+// eslint-disable-next-line import/first, import/no-extraneous-dependencies
+import "tailwindcss/tailwind.css";

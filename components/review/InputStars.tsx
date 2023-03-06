@@ -7,24 +7,33 @@ import React, {
   useState,
 } from "react";
 import { BsStar, BsStarFill } from "react-icons/bs";
+import { STARS } from "../../lib/constants";
 import { Heading } from "../common/Heading";
 
 interface InputStarsProps {
-  initialStars?: boolean[];
+  initialStars?: number;
   setRating: Dispatch<SetStateAction<number>>;
 }
 
+function toBooleanArray(number: number) {
+  return [...Array(STARS)].map((_, index) => index + 1 <= number);
+}
+
 export const InputStars: React.FC<InputStarsProps> = ({
-  initialStars = [false, false, false, false, false],
+  initialStars = 0,
   setRating,
 }) => {
   const [isHovering, setIsHovering] = useState(false);
-  const [stars, setStars] = useState(initialStars);
-  const [hover, setHover] = useState([false, false, false, false, false]);
+  const [stars, setStars] = useState<boolean[]>(toBooleanArray(initialStars));
+  const [hover, setHover] = useState(toBooleanArray(0));
 
   useEffect(() => {
     setRating(stars.filter(Boolean).length);
   }, [setRating, stars]);
+
+  useEffect(() => {
+    setStars(toBooleanArray(initialStars));
+  }, [initialStars]);
 
   const onMouseHover = (event: MouseEvent<HTMLButtonElement>) => {
     const value = Number(event.currentTarget.value) - 1;
@@ -42,9 +51,11 @@ export const InputStars: React.FC<InputStarsProps> = ({
   };
 
   return (
-    <>
-      <Heading as="h3">Star rating</Heading>
-      <div className="flex">
+    <div className="flex w-full flex-col justify-center">
+      <div className="m-auto">
+        <Heading as="h3">Star rating</Heading>
+      </div>
+      <div className="flex w-full justify-center">
         {stars.map((_, i) => (
           <button
             key={i}
@@ -56,15 +67,15 @@ export const InputStars: React.FC<InputStarsProps> = ({
             onClick={onStarClick}
           >
             {isHovering && hover[i] ? (
-              <BsStarFill size="24px" />
+              <BsStarFill data-cy="star-fill-input" size="24px" />
             ) : !isHovering && stars[i] ? (
-              <BsStarFill size="24px" />
+              <BsStarFill data-cy="star-fill-input" size="24px" />
             ) : (
-              <BsStar size="24px" />
+              <BsStar data-cy="star-empty-input" size="24px" />
             )}
           </button>
         ))}
       </div>
-    </>
+    </div>
   );
 };

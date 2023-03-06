@@ -22,7 +22,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "services/emailServer.js"
+    "services/emailServer.js",
+    "cypress/support/commands.js"
   ],
   "exclude": ["node_modules"]
 }

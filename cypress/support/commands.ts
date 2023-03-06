@@ -48,12 +48,20 @@ declare global {
     };
 
     interface Chainable {
+      getBySel(
+        selector: string,
+        options?: { [key: string]: string | boolean }
+      ): Chainable<void>;
       review(options: ReviewInput): Chainable<void>;
       login(email: string): Chainable<void>;
       logout(): Chainable<void>;
       getSession(): Chainable<Cypress.Response<any>>;
     }
   }
+}
+
+function getBySelector(selector, ...options) {
+  return cy.get(`[data-cy=${selector}]`, ...options);
 }
 
 function loginUser(email) {
@@ -100,6 +108,7 @@ function createReview(options) {
   });
 }
 
+Cypress.Commands.add("getBySel", getBySelector);
 Cypress.Commands.add("login", loginUser);
 Cypress.Commands.add("logout", logoutUser);
 Cypress.Commands.add("review", createReview);

@@ -1,12 +1,11 @@
 import React from "react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { STARS } from "../../lib/constants";
 
 interface DisplayStarsProps {
   rating: number | undefined;
   totalVotes: number | undefined;
 }
-
-const STARS = 5;
 
 export const DisplayStars: React.FC<DisplayStarsProps> = ({
   rating = 0,

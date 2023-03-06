@@ -33,10 +33,10 @@ const PartyModal: React.FC<ModalProps> = forwardRef(
           <div
             id="popup-modal"
             tabIndex={-1}
-            className="h-modal fixed top-0 left-0 right-0 z-50 overflow-x-hidden overflow-y-scroll p-4 pb-0 md:inset-0 md:h-full"
+            className="fixed top-0 left-0 right-0 z-50 h-full overflow-x-hidden overflow-y-scroll p-4 pb-0 md:inset-0 md:h-full"
           >
             <div
-              className="relative h-full w-full max-w-md md:h-auto"
+              className="relative m-auto h-full w-full max-w-md md:h-auto"
               ref={ref}
             >
               <div className="relative rounded-lg bg-white shadow dark:bg-gray-700">
@@ -79,25 +79,19 @@ const PartyModal: React.FC<ModalProps> = forwardRef(
                     style={{ pointerEvents: "none" }}
                     numberOfPieces={party ? 500 : 0}
                     recycle={false}
-                    onConfettiComplete={(_) => setParty(false)}
+                    onConfettiComplete={() => setParty(false)}
                   />
 
                   <Heading as="h2">{recipeName}</Heading>
                   <div className="md:flex md:space-x-2">
-                    <Button
-                      onClick={() => {
-                        console.log("clicked");
-
-                        setShowReview(!showReview);
-                      }}
-                    >
+                    <Button onClick={() => setShowReview(!showReview)}>
                       ✏️ Review?
                     </Button>
-                    {showReview && <ReviewForm recipeId={recipeId} />}
                     <Button onClick={() => router.push("/dashboard/browse")}>
                       😛 Eat more
                     </Button>
                   </div>
+                  {showReview && <ReviewForm recipeId={recipeId} />}
                 </div>
               </div>
             </div>
