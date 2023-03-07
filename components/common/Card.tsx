@@ -33,7 +33,6 @@ export const Card: React.FC<any> = ({
   const router = useRouter();
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
-    event.preventDefault();
     router.push(`./recipes/${id}`);
   };
 

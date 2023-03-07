@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import Confetti from "react-confetti";
-import useWindowSize from "../../lib/hooks/useWindowSize";
+import useWindowSize from "../hooks/useWindowSize";
 import { ReviewForm } from "../review/ReviewForm";
 import { Button } from "./Button";
 import { Heading } from "./Heading";
@@ -42,7 +42,7 @@ const PartyModal: React.FC<ModalProps> = forwardRef(
               <div className="relative rounded-lg bg-white shadow dark:bg-gray-700">
                 <div className="flex justify-between align-middle">
                   <h3 className="pt-4 pl-4 text-lg font-normal text-gray-500 dark:text-gray-400">
-                    Congratulations you made
+                    Congratulations!!
                   </h3>
                   <button
                     type="button"
@@ -66,7 +66,8 @@ const PartyModal: React.FC<ModalProps> = forwardRef(
                     <span className="sr-only">Close modal</span>
                   </button>
                 </div>
-                <div className="p-6 text-center">
+                <hr className="border-1 mt-2.5 border-gray-500" />
+                <div className="p-2 text-center">
                   <Confetti
                     width={width}
                     height={height}
@@ -81,8 +82,10 @@ const PartyModal: React.FC<ModalProps> = forwardRef(
                     recycle={false}
                     onConfettiComplete={() => setParty(false)}
                   />
-
-                  <Heading as="h2">{recipeName}</Heading>
+                  <span className="">You made</span>
+                  <Heading as="h2" styles="mt-0 pt-0">
+                    {recipeName}
+                  </Heading>
                   <div className="md:flex md:space-x-2">
                     <Button onClick={() => setShowReview(!showReview)}>
                       ✏️ Review?

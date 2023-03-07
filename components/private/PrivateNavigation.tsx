@@ -18,7 +18,6 @@ export const PrivateNavigation: FC<PrivateNavigationProps> = ({ user }) => {
   const router = useRouter();
 
   const handleRouterPushToSettings = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
     router.push(`/user/${user?.id}/settings`);
   };
   return (

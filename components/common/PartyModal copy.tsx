@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
-import useWindowSize from "../../lib/hooks/useWindowSize";
+import useWindowSize from "../hooks/useWindowSize";
 import { ReviewForm } from "../review/ReviewForm";
 
 interface ModalProps {

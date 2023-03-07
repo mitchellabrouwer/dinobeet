@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === "GET") {
     // const reviews = await getReviews(prisma, req.body.recipeId);
-    const review = await getReview(prisma, req.query.id, user.id);
+    const review = await getReview(prisma, req.query.id[0], user.id);
     return res.send({ review });
   }
 

@@ -52,7 +52,7 @@ export const InputStars: React.FC<InputStarsProps> = ({
 
   return (
     <div className="flex w-full flex-col justify-center">
-      <div className="m-auto">
+      <div className="m-auto mb-2">
         <Heading as="h3">Star rating</Heading>
       </div>
       <div className="flex w-full justify-center">

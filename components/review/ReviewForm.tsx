@@ -1,8 +1,12 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-nested-ternary */
-import { Field, Form, Formik, FormikHelpers, useField } from "formik";
+import { Field, Form, Formik, FormikHelpers } from "formik";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
+import { toast, ToastContainer } from "react-toastify";
 import * as yup from "yup";
+import { Button } from "../common/Button";
+import { Heading } from "../common/Heading";
 import { Spinner } from "../common/Spinner";
 import { InputStars } from "./InputStars";
 
@@ -11,22 +15,12 @@ interface ReviewFormProps {
 }
 
 interface Variables {
-  id: string;
-  rating: number;
   comment: string;
 }
 
-const initialValues = {
-  id: "",
-  rating: 0,
-  comment: "",
-};
+const initialValues = { comment: "" };
 
-const validationSchema = yup.object({
-  id: yup.string().uuid(),
-  rating: yup.number(),
-  comment: yup.string(),
-});
+const validationSchema = yup.object({ comment: yup.string() });
 
 const getReview = async (context) => {
   const [, { id }] = context.queryKey;
@@ -36,36 +30,16 @@ const getReview = async (context) => {
   return data;
 };
 
-const updateReview = async ({ id, rating, comment }) => {
-  const res = await fetch("/api/review", {
-    body: JSON.stringify({ id, rating, comment }),
-    headers: { "Content-Type": "application/json" },
-    method: "POST",
-  });
-
-  const data = await res.json();
-  return data;
-};
-
-const MyTextArea = ({ label, ...props }) => {
-  // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
-  // which we can spread on <input> and alse replace ErrorMessage entirely.
-  const [field, meta] = useField(props);
-  return (
-    <>
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <textarea className="text-area" {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
-      ) : null}
-    </>
-  );
-};
-
 export const ReviewForm: React.FC<ReviewFormProps> = ({ recipeId }) => {
   const [rating, setRating] = useState<number>(0);
+
+  const successToast = () =>
+    toast.success("🙏 thanks for your feedback", { position: "bottom-center" });
+  const errorToast = () =>
+    toast.error("something went wrong", { position: "bottom-center" });
+
   const [previousRating, setPreviousRating] = useState<number>();
-  const { data, isSuccess } = useQuery(
+  const { data, isSuccess, refetch } = useQuery(
     ["review", { id: recipeId }],
     getReview,
     {
@@ -74,37 +48,43 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ recipeId }) => {
           setPreviousRating(response.review.rating);
         }
       },
+      onError: (response) => {
+        errorToast();
+      },
     }
   );
 
-  const onHandleSubmit = async (
+  const onUpdateReview = async (
     values: Variables,
     { setSubmitting }: FormikHelpers<Variables>
   ) => {
     try {
-      console.log("setSubmitting", setSubmitting);
-
       console.log(values);
-      // { id, rating, comment }
-      //       const res = await fetch("/api/review", {
-      //         body: JSON.stringify({ id, rating, comment }),
-      //         headers: { "Content-Type": "application/json" },
-      //         method: "POST",
-      //       });
 
-      //       const data = await res.json();
-      //       return data;
-      // setSubmitting(false);
+      const { comment } = values;
+      const res = await fetch("/api/review", {
+        body: JSON.stringify({ recipeId, rating, comment }),
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+      });
+
+      const data = await res.json();
+      setSubmitting(false);
+      refetch();
+      successToast();
+      return data;
     } catch (error) {
+      errorToast();
       console.log(error);
     }
   };
 
   return (
-    <div className="p-4">
+    <div className="rounded-lg border border-gray-400 p-4">
+      {isSuccess && <ToastContainer />}
       <Formik
         initialValues={initialValues}
-        onSubmit={onHandleSubmit}
+        onSubmit={onUpdateReview}
         validationSchema={validationSchema}
       >
         {({ isSubmitting }) => (
@@ -120,45 +100,38 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ recipeId }) => {
 
                 <label
                   htmlFor="comment"
-                  className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  className="font-mediu mb-2 block text-sm"
                 >
-                  Comment
+                  <Heading as="h3">Comment</Heading>
                 </label>
                 <Field
                   type="textarea"
+                  component="textarea"
                   id="comment"
                   name="comment"
                   rows={4}
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                  className="h-auto w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder={
-                    data.review.comment || "Write your thoughts here..."
+                    data?.review?.comment || "Add a comment if you like..."
                   }
                 ></Field>
-                <button type="submit">
-                  {isSubmitting ? (
-                    data?.review?.id ? (
-                      "Update"
+                <div className="flex justify-center">
+                  <Button submit>
+                    {!isSubmitting ? (
+                      data?.review ? (
+                        "Update"
+                      ) : (
+                        "Save"
+                      )
                     ) : (
-                      "Review"
-                    )
-                  ) : (
-                    <Spinner size="sm" />
-                  )}
-                </button>
+                      <Spinner size="sm" />
+                    )}
+                  </Button>
+                </div>
               </>
             ) : (
               <Spinner size="sm" />
             )}
-
-            {/* {reviewUpdated && (
-              <CustomAlert
-                status="success"
-                text="🙏 thanks for your feedback"
-              />
-            )}
-            {isError && (
-              <CustomAlert status="error" text="Something went wrong :" />
-            )} */}
           </Form>
         )}
       </Formik>
