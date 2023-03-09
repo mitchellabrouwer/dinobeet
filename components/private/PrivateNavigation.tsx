@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { FC, Fragment, MouseEvent } from "react";
 import { BiChevronDown, BiMenu, BiX } from "react-icons/bi";
 import { GiDinosaurEgg } from "react-icons/gi";
+import useScrolledFromTop from "../hooks/useScrolledFromTop";
 import { Login } from "../user/Login";
 
 export const links = ["Browse", "Random", "Plan", "Favourites"];
@@ -16,6 +17,8 @@ interface PrivateNavigationProps {
 
 export const PrivateNavigation: FC<PrivateNavigationProps> = ({ user }) => {
   const router = useRouter();
+
+  const isScrolling = useScrolledFromTop();
 
   const handleRouterPushToSettings = (event: MouseEvent<HTMLAnchorElement>) => {
     router.push(`/user/${user?.id}/settings`);
@@ -34,7 +37,12 @@ export const PrivateNavigation: FC<PrivateNavigationProps> = ({ user }) => {
               </Menu.Button>
             ) : (
               <Menu.Button>
-                <BiMenu className="h-10 w-10" aria-hidden="true" />
+                <BiMenu
+                  className={`h-10 w-10 rounded-md ${
+                    isScrolling && "border bg-slate-200 opacity-80"
+                  }`}
+                  aria-hidden="true"
+                />
               </Menu.Button>
             )}
             <Transition
@@ -53,7 +61,7 @@ export const PrivateNavigation: FC<PrivateNavigationProps> = ({ user }) => {
                         key={item}
                         href={`/dashboard/${item.toLowerCase()}`}
                         className={`w-full ${
-                          active && "bg-gray-200"
+                          active && "bg-dino-red-500"
                         } font-medium text-gray-500 hover:text-gray-900`}
                       >
                         {item}
@@ -80,7 +88,9 @@ export const PrivateNavigation: FC<PrivateNavigationProps> = ({ user }) => {
             <Link
               key={item}
               href={`/dashboard/${item.toLowerCase()}`}
-              className="font-medium text-gray-500 hover:text-gray-900"
+              className={`rounded-md p-1.5 font-medium text-gray-500 transition-opacity duration-700 hover:text-gray-900 ${
+                isScrolling && "border bg-slate-200 opacity-80"
+              }`}
             >
               {item}
             </Link>
@@ -94,10 +104,10 @@ export const PrivateNavigation: FC<PrivateNavigationProps> = ({ user }) => {
       >
         <GiDinosaurEgg size="30" />
       </Link>
-      {/* Profile dropdown */}
-      <Menu as="div" className="p-4">
+      {/* profile dropdown */}
+      <Menu as="div" className="p-3">
         <div>
-          <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 lg:rounded-md lg:p-2 lg:hover:bg-gray-50">
+          <Menu.Button className="flex max-w-xs items-center rounded-full border-4 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 lg:rounded-md lg:p-2 lg:hover:bg-gray-50">
             <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-500">
               <span className="text-xl font-medium leading-none text-white">
                 {user?.name?.charAt(0).toUpperCase()}

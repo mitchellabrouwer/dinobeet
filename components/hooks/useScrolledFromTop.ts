@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
+import { MENU_HEIGHT } from "../../lib/constants";
 
-export default function () {
-  const [scrollState, setScrollState] = useState("top");
+export default function useScrolledFromTop() {
+  const [isScrolling, setIsScrolling] = useState(false);
 
   const onScroll = (event) => {
-    console.log(event);
-
     const scrolled = document.scrollingElement.scrollTop;
-    console.log(scrolled);
 
-    // if (scrolled >= 120) {
-    //   if (scrollState !== "amir") setScrollState("amir");
-    // } else if (scrollState !== "top") setScrollState("top");
+    if (scrolled >= MENU_HEIGHT) {
+      setIsScrolling(true);
+    } else {
+      setIsScrolling(false);
+    }
   };
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function () {
     return () => {
       document.removeEventListener("scroll", onScroll, true);
     };
-  }, [scrollState]);
+  }, [isScrolling]);
 
-  return scrollState;
+  return isScrolling;
 }
