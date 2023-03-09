@@ -53,20 +53,25 @@ export const PrivateNavigation: FC<PrivateNavigationProps> = ({ user }) => {
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Menu.Items className="mt-4 flex w-full flex-col space-y-5">
+              <Menu.Items className="my-4 ml-2 flex w-full flex-col space-y-5">
                 {links.map((item) => (
                   <Menu.Item key={item}>
-                    {({ active }) => (
-                      <Link
-                        key={item}
-                        href={`/dashboard/${item.toLowerCase()}`}
-                        className={`w-full ${
-                          active && "bg-dino-red-500"
-                        } font-medium text-gray-500 hover:text-gray-900`}
-                      >
-                        {item}
-                      </Link>
-                    )}
+                    {({ active }) => {
+                      const onPage = router.pathname.includes(
+                        item.toLowerCase()
+                      );
+                      return (
+                        <Link
+                          key={item}
+                          href={`/dashboard/${item.toLowerCase()}`}
+                          className={`w-full ${active && "bg-dino-red-500"} ${
+                            onPage && "text-dino-red-500"
+                          } font-medium text-gray-500 hover:text-gray-900`}
+                        >
+                          {item}
+                        </Link>
+                      );
+                    }}
                   </Menu.Item>
                 ))}
                 <Menu.Item>
@@ -84,17 +89,20 @@ export const PrivateNavigation: FC<PrivateNavigationProps> = ({ user }) => {
             <GiDinosaurEgg size="30" />
           </Link>
 
-          {links.map((item) => (
-            <Link
-              key={item}
-              href={`/dashboard/${item.toLowerCase()}`}
-              className={`rounded-md p-1.5 font-medium text-gray-500 transition-opacity duration-700 hover:text-gray-900 ${
-                isScrolling && "border bg-slate-200 opacity-80"
-              }`}
-            >
-              {item}
-            </Link>
-          ))}
+          {links.map((item) => {
+            const onPage = router.pathname.includes(item.toLowerCase());
+            return (
+              <Link
+                key={item}
+                href={`/dashboard/${item.toLowerCase()}`}
+                className={`rounded-md p-1.5 font-medium text-gray-500 transition-opacity duration-700 hover:text-gray-900 ${
+                  isScrolling && "border bg-slate-200 opacity-80"
+                } ${onPage && "text-dino-red-500"}`}
+              >
+                {item}
+              </Link>
+            );
+          })}
         </div>
       </nav>
 
