@@ -60,8 +60,8 @@ export const Random: FC = () => {
               difficulty={data.recipe.difficulty}
               prep={data.recipe.prep}
               cook={data.recipe.cook}
-              average_rating={data.reviews[data.recipe.id]?.average}
-              total_votes={data.reviews[data.recipe.id]?.count}
+              average_rating={data.reviews[data.recipe.id]?.average || 0}
+              total_votes={data.reviews[data.recipe.id]?.count || 0}
               tags={data.recipe.tags}
             />
           )}
