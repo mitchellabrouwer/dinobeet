@@ -1,7 +1,8 @@
-import { Head } from "next/document";
+import Head from "next/head";
 import { PrivatePage } from "../../components/common/PrivatePage";
+import { Random } from "../../components/private/random/Random";
 
-export default function Random() {
+export default function RandomPage() {
   return (
     <PrivatePage>
       <Head>

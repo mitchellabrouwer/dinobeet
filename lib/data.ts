@@ -1,4 +1,5 @@
 import { Prisma, PrismaClient } from "@prisma/client";
+import { randomNumber } from "./utils";
 
 export const getReview = async (
   prisma: PrismaClient,
@@ -171,4 +172,37 @@ export const getFavourites = async (prisma: PrismaClient, userId) => {
   const reviewDetails = await getReviews(prisma, favouriteIds);
 
   return { favourites, reviews: reviewDetails };
+};
+
+export const getRandomRecipe = async (prisma: PrismaClient, occasion) => {
+  console.log(occasion);
+
+  let reviews;
+  const recipeCount = await prisma.recipe.count({
+    where: {
+      occasion: {
+        hasSome: [occasion],
+      },
+    },
+  });
+  const randomIndex = randomNumber(0, recipeCount - 1);
+
+  const recipe = await prisma.recipe.findMany({
+    take: 1,
+    skip: randomIndex,
+    where: {
+      occasion: {
+        hasSome: [occasion],
+      },
+    },
+  });
+
+  console.log(recipe);
+
+  if (recipe.length) {
+    reviews = await getReviews(prisma, recipe[0].id);
+    return { recipe: recipe[0], reviews };
+  }
+
+  return {};
 };

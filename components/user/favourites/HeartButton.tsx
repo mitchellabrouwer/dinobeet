@@ -16,8 +16,6 @@ export const HeartButton: React.FC<HeartButtonProps> = ({ recipeId }) => {
       const res = await fetch(`/api/favourite`);
       const data = await res.json();
 
-      console.log(data);
-
       if (data && data?.favourites.length > 0) {
         setFavourites(data?.favourites.map((favourite) => favourite.recipeId));
       } else {

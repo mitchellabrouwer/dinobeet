@@ -1,6 +1,7 @@
 import { OccasionOptions } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
+import { getRandomRecipe } from "../../lib/data";
 import prisma from "../../lib/prisma";
 
 interface Request extends NextApiRequest {
@@ -11,10 +12,6 @@ interface Request extends NextApiRequest {
 
 function isOccasionOptions(occasion: string): occasion is OccasionOptions {
   return occasion in OccasionOptions;
-}
-
-function randomNumber(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 export default async (req: Request, res: NextApiResponse) => {
@@ -32,30 +29,15 @@ export default async (req: Request, res: NextApiResponse) => {
 
   if (req.method === "GET") {
     const occasionQuery = req.query.occasion;
+    console.log(occasionQuery);
 
     if (!isOccasionOptions(occasionQuery)) {
       return res.status(400).json({ message: "no such occasion" });
     }
 
-    const count = await prisma.recipe.count({
-      where: {
-        occasion: {
-          hasSome: [occasionQuery],
-        },
-      },
-    });
+    const recipe = await getRandomRecipe(prisma, occasionQuery);
 
-    console.log(count);
-
-    const recipes = await prisma.recipe.findMany({
-      where: {
-        occasion: {
-          hasSome: [occasionQuery],
-        },
-      },
-    });
-
-    return res.json(recipes);
+    return res.json(recipe);
   }
 
   // const recipe = await getRepository(Recipe)

@@ -34,3 +34,14 @@ export const setToStorage = (key, value) => {
     return localStorage.setItem(key, value);
   }
 };
+
+export const randomNumber = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
+export const randomProperty = (obj: { [key: string]: string }) => {
+  const keys = Object.keys(obj);
+  const randomIndex = Math.floor(Math.random() * keys.length);
+  const randomKey = keys[randomIndex];
+
+  return obj[randomKey];
+};

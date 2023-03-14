@@ -12,13 +12,18 @@ describe("random recipe functionality", () => {
     cy.logout();
   });
 
-  it("get a random recipe without passing an occasion", () => {
-    cy.request(`/api/random`).then((response) => {
-      expect(response.status).to.eq(200);
+  it.only("occasion not valid throughs a bad request", () => {
+    cy.request({
+      method: "GET",
+      url: "/api/random",
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(400);
+      expect(response.body.message).to.eq("no such occasion");
     });
   });
 
-  it.only("get a random recipe passing occasion", () => {
+  it("get a random recipe passing occasion", () => {
     const occasion = "breakfast";
     cy.request(`/api/random?occasion=${occasion}`).then((response) => {
       expect(response.status).to.eq(200);
