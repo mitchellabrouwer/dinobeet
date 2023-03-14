@@ -89,9 +89,6 @@ export const getRecipes = async (
     },
   };
 
-  console.log(data);
-  console.log(cursor);
-
   if (cursor !== "" && cursor) {
     data.cursor = { id: cursor as string };
   }
@@ -106,7 +103,6 @@ export const getRecipes = async (
   }
 
   let recipes = await prisma.recipe.findMany(data);
-  console.log(recipes);
 
   if (maxTime) {
     recipes = recipes.filter(
@@ -123,8 +119,6 @@ export const getRecipes = async (
       rating: true,
     },
   });
-
-  console.log("reviews", reviews);
 
   let reviewDetails: { [x: string]: { count: number; average: number } };
   if (reviews?.length) {
@@ -143,8 +137,6 @@ export const getRecipes = async (
       {}
     );
   }
-
-  console.log("review details", reviewDetails);
 
   return {
     recipes,

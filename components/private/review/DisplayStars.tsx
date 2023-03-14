@@ -1,6 +1,6 @@
 import React from "react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
-import { STARS } from "../../lib/constants";
+import { STARS } from "../../../lib/constants";
 
 interface DisplayStarsProps {
   rating: number | undefined;

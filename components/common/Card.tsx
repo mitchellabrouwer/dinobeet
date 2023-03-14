@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { MouseEvent } from "react";
-import { DisplayStars } from "../review/DisplayStars";
+import { DisplayStars } from "../private/review/DisplayStars";
 import { HeartButton } from "../user/favourites/HeartButton";
 import { Heading } from "./Heading";
 

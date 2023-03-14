@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import Confetti from "react-confetti";
 import useWindowSize from "../hooks/useWindowSize";
-import { ReviewForm } from "../review/ReviewForm";
+import { ReviewForm } from "../private/review/ReviewForm";
 import { Button } from "./Button";
 import { Heading } from "./Heading";
 

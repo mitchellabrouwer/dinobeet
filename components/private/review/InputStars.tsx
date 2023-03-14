@@ -7,8 +7,8 @@ import React, {
   useState,
 } from "react";
 import { BsStar, BsStarFill } from "react-icons/bs";
-import { STARS } from "../../lib/constants";
-import { Heading } from "../common/Heading";
+import { STARS } from "../../../lib/constants";
+import { Heading } from "../../common/Heading";
 
 interface InputStarsProps {
   initialStars?: number;

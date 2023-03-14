@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import useWindowSize from "../hooks/useWindowSize";
-import { ReviewForm } from "../review/ReviewForm";
+import { ReviewForm } from "../private/review/ReviewForm";
 
 interface ModalProps {
   title: string;

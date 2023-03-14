@@ -5,9 +5,9 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { toast, ToastContainer } from "react-toastify";
 import * as yup from "yup";
-import { Button } from "../common/Button";
-import { Heading } from "../common/Heading";
-import { Spinner } from "../common/Spinner";
+import { Button } from "../../common/Button";
+import { Heading } from "../../common/Heading";
+import { Spinner } from "../../common/Spinner";
 import { InputStars } from "./InputStars";
 
 interface ReviewFormProps {
