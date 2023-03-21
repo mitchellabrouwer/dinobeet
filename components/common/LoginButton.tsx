@@ -9,7 +9,12 @@ interface LoginProps {
   dataCy?: string;
 }
 
-export const Login: FC<LoginProps> = ({ user, children, button, dataCy }) => {
+export const LoginButton: FC<LoginProps> = ({
+  user,
+  children,
+  button,
+  dataCy,
+}) => {
   const destination = user ? "signout" : "signin";
   const verb = user ? "out" : "in";
   const buttonStyles =

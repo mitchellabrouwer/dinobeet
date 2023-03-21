@@ -45,6 +45,14 @@ a {
   box-sizing: border-box;
 }
 
+html.dark {
+  filter: invert(100%);
+
+  /* @nest img {
+    filter: invert(100%);
+  } */
+}
+
 input[type="checkbox"]:checked + label.strikethrough {
   text-decoration: line-through;
 }

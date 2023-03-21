@@ -6,8 +6,8 @@ import { useRouter } from "next/router";
 import { FC, Fragment, MouseEvent } from "react";
 import { BiChevronDown, BiMenu, BiX } from "react-icons/bi";
 import { GiDinosaurEgg } from "react-icons/gi";
+import { LoginButton } from "../common/LoginButton";
 import useScrolledFromTop from "../hooks/useScrolledFromTop";
-import { Login } from "../user/Login";
 
 export const links = ["Browse", "Random", "Plan", "Favourites"];
 
@@ -75,7 +75,7 @@ export const PrivateNavigation: FC<PrivateNavigationProps> = ({ user }) => {
                   </Menu.Item>
                 ))}
                 <Menu.Item>
-                  <Login user={user} />
+                  <LoginButton user={user} type="button" />
                 </Menu.Item>
               </Menu.Items>
             </Transition>
@@ -157,7 +157,7 @@ export const PrivateNavigation: FC<PrivateNavigationProps> = ({ user }) => {
               {({ active }) => (
                 <a
                   href="#"
-                  className="block px-4 py-2 text-sm text-gray-700"
+                  className="block px-4 py-2 text-sm text-gray-700 "
                   onClick={async () => {
                     await signOut();
                     router.push("/");

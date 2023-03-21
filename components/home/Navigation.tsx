@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FC } from "react";
 import { BiMenu, BiX } from "react-icons/bi";
 import { GiDinosaurEgg } from "react-icons/gi";
-import { Login } from "../user/Login";
+import { LoginButton } from "../common/LoginButton";
 
 export const links = ["Benefits", "Features", "About", "Price"];
 
@@ -61,7 +61,7 @@ export const Navigation: FC<NavigationProps> = ({ user }) => (
                 </Menu.Item>
               ))}
               <Menu.Item>
-                <Login user={user} dataCy="login-button" />
+                <LoginButton user={user} dataCy="login-button" />
               </Menu.Item>
             </Menu.Items>
           </Transition>
@@ -86,7 +86,7 @@ export const Navigation: FC<NavigationProps> = ({ user }) => (
         ))}
       </div>
 
-      <Login user={user} dataCy="login-button" />
+      <LoginButton user={user} dataCy="login-button" />
     </nav>
   </>
 );

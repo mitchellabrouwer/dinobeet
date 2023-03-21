@@ -14,6 +14,10 @@ export default function useToggleDark(): [
     root.classList.remove(previous);
     root.classList.add(dark);
 
+    //     html {
+    //   filter: invert(100%);
+    // }
+
     setToStorage("theme", dark);
   }, [dark]);
 

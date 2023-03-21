@@ -19,7 +19,19 @@ interface SelectOption {
   readonly value: string;
 }
 
-export type { GetRecipes, GetFavourites, SelectOption, GetRandomRecipe };
+export type LoginFormInput = {
+  // userName: string;
+  // lastName: string;
+  email: string;
+};
+
+export type {
+  GetRecipes,
+  GetFavourites,
+  SelectOption,
+  GetRandomRecipe,
+  LoginFormInput,
+};
 
 // type RecipeType = Prisma.RecipeGetPayload<{
 //   include: { tags: true };

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Login } from "../user/Login";
+import { LoginButton } from "../common/LoginButton";
 
 export const RegisterMe: FC = () => (
   <div>
@@ -13,7 +13,7 @@ export const RegisterMe: FC = () => (
         </h3>
       </div>
       <div className="flex lg:mt-0 lg:flex-shrink-0">
-        <Login button>yes please</Login>
+        <LoginButton type="button">yes please</LoginButton>
       </div>
     </div>
   </div>

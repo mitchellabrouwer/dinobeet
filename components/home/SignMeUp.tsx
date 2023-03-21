@@ -1,6 +1,6 @@
 import { FC } from "react";
+import { LoginButton } from "../common/LoginButton";
 import { Logo } from "../common/Logo";
-import { Login } from "../user/Login";
 
 export const SignMeUp: FC = () => (
   <div className="">
@@ -10,7 +10,7 @@ export const SignMeUp: FC = () => (
         dino-licious recipes web app for <strong>vegan</strong> and{" "}
         <strong>gluten free</strong> families.
       </p>
-      <Login button>sign up</Login>
+      <LoginButton type="button">sign up</LoginButton>
     </div>
   </div>
 );

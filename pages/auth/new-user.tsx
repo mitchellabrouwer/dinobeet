@@ -25,6 +25,7 @@ export default function NewUser() {
     return null;
   }
 
+  // Add user information to this page? Optional age, weight can changge these any time?
   return (
     <div>
       <h2>Joining fee of $9.99</h2>
