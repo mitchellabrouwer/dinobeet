@@ -44,10 +44,6 @@ const Signin: NextPage = () => {
     };
   };
 
-  const handleBackButton = () => {
-    router.push("/");
-  };
-
   return (
     <Page>
       {loading ? (
@@ -127,7 +123,7 @@ const Signin: NextPage = () => {
                   colour="primary"
                   variant="outline"
                   accessibilityLabel="go to dashboard"
-                  onClick={handleBackButton}
+                  onClick={() => router.push("/")}
                 >
                   Back
                 </Button>
