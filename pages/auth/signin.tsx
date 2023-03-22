@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { MdLock } from "react-icons/md";
 import { LoginFormInput } from "types/types";
-import { Button } from "../components/common/Button";
-import { Spinner } from "../components/common/Spinner";
+import { Button } from "../../components/common/Button";
+import { Spinner } from "../../components/common/Spinner";
 
 const Signin: NextPage = () => {
   const { data: session, status } = useSession();
@@ -28,6 +28,8 @@ const Signin: NextPage = () => {
 
   const onSubmit: SubmitHandler<LoginFormInput> = (data) => {
     const abortController = new AbortController();
+    console.log("here");
+
     const submit = async () => {
       try {
         signIn("email", { email: data.email });
@@ -55,14 +57,15 @@ const Signin: NextPage = () => {
             <div>
               <div className="flex h-full w-auto justify-center">
                 <Image
-                  className="h-8 w-auto sm:h-10"
+                  className="h-32 w-auto sm:h-32"
                   src="/images/dinobeet_dumbells.svg"
                   width="60"
                   height="60"
                   alt="embipi logo"
+                  priority
                 />
               </div>
-              <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+              <h2 className="mt-6 text-center text-3xl font-extralight text-gray-900">
                 Welcome to Dinobeet
               </h2>
               <p className="mt-2 text-center text-sm text-gray-600">
@@ -86,40 +89,49 @@ const Signin: NextPage = () => {
                     type="email"
                     autoComplete="email"
                     required
-                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-teal-500 focus:outline-none focus:ring-teal-500 sm:text-sm"
+                    className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-dino-green-500 focus:outline-none focus:ring-dino-green-500 sm:text-sm"
                     placeholder="Email address"
                     {...register("email", {
-                      required: "Email is required",
+                      required: "email is required",
                       pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,9}$/i,
-                        message: "Invalid email address.",
+                        message: "invalid email address.",
                       },
                     })}
                   />
                   {errors.email && (
-                    <span className="text-red-500">{errors.email.message}</span>
+                    <div className="flex w-full justify-center">
+                      <span className="m-2 text-sm italic text-red-500">
+                        {errors.email.message}
+                      </span>
+                    </div>
                   )}
                 </div>
               </div>
 
-              <div>
-                <button
+              <div className="flex justify-center">
+                <Button
+                  colour="primary"
+                  variant="solid"
+                  accessibilityLabel="log in to account"
                   type="submit"
-                  className="group relative flex w-full justify-center rounded-md border border-transparent bg-teal-600 py-2 px-4 text-sm font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                  icon
                 >
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <MdLock className="h-5 w-5 text-white" aria-hidden="true" />
-                  </span>
-                  Sign in
-                </button>
+                  <MdLock className="h-4 w-4 text-white" aria-hidden="true" />
+                  Signin
+                </Button>
+
+                <Button
+                  dataCy="back-btn"
+                  colour="primary"
+                  variant="outline"
+                  accessibilityLabel="go to dashboard"
+                  onClick={handleBackButton}
+                >
+                  Back
+                </Button>
               </div>
             </form>
-
-            <div className="w-full pt-2 text-center">
-              <Button dataCy="back-btn" onClick={handleBackButton}>
-                Back
-              </Button>
-            </div>
           </div>
         </div>
       )}

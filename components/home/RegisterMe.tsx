@@ -13,7 +13,7 @@ export const RegisterMe: FC = () => (
         </h3>
       </div>
       <div className="flex lg:mt-0 lg:flex-shrink-0">
-        <LoginButton type="button">yes please</LoginButton>
+        <LoginButton>yes please</LoginButton>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 import { FC } from "react";
+import { Button } from "../common/Button";
 import { Heading } from "../common/Heading";
-import { SuperButton } from "../common/SuperButton";
 import ToggleDark from "../common/ToggleDark";
 
 interface PrivateDashboardProps {}
@@ -13,30 +13,30 @@ export const PrivateDashboard: FC<PrivateDashboardProps> = () => {
       <Heading as="h1" styles="pt-12" dataCy="dashboard-page-heading">
         Private Dashboard
       </Heading>
-      <SuperButton
+      <Button
         type="button"
         colour="primary"
         variant="link"
         accessibilityLabel="test"
       >
         primary solid
-      </SuperButton>
-      <SuperButton
+      </Button>
+      <Button
         type="button"
         colour="secondary"
         variant="solid"
         accessibilityLabel="test"
       >
         Secondary solid
-      </SuperButton>
-      <SuperButton
+      </Button>
+      <Button
         type="button"
         colour="primary"
         variant="outline"
         accessibilityLabel="test"
       >
         Secondary solid
-      </SuperButton>
+      </Button>
       <ToggleDark></ToggleDark>
     </>
   );
