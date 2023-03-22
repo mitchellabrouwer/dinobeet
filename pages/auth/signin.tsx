@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { MdLock } from "react-icons/md";
 import { LoginFormInput } from "types/types";
 import { Button } from "../../components/common/Button";
+import { Page } from "../../components/common/Page";
 import { Spinner } from "../../components/common/Spinner";
 
 const Signin: NextPage = () => {
@@ -48,17 +49,17 @@ const Signin: NextPage = () => {
   };
 
   return (
-    <div>
+    <Page>
       {loading ? (
         <Spinner size="md" />
       ) : (
-        <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="flex w-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-md space-y-8">
             <div>
               <div className="flex h-full w-auto justify-center">
                 <Image
-                  className="h-32 w-auto sm:h-32"
-                  src="/images/dinobeet_dumbells.svg"
+                  className="h-60 w-auto"
+                  src="/images/dinobeet_skate.svg"
                   width="60"
                   height="60"
                   alt="embipi logo"
@@ -118,7 +119,7 @@ const Signin: NextPage = () => {
                   icon
                 >
                   <MdLock className="h-4 w-4 text-white" aria-hidden="true" />
-                  Signin
+                  Sign in
                 </Button>
 
                 <Button
@@ -135,7 +136,7 @@ const Signin: NextPage = () => {
           </div>
         </div>
       )}
-    </div>
+    </Page>
   );
 };
 

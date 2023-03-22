@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, {
   Dispatch,
-  forwardRef,
   MutableRefObject,
   SetStateAction,
   useState,
@@ -27,7 +26,7 @@ const PartyModal: React.ForwardRefExoticComponent<
     "isOpen" | "setIsOpen" | "title" | "recipeName" | "recipeId"
   > &
     React.RefAttributes<any>
-> = forwardRef(({ isOpen, setIsOpen, recipeName, recipeId }, ref) => {
+> = React.forwardRef(({ isOpen, setIsOpen, recipeName, recipeId }, ref) => {
   const [showReview, setShowReview] = useState(false);
   const { width, height } = useWindowSize();
   const [party, setParty] = useState(true);

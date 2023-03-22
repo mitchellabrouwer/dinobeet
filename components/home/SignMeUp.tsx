@@ -10,7 +10,7 @@ export const SignMeUp: FC = () => (
         dino-licious recipes web app for <strong>vegan</strong> and{" "}
         <strong>gluten free</strong> families.
       </p>
-      <LoginButton>sign up</LoginButton>
+      <LoginButton button>sign up</LoginButton>
     </div>
   </div>
 );
