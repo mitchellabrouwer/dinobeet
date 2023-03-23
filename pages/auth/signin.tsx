@@ -16,7 +16,8 @@ const Signin: NextPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    setError,
+    formState: { errors, isSubmitting },
   } = useForm<LoginFormInput>({ mode: "onBlur" });
 
   if (loading) {
@@ -27,22 +28,26 @@ const Signin: NextPage = () => {
     router.push(`/dashboard/`);
   }
 
-  const onSubmit: SubmitHandler<LoginFormInput> = (data) => {
-    const abortController = new AbortController();
-    console.log("here");
+  const onSubmit: SubmitHandler<LoginFormInput> = (data) =>
+    new Promise<void>((resolve, reject) => {
+      signIn("email", { email: data.email, redirect: false }).then(
+        ({ ok, error }) => {
+          console.log(ok);
+          console.log(error);
 
-    const submit = async () => {
-      try {
-        signIn("email", { email: data.email });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    submit();
-    return () => {
-      abortController.abort();
-    };
-  };
+          if (ok) {
+            resolve();
+            router.push("/auth/signin-verification");
+          } else {
+            setError("root", {
+              type: "server",
+              message: "somthing went wrong",
+            });
+            reject();
+          }
+        }
+      );
+    });
 
   return (
     <Page>
@@ -69,12 +74,7 @@ const Signin: NextPage = () => {
                 Please sign in
               </p>
             </div>
-            <form
-              className="mt-8 space-y-6"
-              action="#"
-              method="POST"
-              onSubmit={handleSubmit(onSubmit)}
-            >
+            <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="-space-y-px rounded-md shadow-sm">
                 <div>
@@ -114,7 +114,11 @@ const Signin: NextPage = () => {
                   type="submit"
                   icon
                 >
-                  <MdLock className="h-4 w-4 text-white" aria-hidden="true" />
+                  {isSubmitting ? (
+                    <Spinner size="sm" />
+                  ) : (
+                    <MdLock className="h-4 w-4 text-white" aria-hidden="true" />
+                  )}
                   Sign in
                 </Button>
 

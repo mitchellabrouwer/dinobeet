@@ -30,34 +30,31 @@ const VerifyRequest: NextPage = () => {
                 priority
               />
             </div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            <h2 className="mt-6 text-center text-3xl font-extralight text-gray-900">
               Almost there!
             </h2>
           </div>
-          <div className="bg-gray-50 text-center sm:rounded-lg">
-            <div className="px-4 py-5 sm:p-6">
+          <div className="text-center sm:rounded-lg">
+            <div className="">
               <h3 className="text-lg font-medium leading-6 text-gray-900">
-                Check your email.
+                Please check your email
               </h3>
               <div className="mt-2 max-w-xl text-sm text-gray-500">
                 <p>A sign in link has been sent to your email address.</p>
                 <p>Sometimes it can take more than 1 minute to be sent...</p>
               </div>
-              <div className="mt-2 max-w-xl text-xs font-bold text-red-900">
-                <p>
-                  If it goes beyond that time please take a look at your
-                  junk/spam folder
-                </p>
+              <div className="mt-2 max-w-xl text-xs italic text-dino-red-600">
+                <p>Please also check your junk/spam folder</p>
               </div>
             </div>
           </div>
-          <div className="pt-2">
+          <div className="flex justify-center">
             <Button
               dataCy="back-btn"
               colour="primary"
               variant="outline"
               accessibilityLabel="go to dashboard"
-              onClick={() => router.push("/")}
+              onClick={() => router.push("/auth/signin")}
             >
               Back
             </Button>
