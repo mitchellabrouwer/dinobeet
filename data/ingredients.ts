@@ -1,9 +1,9 @@
 const ingredientList = {
   protein: [
-    { nut: ["cashews", "walnuts", "almonds", "pistachios"] },
+    { nut: ["cashews", "walnuts", "almonds", "pistachios", "peanuts"] },
     {
       seeds: [
-        "flax seeds",
+        "flax seeds ground",
         "chia seeds",
         "sunflower seeds",
         "pumpkin seeds",
@@ -94,6 +94,8 @@ const ingredientList = {
     "spring onion",
     "asparagu",
     "mixed vegetable",
+    "corn",
+    "leek",
   ],
   fruit: {
     fresh: [
@@ -109,7 +111,7 @@ const ingredientList = {
       "pineapple",
       "cherry",
       "rock mellon",
-      "honrydew",
+      "honeydew",
       "raspberry",
       "pear",
       "lime",
@@ -121,18 +123,25 @@ const ingredientList = {
     ],
     dried: [
       "cocoa powder",
-      "date",
-      "dried apricot",
-      "banana chip",
-      "raisin",
-      "saltana",
-      "cranberry",
+      "dates",
+      "dried apricots",
+      "banana chips",
+      "raisins",
+      "saltanas",
+      "cranberries",
     ],
   },
-  dairyish: ["coconut yoghurt", "almond milk", "non dairy milk", "soy milk"],
+  dairyish: [
+    "coconut yoghurt",
+    "almond milk",
+    "non dairy milk",
+    "soy milk",
+    "non dairy cheese",
+  ],
   spices: [
     // rubs
     "pepper",
+    "red chilli",
     "garlic powder",
     "onion powder",
     "smoked paprika",
@@ -156,7 +165,7 @@ const ingredientList = {
     "cinnamon",
     "all spice",
   ],
-  herbs: ["basil", "coriander", "dill", "mixed herbs"],
+  herbs: ["basil", "coriander", "dill", "lemongrass", "mixed herbs"],
   oils: ["canola oil", "olive oil", "sesame_oil"],
   stock: ["vegetable stock", "beef stock", "chicken stock"],
   sweeteners: ["maple syrup", "brown sugar", "golden syrup"],
@@ -170,6 +179,11 @@ const ingredientList = {
     "marmite",
     "chocolate milk powder",
     "gf soy sauce",
+    "gf pastry",
+    "gf weet bix",
+    "coconut_cream",
+    "meat free chicken",
+    "dijon_mustard",
   ],
 };
 
@@ -192,6 +206,6 @@ const flatten = (deepObject) => {
   return ingredients;
 };
 
-console.log(flatten(ingredientList));
+// console.log(flatten(ingredientList));
 
 export const ingredients = flatten(ingredientList);

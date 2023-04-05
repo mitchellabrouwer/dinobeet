@@ -29,7 +29,14 @@ export default function NewUser() {
   return (
     <div>
       <h2>Joining fee of $9.99</h2>
-      <Button onClick={handleJoinClick}>Pay with stripe</Button>
+      <Button
+        accessibilityLabel="pay here"
+        colour="primary"
+        variant="outline"
+        onClick={handleJoinClick}
+      >
+        Pay with stripe
+      </Button>
     </div>
   );
 }

@@ -45,3 +45,8 @@ export const randomProperty = (obj: { [key: string]: string }) => {
 
   return obj[randomKey];
 };
+
+export const time = (milliseconds) =>
+  new Promise<void>((resolve) => {
+    setTimeout(() => resolve(), milliseconds);
+  });

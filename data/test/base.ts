@@ -1,20 +1,17 @@
 /* eslint-disable no-console */
 import { PrismaClient } from "@prisma/client";
 import * as dotenv from "dotenv";
-import { favourites, recipes, reviews, user, userTwo } from ".";
+import { favourites, reviews, testRecipes, user, userTwo } from ".";
+import { SLOW_LOAD } from "../../lib/constants";
+import { time } from "../../lib/utils";
 import { ingredients } from "../ingredients";
+import { breakfast } from "../recipes/breakfast";
+import { dinner } from "../recipes/dinner";
+import { sauceOrRub } from "../recipes/sauceOrRub";
 
 dotenv.config({ path: `${__dirname}/./../../.env.test.local` });
 
 const prisma = new PrismaClient();
-
-const SLOW_LOAD = 800;
-
-function time(milliseconds) {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => resolve(), milliseconds);
-  });
-}
 
 async function main() {
   await prisma.user.deleteMany({});
@@ -34,9 +31,26 @@ async function main() {
     skipDuplicates: true,
   });
 
-  recipes.forEach(async (recipe) => {
-    console.log(recipe.name);
+  sauceOrRub.forEach(async (recipe) => {
+    await prisma.recipe.create({ data: recipe });
+  });
 
+  await time(SLOW_LOAD);
+
+  breakfast.forEach(async (recipe) => {
+    await prisma.recipe.create({ data: recipe });
+  });
+
+  await time(SLOW_LOAD);
+
+  dinner.forEach(async (recipe) => {
+    await prisma.recipe.create({ data: recipe });
+  });
+
+  await time(SLOW_LOAD);
+
+  testRecipes.forEach(async (recipe) => {
+    console.log(recipe.name);
     await prisma.recipe.create({ data: recipe });
   });
 

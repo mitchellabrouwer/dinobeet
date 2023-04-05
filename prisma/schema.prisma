@@ -90,6 +90,8 @@ model Recipe {
 
   variation Recipe[] @relation("VariationRecipes")
   similar   Recipe[] @relation("VariationRecipes")
+
+  linked IngredientMeasured[]
 }
 
 model MethodGroup {
@@ -114,14 +116,17 @@ model IngredientGroup {
 
 model IngredientMeasured {
   id                Int              @id @default(autoincrement())
-  ingredientGroupId Int
+  ingredientGroupId Int?
   ingredientGroup   IngredientGroup? @relation(fields: [ingredientGroupId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
   qty  String
   unit MeasurementOptions?
 
-  ingredient     Ingredient        @relation(fields: [ingredientName], references: [name])
-  ingredientName IngredientOptions
+  ingredient     Ingredient?        @relation(fields: [ingredientName], references: [name])
+  ingredientName IngredientOptions?
+
+  recipe     Recipe? @relation(fields: [recipeName], references: [name])
+  recipeName String?
 
   note String? // chooped, halved, etc
 }
@@ -166,6 +171,15 @@ enum MeasurementOptions {
   small
   medium
   large
+  sprinkle
+  block
+  sheet
+  handful
+  biscuit
+  cube
+  box
+  thumb
+  stick
 }
 
 enum OccasionOptions {
@@ -182,7 +196,8 @@ enum IngredientOptions {
   walnuts
   almonds
   pistachios
-  flax_seeds
+  peanuts
+  flax_seeds_ground
   chia_seeds
   sunflower_seeds
   pumpkin_seeds
@@ -253,6 +268,8 @@ enum IngredientOptions {
   spring_onion
   asparagu
   mixed_vegetable
+  corn
+  leek
   banana
   strawberry
   grape
@@ -265,7 +282,7 @@ enum IngredientOptions {
   pineapple
   cherry
   rock_mellon
-  honrydew
+  honeydew
   raspberry
   pear
   lime
@@ -275,16 +292,17 @@ enum IngredientOptions {
   mango
   plum
   cocoa_powder
-  date
-  dried_apricot
-  banana_chip
-  raisin
-  saltana
-  cranberry
+  dates
+  dried_apricots
+  banana_chips
+  raisins
+  saltanas
+  cranberries
   coconut_yoghurt
   almond_milk
   non_dairy_milk
   soy_milk
+  non_dairy_cheese
   pepper
   garlic_powder
   onion_powder
@@ -307,6 +325,7 @@ enum IngredientOptions {
   basil
   coriander
   dill
+  lemongrass
   mixed_herbs
   canola_oil
   olive_oil
@@ -326,6 +345,12 @@ enum IngredientOptions {
   marmite
   chocolate_milk_powder
   gf_soy_sauce
+  gf_pastry
+  gf_weet_bix
+  coconut_cream
+  meat_free_chicken
+  dijon_mustard
+  red_chilli
 }
 
 enum Tags {

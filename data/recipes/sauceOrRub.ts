@@ -2,6 +2,82 @@ import { Prisma } from "@prisma/client";
 
 export const sauceOrRub: Prisma.RecipeCreateInput[] = [
   {
+    name: "Red Curry Paste",
+    occasion: ["sauce_or_rub"],
+    tags: ["freezer_friendly"],
+    difficulty: "easy",
+    cost: "cheap",
+    ingredients: {
+      create: [
+        {
+          list: {
+            create: [
+              {
+                qty: "4",
+                unit: "large",
+                ingredient: { connect: { name: "red_chilli" } },
+                note: "deseeded and soaked in boiling water",
+              },
+
+              {
+                qty: "1",
+                unit: "thumb",
+                ingredient: { connect: { name: "ginger" } },
+              },
+
+              {
+                qty: "5",
+                unit: "medium",
+                ingredient: { connect: { name: "garlic_clove" } },
+              },
+
+              {
+                qty: "1",
+                unit: "tsp",
+                ingredient: { connect: { name: "salt" } },
+              },
+              {
+                qty: "1",
+                unit: "stick",
+                ingredient: { connect: { name: "lemongrass" } },
+              },
+              {
+                qty: "0.5",
+                unit: "tsp",
+                ingredient: { connect: { name: "pepper" } },
+              },
+              {
+                qty: "0.5",
+                unit: "tsp",
+                ingredient: { connect: { name: "pepper" } },
+              },
+              {
+                qty: "0.5",
+                unit: "tsp",
+                ingredient: { connect: { name: "cumin_seeds" } },
+                note: "ground",
+              },
+            ],
+          },
+        },
+      ],
+    },
+    method: {
+      create: [
+        {
+          instructions: [
+            "Blend all ingredients together",
+            "Add water, oil or maple syrup if needed to allow blending",
+          ],
+        },
+      ],
+    },
+    servings: 8,
+    prep: 5,
+    cook: 0,
+    notes: "",
+  },
+  {
     name: "Pesto",
     occasion: "sauce_or_rub",
     tags: ["omega_3"],

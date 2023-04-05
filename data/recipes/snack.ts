@@ -195,4 +195,18 @@ export const snack: Prisma.RecipeCreateInput[] = [
     cook: 20,
     notes: "",
   },
+
+  {
+    name: "Potato Goodness",
+    occasion: "{snack}",
+    difficulty: "easy",
+    cost: "$",
+    ingredients:
+      "10 potatoes,0.25 red cabbage diced,2 peeled and grated carrots,1 diced red onion,1 Tbsp canola oil,3 Tbsp tartar sauce,1 Tbsp pepitas",
+    method: "Peel and steam potatoes,Mix in all other ingredients",
+    servings: 4,
+    prep: 10,
+    cook: 20,
+    notes: "",
+  },
 ];

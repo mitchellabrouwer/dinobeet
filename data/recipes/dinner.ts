@@ -32,7 +32,7 @@ export const dinner: Prisma.RecipeCreateInput[] = [
               {
                 qty: "1",
                 unit: "Tbsp",
-                ingredient: { connect: { name: "flax_seeds" } },
+                ingredient: { connect: { name: "flax_seeds_ground" } },
                 note: "3 Tbsp water",
               },
               {
@@ -103,60 +103,431 @@ export const dinner: Prisma.RecipeCreateInput[] = [
     cook: 20,
     notes: "",
   },
-  // {
-  //   name: "Falafel",
-  //   occasion: dinner,
-  //   difficulty: "easy",
-  //   cost: "$",
-  //   ingredients:
-  //     "2 cups dried chickpeas,handful of dill,1 tsp cumin,0.5 tsp salt,1 Tbsp sesame seeds,1 Tbsp dust,1 Tbsp canola oil,1 flax egg,Tartar sauce",
-  //   method:
-  //     "Blend all ingredients until sticking together,Roll into ping pong sized balls,Shallow fry for 5 mins,Serve with salad and tatar sauce",
-  //   servings: 4,
-  //   prep: 10,
-  //   cook: 20,
-  //   notes: "",
-  // },
-  // {
-  //   name: "Satay",
-  //   occasion: dinner,
-  //   difficulty: "easy",
-  //   cost: "$",
-  //   ingredients:
-  //     "400g firm tofu,2 Tbsp corn flour,3 Tbsp crunchy natural peanut butter,1 Tbsp minced ginger,1 Tbsp minced garlic,1 Tsp soy sauce,1 can coconut cream,2 Tbsp crushed peanuts,1 Tbsp sesame oil,Mixed vegetables,2 cups uncooked rice",
-  //   method:
-  //     "Dry tofu with teatowel,Mix tofu and corn flour together in bowel,Shallow fry until golden,Add remaining ingredients and mix,Serve as side or part of buddha bowel",
-  //   servings: 4,
-  //   prep: 10,
-  //   cook: 20,
-  //   notes: "",
-  // },
-  // {
-  //   name: "Cheesey Pasta",
-  //   occasion: dinner,
-  //   difficulty: "easy",
-  //   cost: "$",
-  //   ingredients:
-  //     "1 can coconut cream,3 Tbsp dust,2 Tbsp flour,1 Tbsp spice mix",
-  //   method: "Place in saucepan and cook until thick",
-  //   servings: 4,
-  //   prep: 10,
-  //   cook: 20,
-  //   notes: "",
-  // },
-  // {
-  //   name: "Chicken and Leek Pie",
-  //   occasion: dinner,
-  //   difficulty: "easy",
-  //   cost: "$$",
-  //   ingredients:
-  //     "# Vegetables,2 large leeks,2 cloves garlic,0.25 of a red cabbage,4 large mushrooms,1 large brocoli,2 handfuls of spinach,# Rest,3 sheets GF pastry,1 Tbsp mixed herbs,0.5 can coconut cream,1-2 Tbsp corn flour,3 tsp mustard",
-  //   method: "Preheat over 200°C,Stir fry vegetables",
-  //   servings: 4,
-  //   prep: 10,
-  //   cook: 20,
-  //   notes: "",
-  // },
+
+  {
+    name: "Sausage Rolls",
+    occasion: "dinner",
+    difficulty: "easy",
+    cost: "cheap",
+    ingredients: {
+      create: [
+        {
+          list: {
+            create: [
+              {
+                qty: "1",
+                unit: "medium",
+                ingredient: { connect: { name: "red_onion" } },
+              },
+
+              {
+                qty: "1",
+                unit: "medium",
+                ingredient: { connect: { name: "garlic_clove" } },
+              },
+
+              {
+                qty: "0.5",
+                unit: "cup",
+                ingredient: { connect: { name: "cashews" } },
+              },
+              {
+                qty: "1",
+                unit: "tsp",
+                ingredient: { connect: { name: "onion_powder" } },
+              },
+              {
+                qty: "1",
+                unit: "sheet",
+                ingredient: { connect: { name: "firm_tofu" } },
+                note: "300g",
+              },
+
+              {
+                qty: "0.5",
+                unit: "cup",
+                ingredient: { connect: { name: "gf_bread_crumbs" } },
+              },
+              {
+                qty: "3",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "gf_soy_sauce" } },
+              },
+              {
+                qty: "1",
+                unit: "tsp",
+                ingredient: { connect: { name: "sweet_paprika" } },
+              },
+              {
+                qty: "0.5",
+                unit: "cup",
+                ingredient: { connect: { name: "basil" } },
+              },
+              {
+                qty: "4",
+                unit: "sheet",
+                ingredient: { connect: { name: "gf_pastry" } },
+              },
+            ],
+          },
+        },
+      ],
+    },
+    method: {
+      create: [
+        {
+          instructions: [
+            "Preheat oven to 200°C",
+            "Take pastry out of freezer",
+            "Blend all other ingredients",
+            "Place filling in middle of pastry and roll",
+            "Bake for 20 mins or until brown",
+          ],
+        },
+      ],
+    },
+    servings: 4,
+    prep: 10,
+    cook: 20,
+    notes: "",
+  },
+  {
+    name: "Falafel",
+    occasion: "dinner",
+    tags: ["bitesized", "freezer_friendly"],
+    difficulty: "easy",
+    cost: "cheap",
+    ingredients: {
+      create: [
+        {
+          list: {
+            create: [
+              {
+                qty: "2",
+                unit: "cup",
+                ingredient: { connect: { name: "chickpeas" } },
+                note: "dried",
+              },
+              {
+                qty: "1",
+                unit: "tsp",
+                ingredient: { connect: { name: "cumin_seeds" } },
+                note: "ground",
+              },
+
+              {
+                qty: "0.5",
+                unit: "tsp",
+                ingredient: { connect: { name: "salt" } },
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "sesame_seeds" } },
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "nutritional_yeast" } },
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "flax_seeds_ground" } },
+                note: "mixed with 3 Tbsp water",
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "vegan_tartar_sauce" } },
+              },
+            ],
+          },
+        },
+      ],
+    },
+    method: {
+      create: [
+        {
+          instructions: [
+            "Blend all ingredients in a food processor until sticking together",
+            "Roll into ping pong sized balls",
+            "Shallow fry on medium heat until golden brown",
+            "Serve with veggies, rice and tartar sauce",
+          ],
+        },
+      ],
+    },
+    servings: 4,
+    prep: 10,
+    cook: 20,
+    notes: "",
+  },
+  {
+    name: "Satay",
+    occasion: "dinner",
+    difficulty: "easy",
+    cost: "cheap",
+    ingredients: {
+      create: [
+        {
+          list: {
+            create: [
+              {
+                qty: "1",
+                unit: "block",
+                ingredient: { connect: { name: "firm_tofu" } },
+              },
+              {
+                qty: "3",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "peanut_butter" } },
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "ginger" } },
+                note: "crushed",
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "gf_soy_sauce" } },
+              },
+              {
+                qty: "0.5",
+                unit: "can",
+                ingredient: { connect: { name: "coconut_cream" } },
+              },
+              {
+                qty: "2",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "peanut" } },
+                note: "crushed",
+              },
+              {
+                qty: "1",
+                unit: "cup",
+                ingredient: { connect: { name: "mixed_vegetable" } },
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "garlic_clove" } },
+                note: "diced",
+              },
+              {
+                qty: "2",
+                unit: "tsp",
+                // ingredient: { connect: { name: "red_curry_paste" } },
+                recipe: {
+                  connect: {
+                    name: "Red Curry Paste",
+                  },
+                },
+                note: "optional",
+              },
+            ],
+          },
+        },
+      ],
+    },
+    method: {
+      create: [
+        {
+          instructions: [
+            "Press tofu dry with teatowel",
+            "Mix tofu and corn flour together in bowel",
+            "Shallow fry until golden",
+            "Add remaining ingredients and mix",
+            "Serve as side or part of buddha bowel",
+          ],
+        },
+      ],
+    },
+    servings: 4,
+    prep: 10,
+    cook: 25,
+    notes: "",
+  },
+  {
+    name: "Cheesey Pasta",
+    occasion: "dinner",
+    difficulty: "easy",
+    cost: "cheap",
+    ingredients: {
+      create: [
+        {
+          heading: "Sauce",
+          list: {
+            create: [
+              {
+                qty: "3",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "nutritional_yeast" } },
+              },
+              {
+                qty: "1",
+                unit: "cup",
+                ingredient: { connect: { name: "cashews" } },
+              },
+              {
+                qty: "1",
+                unit: "cube",
+                ingredient: { connect: { name: "chicken_stock" } },
+              },
+              {
+                qty: "1",
+                unit: "tsp",
+                ingredient: { connect: { name: "tumeric_powder" } },
+              },
+              {
+                qty: "1",
+                unit: "cup",
+                ingredient: { connect: { name: "water" } },
+              },
+            ],
+          },
+        },
+        {
+          heading: "Base",
+          list: {
+            create: [
+              {
+                qty: "0.5",
+                unit: "cup",
+                ingredient: { connect: { name: "mixed_vegetable" } },
+              },
+              {
+                qty: "0.5",
+                unit: "box",
+                ingredient: { connect: { name: "meat_free_chicken" } },
+                note: "eg sunfed",
+              },
+              {
+                qty: "1",
+                unit: "box",
+                ingredient: { connect: { name: "gf_penne" } },
+              },
+            ],
+          },
+        },
+      ],
+    },
+    method: {
+      create: [
+        {
+          instructions: [
+            "Cook pasta as per instructions",
+            "Fry vegetables in a frypan",
+            "Blend ingredients except pasta in high-speed blender until smooth",
+            "Add pasta, sauce and meat_free_chicken",
+          ],
+        },
+      ],
+    },
+    servings: 4,
+    prep: 10,
+    cook: 20,
+    notes: "",
+  },
+  {
+    name: "Chicken and Leek Pie",
+    occasion: "dinner",
+    difficulty: "easy",
+    cost: "ok",
+    ingredients: {
+      create: [
+        {
+          heading: "Vegetables",
+          list: {
+            create: [
+              {
+                qty: "2",
+                unit: "large",
+                ingredient: { connect: { name: "leek" } },
+              },
+
+              {
+                qty: "2",
+                unit: "medium",
+                ingredient: { connect: { name: "garlic_clove" } },
+              },
+
+              {
+                qty: "0.25",
+                unit: "medium",
+                ingredient: { connect: { name: "red_cabbage" } },
+              },
+
+              {
+                qty: "4",
+                unit: "large",
+                ingredient: { connect: { name: "mushroom" } },
+              },
+
+              {
+                qty: "1",
+                unit: "large",
+                ingredient: { connect: { name: "broccoli" } },
+              },
+            ],
+          },
+        },
+        {
+          heading: "Sauce",
+          list: {
+            create: [
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "mixed_herbs" } },
+              },
+              {
+                qty: "3",
+                unit: "tsp",
+                ingredient: { connect: { name: "dijon_mustard" } },
+              },
+              {
+                qty: "0.5",
+                unit: "can",
+                ingredient: { connect: { name: "coconut_cream" } },
+              },
+              {
+                qty: "2",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "corn_four" } },
+              },
+            ],
+          },
+        },
+        {
+          heading: "Pastry",
+          list: {
+            create: [
+              {
+                qty: "3",
+                unit: "sheet",
+                ingredient: { connect: { name: "gf_pastry" } },
+              },
+            ],
+          },
+        },
+      ],
+    },
+    method: {
+      create: [
+        {
+          instructions: ["Preheat over 180°C"],
+        },
+      ],
+    },
+
+    servings: 4,
+    prep: 10,
+    cook: 20,
+    notes: "",
+  },
   // {
   //   name: "Pasta Bake",
   //   occasion: dinner,
@@ -165,7 +536,7 @@ export const dinner: Prisma.RecipeCreateInput[] = [
   //   ingredients:
   //     "# Base,1 diced onion,2 diced cloves garlic,1 Tbsp oil,8 grated mushrooms,1 grated zucchini,1 can lentils, drained and washed,250g GF pasta,# Tomato Paste,2 cans of tomatoes,1 Tbsp mixed herbs,1 Tbsp maple,# Sauce,1 cup cashews,0.5 lemon's juice,0.5 tsp salt,0.5 vegetable stock,1 tsp mustard,3 Tbsp dust,2 Tbsp GF flour,0.5 cup non dairy milk",
   //   method:
-  //     "Preheat oven to 220°C,Cook down tomatoes herb and maple on stove top,Cook pasta,Stir fry base ingredients,Blend sauce,Pour everything into a baking dish,Cook for ~20 mins",
+  //     "Preheat oven to 220°C,Cook down tomatoes herb and maple on stove top,Cook pasta,Stir fry base ingredients,Blend sauce,Pour everything into a baking dish,Cook   for ~20 mins",
   //   servings: 4,
   //   prep: 10,
   //   cook: 20,

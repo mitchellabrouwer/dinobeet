@@ -16,10 +16,10 @@ const userTwo: Prisma.UserCreateInput = {
   name: "testtwo",
 };
 
-const recipes: Prisma.RecipeCreateInput[] = [
+const testRecipes: Prisma.RecipeCreateInput[] = [
   {
     id: "c36b27e6-0422-47f9-88de-d8aebc57b9d6",
-    name: "Banana Pillows",
+    name: "Banana Test",
     occasion: "dinner",
     tags: ["nutritious"],
     difficulty: "easy",
@@ -87,7 +87,7 @@ const recipes: Prisma.RecipeCreateInput[] = [
 
   {
     id: "73d43a44-af43-48ca-814d-657a47e8977d",
-    name: "Chia Pudding",
+    name: "Pudding Test",
     occasion: ["breakfast", "snack"],
     tags: ["nutritious", "omega_3"],
     difficulty: "easy",
@@ -140,7 +140,7 @@ const recipes: Prisma.RecipeCreateInput[] = [
 
   {
     id: "c7cb61f7-c5f8-439a-8cb1-41ca528c1098",
-    name: "Meatballs",
+    name: "Meatballs Test",
     occasion: "dinner",
     tags: ["stores_well"],
     difficulty: "medium",
@@ -170,7 +170,7 @@ const recipes: Prisma.RecipeCreateInput[] = [
               {
                 qty: "1",
                 unit: "Tbsp",
-                ingredient: { connect: { name: "flax_seeds" } },
+                ingredient: { connect: { name: "flax_seeds_ground" } },
                 note: "3 Tbsp water",
               },
               {
@@ -245,13 +245,13 @@ const recipes: Prisma.RecipeCreateInput[] = [
 
 const reviews: Prisma.ReviewCreateInput[] = [
   {
-    recipe: { connect: { id: recipes[0].id } },
+    recipe: { connect: { id: testRecipes[0].id } },
     user: { connect: { id: user.id } },
     rating: 5,
     comment: "this is a for test recipe one",
   },
   {
-    recipe: { connect: { id: recipes[1].id } },
+    recipe: { connect: { id: testRecipes[1].id } },
     user: { connect: { id: user.id } },
     rating: 5,
     comment: "this is a for test recipe two",
@@ -260,13 +260,13 @@ const reviews: Prisma.ReviewCreateInput[] = [
 
 const favourites: Prisma.FavouriteCreateInput[] = [
   {
-    recipe: { connect: { id: recipes[0].id } },
+    recipe: { connect: { id: testRecipes[0].id } },
     user: { connect: { email: user.email } },
   },
   // {
-  //   recipe: { connect: { id: recipes[1].id } },
+  //   recipe: { connect: { id: testRecipes[1].id } },
   //   user: { connect: { email: user.email } },
   // },
 ];
 
-export { user, userTwo, recipes, reviews, favourites };
+export { user, userTwo, testRecipes, reviews, favourites };

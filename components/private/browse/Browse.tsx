@@ -71,7 +71,7 @@ export const Browse: React.FC = () => {
 
     const data: GetRecipes = await res.json();
 
-    // console.log("data", data);
+    console.log("data", data);
     return data;
   };
 

@@ -13,8 +13,6 @@ interface Request extends NextApiRequest {
 }
 
 export default async (req: Request, res: NextApiResponse) => {
-  console.log("recipe", req.query.id);
-
   if (req.method === "GET") {
     if (typeof req.query.id === "string" && req.query.id.length > 0) {
       const recipe = await getRecipe(prisma, req.query.id);
@@ -35,9 +33,12 @@ export default async (req: Request, res: NextApiResponse) => {
       pagination,
     };
 
+    console.log("options", options);
+
     const take = 4;
 
     const recipes = await getRecipes(prisma, cursor, take, options);
+    console.log("recipes", recipes);
     return res.json(recipes);
   }
 
