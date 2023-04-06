@@ -107,6 +107,12 @@ describe("reviews", () => {
     });
   });
 
+  it("handle a recipe that links to another recipe", () => {
+    cy.request(`/api/recipe?id=${RECIPE_ID}`).then((response) => {
+      expect(response.status).to.eq(200);
+    });
+  });
+
   it.only("renders recipe correctly", () => {
     cy.visit(`/dashboard/recipes/${RECIPE_ID}`);
 

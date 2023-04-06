@@ -168,6 +168,8 @@ export const getRecipe = async (prisma: PrismaClient, id: string) => {
     },
   });
 
+  console.log(recipe);
+
   return recipe;
 };
 
