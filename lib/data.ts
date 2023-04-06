@@ -150,7 +150,20 @@ export const getRecipe = async (prisma: PrismaClient, id: string) => {
   const recipe = await prisma.recipe.findUnique({
     where: { id },
     include: {
-      ingredients: { include: { list: true } },
+      ingredients: {
+        include: {
+          list: {
+            include: {
+              recipe: {
+                include: {
+                  ingredients: true,
+                  method: true,
+                },
+              },
+            },
+          },
+        },
+      },
       method: true,
     },
   });

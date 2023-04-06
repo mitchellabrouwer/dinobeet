@@ -153,7 +153,14 @@ export const Recipe: FC<RecipeProps> = ({ id }) => {
         </div>
       </div>
       <div className="flex w-full justify-center">
-        <Button onClick={() => setIsOpen(true)}>Cooked It!</Button>
+        <Button
+          accessibilityLabel="I cooked the recipe"
+          variant="solid"
+          colour="primary"
+          onClick={() => setIsOpen(true)}
+        >
+          Cooked It!
+        </Button>
       </div>
 
       {isOpen && (

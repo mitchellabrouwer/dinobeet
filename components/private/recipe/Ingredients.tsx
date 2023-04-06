@@ -28,7 +28,7 @@ export const Ingredients: FC<IngredientsProps> = ({ ingredients }) => {
                 >
                   {`${ingredient.qty} ${
                     ingredient.unit
-                  } ${ingredient.ingredientName.replace("_", " ")}`}
+                  } ${ingredient?.ingredientName?.replace("_", " ")}`}
                 </label>
               </li>
             ))}
