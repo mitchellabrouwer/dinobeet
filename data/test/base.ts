@@ -25,16 +25,16 @@ export const userTwo: Prisma.UserCreateInput = {
   name: "testtwo",
 };
 
-const favourites: Prisma.FavouriteCreateInput[] = [
-  {
-    recipe: { connect: { id: "Meatballs" } },
-    user: { connect: { email: user.email } },
-  },
-  {
-    recipe: { connect: { id: "Satay" } },
-    user: { connect: { email: user.email } },
-  },
-];
+// const favourites: Prisma.FavouriteCreateInput[] = [
+//   {
+//     recipe: { connect: { id: "Meatballs" } },
+//     user: { connect: { email: user.email } },
+//   },
+//   {
+//     recipe: { connect: { id: "Satay" } },
+//     user: { connect: { email: user.email } },
+//   },
+// ];
 
 const prisma = new PrismaClient();
 

@@ -266,7 +266,8 @@ enum IngredientOptions {
   mushroom
   chive
   spring_onion
-  asparagu
+  asparagus
+  zucchini
   mixed_vegetable
   corn
   leek

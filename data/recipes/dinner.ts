@@ -528,20 +528,220 @@ export const dinner: Prisma.RecipeCreateInput[] = [
     cook: 20,
     notes: "",
   },
-  // {
-  //   name: "Pasta Bake",
-  //   occasion: dinner,
-  //   difficulty: "easy",
-  //   cost: "$",
-  //   ingredients:
-  //     "# Base,1 diced onion,2 diced cloves garlic,1 Tbsp oil,8 grated mushrooms,1 grated zucchini,1 can lentils, drained and washed,250g GF pasta,# Tomato Paste,2 cans of tomatoes,1 Tbsp mixed herbs,1 Tbsp maple,# Sauce,1 cup cashews,0.5 lemon's juice,0.5 tsp salt,0.5 vegetable stock,1 tsp mustard,3 Tbsp dust,2 Tbsp GF flour,0.5 cup non dairy milk",
-  //   method:
-  //     "Preheat oven to 220°C,Cook down tomatoes herb and maple on stove top,Cook pasta,Stir fry base ingredients,Blend sauce,Pour everything into a baking dish,Cook   for ~20 mins",
-  //   servings: 4,
-  //   prep: 10,
-  //   cook: 20,
-  //   notes: "",
-  // },
+
+  {
+    name: "Pasta Bake",
+    occasion: ["dinner"],
+    tags: ["hosting"],
+    difficulty: "easy",
+    cost: "cheap",
+    ingredients: {
+      create: [
+        {
+          heading: "Base",
+          list: {
+            create: [
+              {
+                qty: "1",
+                unit: "medium",
+                ingredient: { connect: { name: "onion" } },
+                note: "diced",
+              },
+              {
+                qty: "2",
+                unit: "medium",
+                ingredient: { connect: { name: "garlic_clove" } },
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "olive_oil" } },
+              },
+              {
+                qty: "8",
+                unit: "medium",
+                ingredient: { connect: { name: "mushroom" } },
+                note: "grated",
+              },
+              {
+                qty: "1",
+                unit: "medium",
+                ingredient: { connect: { name: "zucchini" } },
+              },
+              {
+                qty: "0.25",
+                unit: "cup",
+                ingredient: { connect: { name: "red_lentils" } },
+              },
+            ],
+          },
+        },
+        {
+          heading: "Tomato Paste",
+          list: {
+            create: [
+              {
+                qty: "2",
+                unit: "can",
+                ingredient: { connect: { name: "tomato" } },
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "mixed_herbs" } },
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "maple_syrup" } },
+              },
+            ],
+          },
+        },
+        {
+          heading: "Sauce",
+          list: {
+            create: [
+              {
+                qty: "1",
+                unit: "cup",
+                ingredient: { connect: { name: "cashews" } },
+              },
+              {
+                qty: "0.5",
+                unit: "tsp",
+                ingredient: { connect: { name: "salt" } },
+              },
+              {
+                qty: "0.5",
+                unit: "cube",
+                ingredient: { connect: { name: "vegetable_stock" } },
+              },
+              {
+                qty: "1",
+                unit: "tsp",
+                ingredient: { connect: { name: "dijon_mustard" } },
+              },
+              {
+                qty: "3",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "nutritional_yeast" } },
+              },
+              {
+                qty: "2",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "non_dairy_milk" } },
+              },
+            ],
+          },
+        },
+      ],
+    },
+    method: {
+      create: [
+        {
+          instructions: [
+            "Preheat oven to 220°C",
+            "Cook down tomatoes herb and maple on stove top",
+            "Cook pasta",
+            "Stir fry base ingredients",
+            "Blend sauce",
+            "Pour everything into a baking dish",
+            "Cook for about 20 minutes or until brown at top",
+          ],
+        },
+      ],
+    },
+    servings: 4,
+    prep: 10,
+    cook: 30,
+    notes: "",
+  },
+
+  {
+    name: "Pumpkin Soup",
+    occasion: ["dinner"],
+    tags: ["winter"],
+    difficulty: "easy",
+    cost: "cheap",
+    ingredients: {
+      create: [
+        {
+          list: {
+            create: [
+              {
+                qty: "0.5",
+                unit: "medium",
+                ingredient: { connect: { name: "pumpkin" } },
+              },
+              {
+                qty: "2",
+                unit: "medium",
+                ingredient: { connect: { name: "carrot" } },
+              },
+              {
+                qty: "2",
+                unit: "medium",
+                ingredient: { connect: { name: "potato" } },
+              },
+              {
+                qty: "1",
+                unit: "medium",
+                ingredient: { connect: { name: "parsnip" } },
+              },
+              {
+                qty: "1",
+                unit: "medium",
+                ingredient: { connect: { name: "red_onion" } },
+              },
+              {
+                qty: "1",
+                unit: "cup",
+                ingredient: { connect: { name: "non_dairy_milk" } },
+              },
+              {
+                qty: "2",
+                unit: "cup",
+                ingredient: { connect: { name: "chicken_stock" } },
+              },
+              {
+                qty: "1",
+                unit: "tsp",
+                ingredient: { connect: { name: "ginger" } },
+              },
+              {
+                qty: "1",
+                unit: "tsp",
+                ingredient: { connect: { name: "all_spice" } },
+              },
+              {
+                qty: "0.5",
+                unit: "can",
+                ingredient: { connect: { name: "coconut_cream" } },
+              },
+            ],
+          },
+        },
+      ],
+    },
+    method: {
+      create: [
+        {
+          instructions: [
+            "Throw everything into a large pot",
+            "Bring to boil",
+            "Let simmer until vegetables soft",
+            "Puree if desire smooth texture",
+            "Stir through coconut cream",
+          ],
+        },
+      ],
+    },
+    servings: 4,
+    prep: 15,
+    cook: 15,
+    notes: "",
+  },
   // {
   //   name: "Pumpkin Soup",
   //   occasion: dinner,

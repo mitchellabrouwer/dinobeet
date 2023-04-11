@@ -81,6 +81,8 @@ const ingredientList = {
     "red cabbage",
     "potato",
     "sweet potato",
+    "pumpkin",
+    "parsnip",
     "silverbeet",
     "cauliflower",
     "bok choy",
@@ -92,10 +94,11 @@ const ingredientList = {
     "mushroom",
     "chive",
     "spring onion",
-    "asparagu",
+    "asparagus",
     "mixed vegetable",
     "corn",
     "leek",
+    "zucchini",
   ],
   fruit: {
     fresh: [
