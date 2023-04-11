@@ -8,7 +8,6 @@ interface IngredientsProps {
 }
 
 export const Ingredients: FC<IngredientsProps> = ({ ingredients }) => {
-  console.log(ingredients);
   const router = useRouter();
 
   return (
@@ -18,16 +17,12 @@ export const Ingredients: FC<IngredientsProps> = ({ ingredients }) => {
           {group.heading && <Heading as="h3">{group.heading}</Heading>}
           <ul>
             {group.list.map((ingredient, x) => {
-              // simple ingredient
               const simpleIngredient = `${ingredient.qty} ${
                 ingredient.unit
               } ${ingredient?.ingredientName?.replace("_", " ")}`;
               const complexIngredient = `${ingredient.qty} ${
                 ingredient.unit
               } ${ingredient?.recipe?.name.toLowerCase()}`;
-              console.log(complexIngredient);
-
-              // recipe ingredient
               return (
                 <li className="flex cursor-pointer p-1">
                   <input
