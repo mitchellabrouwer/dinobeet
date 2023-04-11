@@ -147,8 +147,17 @@ export const getRecipes = async (
 };
 
 export const getRecipe = async (prisma: PrismaClient, id: string) => {
-  const recipe = await prisma.recipe.findUnique({
-    where: { id },
+  const recipe = await prisma.recipe.findFirst({
+    where: {
+      OR: [
+        {
+          id,
+        },
+        {
+          name: id,
+        },
+      ],
+    },
     include: {
       ingredients: {
         include: {
@@ -167,8 +176,6 @@ export const getRecipe = async (prisma: PrismaClient, id: string) => {
       method: true,
     },
   });
-
-  console.log(recipe);
 
   return recipe;
 };

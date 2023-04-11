@@ -24,22 +24,39 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "POST") {
+    if (req.body.name.length > 0 && req.body.id.length > 0) {
+      throw new Error("please only submit name or id");
+    }
+    let recipeIdByName;
+
+    if (req.body.name.length > 0) {
+      recipeIdByName = await prisma.recipe.findFirst({
+        where: { name: req.body.name },
+      });
+    }
+
     const isFavourite = await prisma.favourite.findUnique({
       where: {
-        recipeId_userId: { recipeId: req.body.recipeId, userId: user.id },
+        recipeId_userId: {
+          recipeId: req.body.recipeId || recipeIdByName,
+          userId: user.id,
+        },
       },
     });
 
     if (isFavourite) {
       await prisma.favourite.delete({
         where: {
-          recipeId_userId: { recipeId: req.body.recipeId, userId: user.id },
+          recipeId_userId: {
+            recipeId: req.body.recipeId || recipeIdByName,
+            userId: user.id,
+          },
         },
       });
     } else {
       await prisma.favourite.create({
         data: {
-          recipe: { connect: { id: req.body.recipeId } },
+          recipe: { connect: { id: req.body.recipeId || recipeIdByName } },
           user: { connect: { id: user.id } },
         },
       });

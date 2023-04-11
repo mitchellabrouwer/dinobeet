@@ -1,5 +1,6 @@
 import { Prisma } from "@prisma/client";
-import { getFavourites, getRandomRecipe } from "../lib/data";
+// eslint-disable-next-line import/no-cycle
+import { getFavourites, getRandomRecipe, getRecipe } from "../lib/data";
 
 // type UserChildren = Prisma.PromiseReturnType<typeof getChild>;
 type RecipeExpanded = Prisma.RecipeGetPayload<{
@@ -11,6 +12,7 @@ type GetRecipes = {
   reviews: { [key: string]: { count: number; average: number } };
 };
 
+type GetRecipe = Prisma.PromiseReturnType<typeof getRecipe>;
 type GetFavourites = Prisma.PromiseReturnType<typeof getFavourites>;
 type GetRandomRecipe = Prisma.PromiseReturnType<typeof getRandomRecipe>;
 
@@ -26,6 +28,7 @@ export type LoginFormInput = {
 };
 
 export type {
+  GetRecipe,
   GetRecipes,
   GetFavourites,
   SelectOption,

@@ -23,25 +23,34 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "POST") {
-    console.log(req.body.recipeId);
+    if (req.body.name.length > 0 && req.body.id.length > 0) {
+      throw new Error("please only submit name or id");
+    }
+    let recipeIdByName;
+
+    if (req.body.name.length > 0) {
+      recipeIdByName = await prisma.recipe.findFirst({
+        where: { name: req.body.name },
+      });
+    }
 
     console.log("user.id", user.id);
     await prisma.review.upsert({
       create: {
-        recipe: { connect: { id: req.body.recipeId } },
+        recipe: { connect: { id: req.body.recipeId || recipeIdByName } },
         user: { connect: { id: user.id } },
         rating: req.body.rating,
         comment: req.body.comment,
       },
       update: {
-        recipe: { connect: { id: req.body.recipeId } },
+        recipe: { connect: { id: req.body.recipeId || recipeIdByName } },
         user: { connect: { id: user.id } },
         rating: req.body.rating,
         comment: req.body.comment,
       },
       where: {
         recipeId_userId: {
-          recipeId: req.body.recipeId,
+          recipeId: req.body.recipeId || recipeIdByName,
           userId: user.id,
         },
       },

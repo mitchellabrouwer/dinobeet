@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import * as dotenv from "dotenv";
-import { favourites, reviews, testRecipes, user, userTwo } from ".";
 import { SLOW_LOAD } from "../../lib/constants";
 import { time } from "../../lib/utils";
 import { ingredients } from "../ingredients";
@@ -10,6 +9,32 @@ import { dinner } from "../recipes/dinner";
 import { sauceOrRub } from "../recipes/sauceOrRub";
 
 dotenv.config({ path: `${__dirname}/./../../.env.test.local` });
+
+export const user: Prisma.UserCreateInput = {
+  id: "a2950aa3-7bf7-4044-87e9-5a8db9274fd7",
+  email: "test@test.com",
+  paid: true,
+  name: "test",
+  role: "ADMIN",
+};
+
+export const userTwo: Prisma.UserCreateInput = {
+  id: "5dd0207e-79f4-4382-bdf0-6f2262148125",
+  email: "testtwo@test.com",
+  paid: true,
+  name: "testtwo",
+};
+
+const favourites: Prisma.FavouriteCreateInput[] = [
+  {
+    recipe: { connect: { id: "Meatballs" } },
+    user: { connect: { email: user.email } },
+  },
+  {
+    recipe: { connect: { id: "Satay" } },
+    user: { connect: { email: user.email } },
+  },
+];
 
 const prisma = new PrismaClient();
 
@@ -48,21 +73,6 @@ async function main() {
   });
 
   await time(SLOW_LOAD);
-
-  testRecipes.forEach(async (recipe) => {
-    console.log(recipe.name);
-    await prisma.recipe.create({ data: recipe });
-  });
-
-  await time(SLOW_LOAD);
-
-  reviews.forEach(async (review) => {
-    await prisma.review.create({ data: review });
-  });
-
-  favourites.forEach(async (favourite) => {
-    await prisma.favourite.create({ data: favourite });
-  });
 
   console.log("base test data set");
 }

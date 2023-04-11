@@ -1,18 +1,21 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /// <reference types="cypress" />
 
-// import { faker } from "@faker-js/faker";
-import { recipes, user, userTwo } from "../../../data/test";
+import { user, userTwo } from "../../../data/test/base";
 
-const RECIPE_ID = recipes[2].id;
+// import { faker } from "@faker-js/faker";
+
+const RECIPE_NAME = "Banana Pillows";
+const RECIPE_TWO_NAME = "Satay";
+
 const newReview = {
-  recipeId: RECIPE_ID,
+  recipeId: RECIPE_NAME,
   rating: 5,
   comment: "this is a comment",
 };
 
 const newReviewTwo = {
-  recipeId: RECIPE_ID,
+  recipeId: "Meatballs",
   rating: 4,
   comment: "this is a comment to post with different user",
 };
@@ -53,22 +56,22 @@ describe("reviews", () => {
       expect(response.body.review).to.be.true;
     });
 
-    // cy.request("GET", "/api/review", { recipeId: RECIPE_ID }).then(
+    // cy.request("GET", "/api/review", { recipeId: RECIPE_NAME }).then(
     //   (response) => {
     //     expect(response.status).to.eq(200);
-    //     cy.wrap(response.body.reviews).should("have.property", RECIPE_ID);
-    //     cy.wrap(response.body.reviews[RECIPE_ID]).should(
+    //     cy.wrap(response.body.reviews).should("have.property", RECIPE_NAME);
+    //     cy.wrap(response.body.reviews[RECIPE_NAME]).should(
     //       "have.property",
     //       "count"
     //     );
-    //     cy.wrap(response.body.reviews[RECIPE_ID]).should(
+    //     cy.wrap(response.body.reviews[RECIPE_NAME]).should(
     //       "have.property",
     //       "average"
     //     );
     //   }
     // );
 
-    cy.request("DELETE", "/api/review", { recipeId: RECIPE_ID }).then(
+    cy.request("DELETE", "/api/review", { recipeId: RECIPE_NAME }).then(
       (response) => {
         expect(response.status).to.eq(200);
       }
@@ -99,7 +102,7 @@ describe("reviews", () => {
   });
 
   it("get a single recipe", () => {
-    cy.request(`/api/recipe?id=${RECIPE_ID}`).then((response) => {
+    cy.request(`/api/recipe?id=${RECIPE_NAME}`).then((response) => {
       expect(response.status).to.eq(200);
       expect(response.body.name).to.be.a("string");
       expect(response.body.cook).to.be.a("number");
@@ -107,16 +110,18 @@ describe("reviews", () => {
     });
   });
 
-  it("handle a recipe that links to another recipe", () => {
-    cy.request(`/api/recipe?id=${RECIPE_ID}`).then((response) => {
+  it.only("handle a recipe that links to another recipe", () => {
+    cy.request(`/api/recipe?id=${RECIPE_TWO_NAME}`).then((response) => {
       expect(response.status).to.eq(200);
     });
   });
 
-  it.only("renders recipe correctly", () => {
-    cy.visit(`/dashboard/recipes/${RECIPE_ID}`);
+  it("search for and display recipe", () => {
+    cy.visit(`/dashboard/browse`);
+    // go to browse
+    // select recipe
 
-    cy.get("h2").should("have.text", recipes[2].name);
+    cy.get("h2").should("have.text", RECIPE_NAME);
   });
 });
 

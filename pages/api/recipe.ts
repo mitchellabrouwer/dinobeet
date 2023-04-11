@@ -4,6 +4,7 @@ import prisma from "../../lib/prisma";
 
 interface Request extends NextApiRequest {
   id?: string;
+  name: string;
   difficulty: string;
   cost: string;
   occasion: string;
