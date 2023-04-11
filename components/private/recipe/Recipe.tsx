@@ -100,7 +100,8 @@ export const Recipe: FC<RecipeProps> = ({ id }) => {
               <ImPriceTag />
             </div>
             <span className="text-sm italic">
-              {tags?.join() || "no tags yet"}
+              {tags?.join().replace(/,/g, " |").replace(/_/g, " ") ||
+                "no tags yet"}
             </span>
           </div>
         </div>
@@ -111,7 +112,7 @@ export const Recipe: FC<RecipeProps> = ({ id }) => {
               <ImSpoonKnife />
             </div>
             <span className="text-sm italic">
-              {occasion?.toString().replace(/,/g, " |")}
+              {occasion?.toString().replace(/,/g, " |").replace(/_/g, " ")}
             </span>
           </div>
           <div className="flex">
