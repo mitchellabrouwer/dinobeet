@@ -180,6 +180,7 @@ enum MeasurementOptions {
   box
   thumb
   stick
+  gram
 }
 
 enum OccasionOptions {

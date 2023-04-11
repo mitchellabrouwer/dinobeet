@@ -742,20 +742,209 @@ export const dinner: Prisma.RecipeCreateInput[] = [
     cook: 15,
     notes: "",
   },
-  // {
-  //   name: "Pumpkin Soup",
-  //   occasion: dinner,
-  //   difficulty: "easy",
-  //   cost: "$",
-  //   ingredients:
-  //     "0.5 medium sized pumpkin,2 carrots cubed,2 potatoes cubed,1 parsnip cubed,1 onion,1 cup non dairy milk,500ml chicken stock,1 tsp ginger,1 tsp nutmeg,1 tsp cinnamon,0.5 can coconut cream",
-  //   method:
-  //     "Throw everything into a large pot and bring to boil,Let simmer until vegetables soft,Puree and add cream",
-  //   servings: 4,
-  //   prep: 10,
-  //   cook: 20,
-  //   notes: "",
-  // },
+  {
+    name: "Quinoa Burgers",
+    occasion: ["dinner"],
+    tags: ["protein"],
+    difficulty: "easy",
+    cost: "cheap",
+    ingredients: {
+      create: [
+        {
+          list: {
+            create: [
+              {
+                qty: "2",
+                unit: "cup",
+                ingredient: { connect: { name: "quinoa" } },
+              },
+              {
+                qty: "0.5",
+                unit: "cup",
+                ingredient: { connect: { name: "gf_bread_crumbs" } },
+              },
+              {
+                qty: "1",
+                unit: "handful",
+                ingredient: { connect: { name: "non_dairy_cheese" } },
+                note: "grated",
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "flax_seeds_ground" } },
+                notes: "mixed with 3 Tbsp water",
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "chicken_stock" } },
+              },
+            ],
+          },
+        },
+      ],
+    },
+    method: {
+      create: [
+        {
+          instructions: [
+            "Cook quinoa and let cool",
+            "Blend all ingredients",
+            "Roll into balls",
+            "Flatten and fry in non stick pan for ~5 mins each side",
+          ],
+        },
+      ],
+    },
+    servings: 4,
+    prep: 5,
+    cook: 25,
+    notes: "",
+  },
+
+  {
+    name: "Parma and Chips",
+    occasion: ["dinner"],
+    tags: ["winter"],
+    difficulty: "medium",
+    cost: "cheap",
+    ingredients: {
+      create: [
+        {
+          heading: "Tomato Paste",
+          list: {
+            create: [
+              {
+                qty: "1",
+                unit: "can",
+                ingredient: { connect: { name: "tomato" } },
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "mixed_herbs" } },
+              },
+              {
+                qty: "0.5",
+                unit: "tsp",
+                ingredient: { connect: { name: "maple_syrup" } },
+              },
+              {
+                qty: "0.5",
+                unit: "tsp",
+                ingredient: { connect: { name: "salt" } },
+              },
+            ],
+          },
+        },
+        {
+          heading: "Schnitzel",
+          list: {
+            create: [
+              {
+                qty: "400",
+                unit: "gram",
+                ingredient: { connect: { name: "firm_tofu" } },
+                note: "sliced",
+              },
+              {
+                qty: "0.5",
+                unit: "cup",
+                ingredient: { connect: { name: "chickpea_flour" } },
+              },
+              {
+                qty: "0.5",
+                unit: "cup",
+                ingredient: { connect: { name: "non_dairy_milk" } },
+              },
+              {
+                qty: "0.5",
+                unit: "cup",
+                ingredient: { connect: { name: "gf_bread_crumbs" } },
+              },
+              {
+                qty: "2",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "canola_oil" } },
+              },
+            ],
+          },
+        },
+        {
+          heading: "Chips",
+          list: {
+            create: [
+              {
+                qty: "10",
+                unit: "medium",
+                ingredient: { connect: { name: "potato" } },
+                note: "cut into thick slices",
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "mixed_herbs" } },
+              },
+              {
+                qty: "1",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "sweet_paprika" } },
+              },
+              {
+                qty: "2",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "gf_flour" } },
+              },
+              {
+                qty: "2",
+                unit: "Tbsp",
+                ingredient: { connect: { name: "canola_oil" } },
+              },
+            ],
+          },
+        },
+      ],
+    },
+    method: {
+      create: [
+        {
+          instructions: [
+            {
+              heading: "Chips",
+              instructions: [
+                "Preheat oven to 180°C",
+                "Place incredients into large plastic container",
+                "Shake it up",
+                "Bake for 40 mins or until crispy",
+              ],
+            },
+            {
+              heading: "Tomato paste",
+              instructions: ["cook down tomatoes herb and maple on stove top"],
+            },
+            {
+              heading: "Schnitzel",
+              instructions: [
+                "Grab two bowels and fill them with the following",
+                "First, whisked chickpea flour and non dairy milk",
+                "Seconds, GF breadcrumbs",
+                "Dip tofu in each bowel then pan fry in oil until crispy",
+                "Coat with tomato paste and cheese",
+                "Grill to melt cheese",
+                "Serve with chips and salad",
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    servings: 4,
+    prep: 15,
+    cook: 30,
+    notes: "",
+  },
+
   // {
   //   name: "Sausages",
   //   occasion: dinner,
@@ -771,20 +960,6 @@ export const dinner: Prisma.RecipeCreateInput[] = [
   //   notes: "",
   // },
 
-  // {
-  //   name: "Quinoa Burgers",
-  //   occasion: dinner,
-  //   difficulty: "easy",
-  //   cost: "$",
-  //   ingredients:
-  //     "2 cups quinoa,0.5 cup GF bread crumbs,1 handful of grated vegan cheese,1 flax egg,1 Tbso chia seed,1 Tbsp chick'n spice",
-  //   method:
-  //     "Cook quinoa and let cool,Blend all ingredients,Roll into balls,Flatten and fry in non stick pan for ~5 mins each side",
-  //   servings: 4,
-  //   prep: 10,
-  //   cook: 20,
-  //   notes: "",
-  // },
   // {
   //   name: "Parma and Chips",
   //   occasion: dinner,
