@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { FC } from "react";
 import { Heading } from "../../common/Heading";
 
@@ -7,6 +9,7 @@ interface IngredientsProps {
 
 export const Ingredients: FC<IngredientsProps> = ({ ingredients }) => {
   console.log(ingredients);
+  const router = useRouter();
 
   return (
     <div className="ml-3">
@@ -37,9 +40,18 @@ export const Ingredients: FC<IngredientsProps> = ({ ingredients }) => {
                     htmlFor={`ingredient ${y} ${x}`}
                     className="strikethrough cursor-pointer pl-2 text-sm font-medium text-gray-900"
                   >
-                    {ingredient?.recipe?.name
-                      ? complexIngredient
-                      : simpleIngredient}
+                    {ingredient?.recipe?.name ? (
+                      <Link
+                        href={`${router.basePath}/dashboard/recipes/${ingredient?.recipe?.id}`}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        className="text-red-400 underline"
+                      >
+                        {complexIngredient}
+                      </Link>
+                    ) : (
+                      simpleIngredient
+                    )}
                   </label>
                 </li>
               );
