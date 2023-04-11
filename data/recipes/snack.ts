@@ -2,6 +2,32 @@ import { Prisma } from "@prisma/client";
 
 export const snack: Prisma.RecipeCreateInput[] = [
   {
+    //   name: "Buckwheat Picklets",
+    //   occasion: "{snack}",
+    //   difficulty: "easy",
+    //   cost: "$",
+    //   ingredients:
+    //     "0.75 cup buckwheat flour,0.25 cup GF self raising flour,1 chia egg,1 tsbp baking powder,1 cup non dairy milk",
+    //   method: "Whisk all ingredients together and pan fry",
+    //   servings: 4,
+    //   prep: 10,
+    //   cook: 20,
+    //   notes: "",
+    // },
+    // {
+    //   name: "Protein Balls",
+    //   occasion: "{snack}",
+    //   difficulty: "easy",
+    //   cost: "$$",
+    //   ingredients:
+    //     "4 medjool datas,1 cup almonds / cashews,0.25 cup raisins / apricots,1 Tbsp chia seeds,1 Tbsp hemp seeds,3 Tbsp dessicated coconut",
+    //   method:
+    //     "Blend all ingredients except coconut,Roll into balls,Coat in dessicated coconut",
+    //   servings: 4,
+    //   prep: 10,
+    //   cook: 20,
+    //   notes: "",
+    // },
     name: "Blueberry Muffins",
     occasion: "{snack}",
     difficulty: "easy",

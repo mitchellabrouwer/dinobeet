@@ -187,6 +187,7 @@ const ingredientList = {
     "coconut_cream",
     "meat free chicken",
     "dijon_mustard",
+    "nori_paper",
   ],
 };
 

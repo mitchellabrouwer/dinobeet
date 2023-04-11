@@ -945,6 +945,44 @@ export const dinner: Prisma.RecipeCreateInput[] = [
     notes: "",
   },
 
+
+{
+name: 'Samurai Sushi',
+occasion: ['lunch', 'dinner'],
+tags: ['lunchbox', "on_the_go",],
+difficulty: 'medium',
+cost: 'cheap',
+ingredients: {
+  create: [
+    {
+      heading: "Base",
+    list: {
+    create: [
+       
+       {
+       qty: '8',
+       unit: 'sheet',
+       ingredient: { 'connect': { 'name': 'nori_paper' } }
+       },
+
+     ]
+   }
+ }
+]
+},
+method: {
+   'create': [
+   {
+     'instructions': ['']
+   }
+   ]
+ },
+servings: ,
+prep: ,
+cook: ,
+notes: ''
+},
+  
   // {
   //   name: "Sausages",
   //   occasion: dinner,
@@ -975,32 +1013,7 @@ export const dinner: Prisma.RecipeCreateInput[] = [
   //   notes: "",
   // },
   // {
-  //   name: "Buckwheat Picklets",
-  //   occasion: "{snack}",
-  //   difficulty: "easy",
-  //   cost: "$",
-  //   ingredients:
-  //     "0.75 cup buckwheat flour,0.25 cup GF self raising flour,1 chia egg,1 tsbp baking powder,1 cup non dairy milk",
-  //   method: "Whisk all ingredients together and pan fry",
-  //   servings: 4,
-  //   prep: 10,
-  //   cook: 20,
-  //   notes: "",
-  // },
-  // {
-  //   name: "Protein Balls",
-  //   occasion: "{snack}",
-  //   difficulty: "easy",
-  //   cost: "$$",
-  //   ingredients:
-  //     "4 medjool datas,1 cup almonds / cashews,0.25 cup raisins / apricots,1 Tbsp chia seeds,1 Tbsp hemp seeds,3 Tbsp dessicated coconut",
-  //   method:
-  //     "Blend all ingredients except coconut,Roll into balls,Coat in dessicated coconut",
-  //   servings: 4,
-  //   prep: 10,
-  //   cook: 20,
-  //   notes: "",
-  // },
+
 
   // {
   //   name: "Samurai Sushi",
