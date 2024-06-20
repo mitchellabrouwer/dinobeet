@@ -4,7 +4,6 @@
 <br />
 <div align="center">
   <a href="https://github.com/mitchellabrouwer/dinobeet">
-    <img src="public/screenshots/Screenshot1.png" alt="Logo" width="100" height="100">
     <img src="public/screenshots/Screenshot2.png" alt="Logo" width="100" height="100">
   </a>
 
