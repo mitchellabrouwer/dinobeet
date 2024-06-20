@@ -1,17 +1,9 @@
 <a name="readme-top"></a>
 
-<!-- PROJECT SHIELDS -->
-
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/dinobeet">
+  <a href="https://github.com/mitchellabrouwer/dinobeet">
     <img src="public/screenshots/Screenshot1.png" alt="Logo" width="100" height="100">
     <img src="public/screenshots/Screenshot2.png" alt="Logo" width="100" height="100">
   </a>
@@ -21,31 +13,12 @@
   <p align="center">
     A specialized web platform for exploring and sharing vegan recipes.
     <br />
-    <a href="https://github.com/github_username/dinobeet"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
     ·
-    <a href="https://github.com/github_username/dinobeet/issues">Report Bug</a>
+    <a href="https://github.com/mitchellabrouwer/dinobeet/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/dinobeet/issues">Request Feature</a>
+    <a href="https://github.com/mitchellabrouwer/dinobeet/issues">Request Feature</a>
   </p>
 </div>
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li><a href="#about-the-project">About The Project</a></li>
-    <li><a href="#built-with">Built With</a></li>
-    <li><a href="#getting-started">Getting Started</a></li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
 
 <!-- ABOUT THE PROJECT -->
 
