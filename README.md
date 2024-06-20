@@ -2,10 +2,10 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<div align="center">
-  <a href="https://github.com/mitchellabrouwer/dinobeet">
-    <img src="public/screenshots/Screenshot2.png" alt="Logo" width="100" height="100">
-  </a>
+<div align="center"
+  <div align="center" style="width: 100%; text-align: center;">
+    <img src="public/screenshots/Screenshot1.png" alt="Logo" style="max-width: 100%; height: auto;">
+  </div
 
 <h3 align="center">Vegan Recipe Platform</h3>
 
